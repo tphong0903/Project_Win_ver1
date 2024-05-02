@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B8D09A85-35AF-4D2D-A298-1EBF835BD7E0}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Project_ver1</RootNamespace>
+    <AssemblyName>Project_ver1</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BusinessAccessLayer">
+      <HintPath>..\BusinessAccessLayer\bin\Debug\BusinessAccessLayer.dll</HintPath>
+    </Reference>
+    <Reference Include="DataAccessLayer">
+      <HintPath>..\BusinessAccessLayer\bin\Debug\DataAccessLayer.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Guna.UI, Version=1.2.0.0, Culture=neutral, PublicKeyToken=537479e8cf7071a7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\MSI_PC\Downloads\framwork-main\Guna_UI_Framework_Ultimate_v2.0.0.1\Guna_UI_Framework_Ultimate_v2.0.0.1\Guna_UI_Framework_Ultimate_v2.0.0.1\Guna.UI-Framework-Lib-master\Guna.UI WinForms\.net 4.0\Guna.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Guna.UI2, Version=2.0.0.1, Culture=neutral, PublicKeyToken=ad275b4be6718d4b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\MSI_PC\Downloads\framwork-main\Guna_UI_Framework_Ultimate_v2.0.0.1\Guna_UI_Framework_Ultimate_v2.0.0.1\Guna_UI_Framework_Ultimate_v2.0.0.1\Guna.UI-Framework-Lib-master\Guna.UI2 WinForms\.net 4.0\Guna.UI2.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Detail\BLDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Detail\BLDetail.Designer.cs">
+      <DependentUpon>BLDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Detail\HDDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Detail\HDDetail.Designer.cs">
+      <DependentUpon>HDDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Detail\KHDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Detail\KHDetail.Designer.cs">
+      <DependentUpon>KHDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Detail\NCCDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Detail\NCCDetail.Designer.cs">
+      <DependentUpon>NCCDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Detail\TaoBLForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Detail\TaoBLForm.Designer.cs">
+      <DependentUpon>TaoBLForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Detail\TaoHDForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Detail\TaoHDForm.Designer.cs">
+      <DependentUpon>TaoHDForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Detail\TaoKHForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Detail\TaoKHForm.Designer.cs">
+      <DependentUpon>TaoKHForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Detail\TaoNCCForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Detail\TaoNCCForm.Designer.cs">
+      <DependentUpon>TaoNCCForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserControl\BienLaiUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\UserControl\BienLaiUI.Designer.cs">
+      <DependentUpon>BienLaiUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Detail\SPDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Detail\SPDetail.Designer.cs">
+      <DependentUpon>SPDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Detail\NVDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Detail\NVDetail.Designer.cs">
+      <DependentUpon>NVDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserControl\HoaDonUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\UserControl\HoaDonUI.Designer.cs">
+      <DependentUpon>HoaDonUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserControl\NhaCungCapUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\UserControl\NhaCungCapUI.Designer.cs">
+      <DependentUpon>NhaCungCapUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserControl\NhanVienUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\UserControl\NhanVienUI.Designer.cs">
+      <DependentUpon>NhanVienUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserControl\SanPhamUi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\UserControl\SanPhamUi.Designer.cs">
+      <DependentUpon>SanPhamUi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserControl\KhachHangUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\UserControl\KhachHangUI.Designer.cs">
+      <DependentUpon>KhachHangUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Form\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Form\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Form\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Form\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\UserControl\ThongKe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\UserControl\ThongKe.Designer.cs">
+      <DependentUpon>ThongKe.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="UI\Detail\BLDetail.resx">
+      <DependentUpon>BLDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Detail\HDDetail.resx">
+      <DependentUpon>HDDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Detail\KHDetail.resx">
+      <DependentUpon>KHDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Detail\NCCDetail.resx">
+      <DependentUpon>NCCDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Detail\TaoBLForm.resx">
+      <DependentUpon>TaoBLForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Detail\TaoHDForm.resx">
+      <DependentUpon>TaoHDForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Detail\TaoKHForm.resx">
+      <DependentUpon>TaoKHForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Detail\TaoNCCForm.resx">
+      <DependentUpon>TaoNCCForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UserControl\BienLaiUI.resx">
+      <DependentUpon>BienLaiUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Detail\SPDetail.resx">
+      <DependentUpon>SPDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UserControl\HoaDonUI.resx">
+      <DependentUpon>HoaDonUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UserControl\NhaCungCapUI.resx">
+      <DependentUpon>NhaCungCapUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UserControl\NhanVienUI.resx">
+      <DependentUpon>NhanVienUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Detail\NVDetail.resx">
+      <DependentUpon>NVDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UserControl\SanPhamUi.resx">
+      <DependentUpon>SanPhamUi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UserControl\KhachHangUI.resx">
+      <DependentUpon>KhachHangUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Form\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Form\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UserControl\ThongKe.resx">
+      <DependentUpon>ThongKe.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UI\Image\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+</Project>

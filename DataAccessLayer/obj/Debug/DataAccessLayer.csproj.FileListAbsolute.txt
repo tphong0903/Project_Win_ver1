@@ -1,0 +1,42 @@
+D:\TAI LIEU DAI HOC\HQTCSDL\Code\Project_DBMS\Project_DMS\DataAccessLayer\bin\Debug\DataAccessLayer.dll
+D:\TAI LIEU DAI HOC\HQTCSDL\Code\Project_DBMS\Project_DMS\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
+D:\TAI LIEU DAI HOC\HQTCSDL\Code\Project_DBMS\Project_DMS\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.AssemblyReference.cache
+D:\TAI LIEU DAI HOC\HQTCSDL\Code\Project_DBMS\Project_DMS\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
+D:\TAI LIEU DAI HOC\HQTCSDL\Code\Project_DBMS\Project_DMS\DataAccessLayer\obj\Debug\DataAccessLayer.dll
+D:\TAI LIEU DAI HOC\HQTCSDL\Code\Project_DBMS\Project_DMS\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
+D:\Study\UNI\Kì 4\DBMS\Project\Project_DMS\DataAccessLayer\bin\Debug\DataAccessLayer.dll
+D:\Study\UNI\Kì 4\DBMS\Project\Project_DMS\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
+D:\Study\UNI\Kì 4\DBMS\Project\Project_DMS\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.AssemblyReference.cache
+D:\Study\UNI\Kì 4\DBMS\Project\Project_DMS\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
+D:\Study\UNI\Kì 4\DBMS\Project\Project_DMS\DataAccessLayer\obj\Debug\DataAccessLayer.dll
+D:\Study\UNI\Kì 4\DBMS\Project\Project_DMS\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
+D:\TAI LIEU DAI HOC\HQTCSDL\Code\New folder\Project_DMS\DataAccessLayer\bin\Debug\DataAccessLayer.dll
+D:\TAI LIEU DAI HOC\HQTCSDL\Code\New folder\Project_DMS\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
+D:\TAI LIEU DAI HOC\HQTCSDL\Code\New folder\Project_DMS\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.AssemblyReference.cache
+D:\TAI LIEU DAI HOC\HQTCSDL\Code\New folder\Project_DMS\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
+D:\TAI LIEU DAI HOC\HQTCSDL\Code\New folder\Project_DMS\DataAccessLayer\obj\Debug\DataAccessLayer.dll
+D:\TAI LIEU DAI HOC\HQTCSDL\Code\New folder\Project_DMS\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
+C:\HCMUTE\HeQuanTriCSDL\DoAn\Project_DBMS_ver2\Project_DMS\DataAccessLayer\bin\Debug\DataAccessLayer.dll
+C:\HCMUTE\HeQuanTriCSDL\DoAn\Project_DBMS_ver2\Project_DMS\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
+C:\HCMUTE\HeQuanTriCSDL\DoAn\Project_DBMS_ver2\Project_DMS\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.AssemblyReference.cache
+C:\HCMUTE\HeQuanTriCSDL\DoAn\Project_DBMS_ver2\Project_DMS\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
+C:\HCMUTE\HeQuanTriCSDL\DoAn\Project_DBMS_ver2\Project_DMS\DataAccessLayer\obj\Debug\DataAccessLayer.dll
+C:\HCMUTE\HeQuanTriCSDL\DoAn\Project_DBMS_ver2\Project_DMS\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
+D:\TAI LIEU DAI HOC\HQTCSDL\Code\ProjectCuoiKi\Project_DBMS_ver2\Project_DMS\DataAccessLayer\bin\Debug\DataAccessLayer.dll
+D:\TAI LIEU DAI HOC\HQTCSDL\Code\ProjectCuoiKi\Project_DBMS_ver2\Project_DMS\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
+D:\TAI LIEU DAI HOC\HQTCSDL\Code\ProjectCuoiKi\Project_DBMS_ver2\Project_DMS\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.AssemblyReference.cache
+D:\TAI LIEU DAI HOC\HQTCSDL\Code\ProjectCuoiKi\Project_DBMS_ver2\Project_DMS\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
+D:\TAI LIEU DAI HOC\HQTCSDL\Code\ProjectCuoiKi\Project_DBMS_ver2\Project_DMS\DataAccessLayer\obj\Debug\DataAccessLayer.dll
+D:\TAI LIEU DAI HOC\HQTCSDL\Code\ProjectCuoiKi\Project_DBMS_ver2\Project_DMS\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
+D:\TAI LIEU DAI HOC\LTWin\Project_DBMS\DataAccessLayer\bin\Debug\DataAccessLayer.dll.config
+D:\TAI LIEU DAI HOC\LTWin\Project_DBMS\DataAccessLayer\bin\Debug\DataAccessLayer.dll
+D:\TAI LIEU DAI HOC\LTWin\Project_DBMS\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
+D:\TAI LIEU DAI HOC\LTWin\Project_DBMS\DataAccessLayer\bin\Debug\EntityFramework.dll
+D:\TAI LIEU DAI HOC\LTWin\Project_DBMS\DataAccessLayer\bin\Debug\EntityFramework.SqlServer.dll
+D:\TAI LIEU DAI HOC\LTWin\Project_DBMS\DataAccessLayer\bin\Debug\EntityFramework.xml
+D:\TAI LIEU DAI HOC\LTWin\Project_DBMS\DataAccessLayer\bin\Debug\EntityFramework.SqlServer.xml
+D:\TAI LIEU DAI HOC\LTWin\Project_DBMS\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.AssemblyReference.cache
+D:\TAI LIEU DAI HOC\LTWin\Project_DBMS\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
+D:\TAI LIEU DAI HOC\LTWin\Project_DBMS\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CopyComplete
+D:\TAI LIEU DAI HOC\LTWin\Project_DBMS\DataAccessLayer\obj\Debug\DataAccessLayer.dll
+D:\TAI LIEU DAI HOC\LTWin\Project_DBMS\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
