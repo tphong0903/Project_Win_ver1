@@ -34,13 +34,10 @@ namespace Project_ver1
         {
             try
             {
-                dtKhachHang = new DataTable();
-                dtKhachHang.Clear();
-                dtKhachHang = dbkh.LayKhachHang().Tables[0];
-                dgvKhachHang.DataSource = dtKhachHang;
+                dgvKhachHang.DataSource = dbkh.LayKhachHang();
 
                 Phone = dgvKhachHang.Rows[0].Cells[0].Value.ToString();
-                LabelSLKH.Text = (dgvKhachHang.RowCount - 1).ToString();
+                LabelSLKH.Text = (dgvKhachHang.RowCount).ToString();
             }
             catch (SqlException)
             {
@@ -51,8 +48,7 @@ namespace Project_ver1
 
         private void KhachHangUI_FormClosing(object sender, FormClosingEventArgs e)
         {
-            dtKhachHang.Dispose();
-            dtKhachHang = null;
+            
         }
 
         private void ReadButton_Click(object sender, EventArgs e)
@@ -92,15 +88,12 @@ namespace Project_ver1
             {
                 string SoDienThoai = txtSoDT.Text;
                 string Name = txtName.Text.ToLower();
-                dtKhachHang = new DataTable();
-                dtKhachHang.Clear();
-                dtKhachHang = dbkh.TimKhachHang(SoDienThoai, Name).Tables[0];
-                dgvKhachHang.DataSource = dtKhachHang;
+                dgvKhachHang.DataSource = dbkh.TimKhachHang(SoDienThoai, Name);
                 int r = dgvKhachHang.RowCount;
                 if (r > 1)
                 {
                     Phone = dgvKhachHang.Rows[0].Cells[0].Value.ToString();
-                    LabelSLKH.Text = (dgvKhachHang.RowCount - 1).ToString();
+                    LabelSLKH.Text = (dgvKhachHang.RowCount).ToString();
                 }
             }
             catch (SqlException x)

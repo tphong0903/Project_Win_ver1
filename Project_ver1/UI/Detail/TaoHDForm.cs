@@ -34,9 +34,7 @@ namespace Project_ver1.UI.Detail
             try
             {
                 DataTable dt = new DataTable();
-                dt.Clear();
-                dt = dbsp.LaySanPham().Tables[0];
-                dgvSanPham.DataSource = dt;
+                dgvSanPham.DataSource = dbsp.LaySanPham();
 
                 dt = new DataTable();
                 dt = dbhd.LayHoaDon().Tables[0];
@@ -96,10 +94,7 @@ namespace Project_ver1.UI.Detail
             {
                
                 Name = NameText.Text.ToLower();
-                DataTable dtSanPham = new DataTable();
-                dtSanPham.Clear();
-                dtSanPham = dbsp.TimSanPham( "","",Name).Tables[0];
-                dgvSanPham.DataSource = dtSanPham;
+                dgvSanPham.DataSource = dbsp.FindSanPham(Name, "", "");
             
 
             }

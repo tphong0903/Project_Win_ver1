@@ -40,3 +40,15 @@ D:\TAI LIEU DAI HOC\LTWin\Project_DBMS\DataAccessLayer\obj\Debug\DataAccessLayer
 D:\TAI LIEU DAI HOC\LTWin\Project_DBMS\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CopyComplete
 D:\TAI LIEU DAI HOC\LTWin\Project_DBMS\DataAccessLayer\obj\Debug\DataAccessLayer.dll
 D:\TAI LIEU DAI HOC\LTWin\Project_DBMS\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
+D:\TAI LIEU DAI HOC\LTWin\Project_Win\DataAccessLayer\bin\Debug\DataAccessLayer.dll.config
+D:\TAI LIEU DAI HOC\LTWin\Project_Win\DataAccessLayer\bin\Debug\DataAccessLayer.dll
+D:\TAI LIEU DAI HOC\LTWin\Project_Win\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
+D:\TAI LIEU DAI HOC\LTWin\Project_Win\DataAccessLayer\bin\Debug\EntityFramework.dll
+D:\TAI LIEU DAI HOC\LTWin\Project_Win\DataAccessLayer\bin\Debug\EntityFramework.SqlServer.dll
+D:\TAI LIEU DAI HOC\LTWin\Project_Win\DataAccessLayer\bin\Debug\EntityFramework.xml
+D:\TAI LIEU DAI HOC\LTWin\Project_Win\DataAccessLayer\bin\Debug\EntityFramework.SqlServer.xml
+D:\TAI LIEU DAI HOC\LTWin\Project_Win\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.AssemblyReference.cache
+D:\TAI LIEU DAI HOC\LTWin\Project_Win\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
+D:\TAI LIEU DAI HOC\LTWin\Project_Win\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CopyComplete
+D:\TAI LIEU DAI HOC\LTWin\Project_Win\DataAccessLayer\obj\Debug\DataAccessLayer.dll
+D:\TAI LIEU DAI HOC\LTWin\Project_Win\DataAccessLayer\obj\Debug\DataAccessLayer.pdb

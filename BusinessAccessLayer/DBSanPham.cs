@@ -93,21 +93,37 @@ namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
                 return products;
             }
         }
-
-
-
-        // Method to retrieve products for general view
-        public DataSet LaySanPham()
+        public List<dynamic> LaySanPham()
         {
-            // Returning the result of the ExecuteQueryDataSet method of the DAL class
-            return db.ExecuteQueryDataSet("select Product_ID, ProductName, UnitPrice, Quantity from View_Product", CommandType.Text, null);
+            using (var dataContext = new QLCuaHang())
+            {
+                var products = from p in dataContext.Products
+                               select new
+                               {
+                                   p.Product_ID,
+                                   p.ProductName,
+                                   p.UnitPrice,
+                                   p.Quantity,
+                               };
+
+
+                return products.ToList<dynamic>();
+            }
         }
-
-        // Method to retrieve products for receipt form
-        public DataSet LaySanPhamChoFormBienLai()
+        public List<dynamic> LaySanPhamChoFormBienLai()
         {
-            // Returning the result of the ExecuteQueryDataSet method of the DAL class
-            return db.ExecuteQueryDataSet("select Product_ID, ProductName from View_Product", CommandType.Text, null);
+            using (var dataContext = new QLCuaHang())
+            {
+                var products = from p in dataContext.Products
+                               select new
+                               {
+                                   p.Product_ID,
+                                   p.ProductName,
+                               };
+
+
+                return products.ToList<dynamic>();
+            }
         }
 
         public bool SuaHinhAnh(string name,int id)
@@ -146,31 +162,29 @@ namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
         }
 
         // Method to retrieve categories
-        public DataSet LayDanhMuc()
+        public List<dynamic> LayDanhMuc()
         {
-            // Returning the result of the ExecuteQueryDataSet method of the DAL class
-            return db.ExecuteQueryDataSet("select * from Categories", CommandType.Text, null);
+            using (var dataContext = new QLCuaHang())
+            {
+                var products = from p in dataContext.Categories
+                               select p;
+
+
+                return products.ToList<dynamic>();
+            }
         }
 
         // Method to retrieve brands
-        public DataSet LayThuongHieu()
+        public List<dynamic> LayThuongHieu()
         {
-            // Returning the result of the ExecuteQueryDataSet method of the DAL class
-            return db.ExecuteQueryDataSet("select * from Brands", CommandType.Text, null);
-        }
+            using (var dataContext = new QLCuaHang())
+            {
+                var products = from p in dataContext.Brands
+                               select p;
 
-        // Method to search for products by name, category, and brand
-        public DataSet TimSanPham(string a, string b, string c)
-        {
-            // Returning the result of the ExecuteQueryDataSet method of the DAL class
-            return db.ExecuteQueryDataSet("SELECT * FROM Find_Product(N'" + a + "',N'" + b + "',N'" + c + "')", CommandType.Text, null);
-        }
 
-        // Method to retrieve product details by ID
-        public DataSet ChiTietSanPham(string a)
-        {
-            // Returning the result of the ExecuteQueryDataSet method of the DAL class
-            return db.ExecuteQueryDataSet("SELECT * FROM View_Product where Product_ID = N'" + a + "'", CommandType.Text, null);
+                return products.ToList<dynamic>();
+            }
         }
 
         // Method to update product details

@@ -113,6 +113,7 @@ namespace Project_ver1
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(339, 32);
             this.textBox1.TabIndex = 7;
+            this.textBox1.Text = "QL01";
             // 
             // textBox2
             // 
@@ -125,6 +126,7 @@ namespace Project_ver1
             this.textBox2.PasswordChar = '*';
             this.textBox2.Size = new System.Drawing.Size(339, 32);
             this.textBox2.TabIndex = 8;
+            this.textBox2.Text = "123456";
             // 
             // pictureBox3
             // 

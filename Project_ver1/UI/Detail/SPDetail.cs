@@ -42,19 +42,12 @@ namespace Project_ver1.UI
             imgBtn.Visible = false;
             SaveButton.Visible = false;
 
-            DataTable dtTT = new DataTable();
             dbsp = new DBSanPham();
 
-            dtTT.Clear();
-            dtTT = dbsp.LayThuongHieu().Tables[0];
-            dtTT.Rows.InsertAt(dtTT.NewRow(), 0);
-            ComboThuongHieu.DataSource = dtTT;
+            ComboThuongHieu.DataSource = dbsp.LayThuongHieu();
             ComboThuongHieu.DisplayMember = "BrandName";
 
-            dtTT = new DataTable();
-            dtTT = dbsp.LayDanhMuc().Tables[0];
-            dtTT.Rows.InsertAt(dtTT.NewRow(), 0);
-            ComboDanhMuc.DataSource = dtTT;
+            ComboDanhMuc.DataSource = dbsp.LayDanhMuc();
             ComboDanhMuc.DisplayMember = "CategoryName";
             this.Text = "Chi tiết sản phẩm";
 

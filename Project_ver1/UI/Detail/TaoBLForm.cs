@@ -3,6 +3,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace Project_ver1.UI.Detail
 {
@@ -25,8 +26,7 @@ namespace Project_ver1.UI.Detail
         {
             try
             {
-                dtSanPham = dbsp.LaySanPhamChoFormBienLai().Tables[0];
-                dgvSanPham.DataSource = dtSanPham;
+                dgvSanPham.DataSource = dbsp.LaySanPhamChoFormBienLai();
 
                 dtSanPham = dbbl.LayBienLai().Tables[0];
                 int s= dtSanPham.Rows.Count +1;
@@ -65,8 +65,7 @@ namespace Project_ver1.UI.Detail
             try
             {
                 hd = FindNameText.Text;
-                dtSanPham = dbsp.TimSanPham("", "", hd).Tables[0];
-                dgvSanPham.DataSource = dtSanPham;
+                dgvSanPham.DataSource = dbsp.FindSanPham(hd, "", "");
 
                 if (dgvSanPham.RowCount > 1)
                 {

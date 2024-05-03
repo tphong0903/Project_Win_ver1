@@ -26,6 +26,9 @@ namespace DataAccessLayer.Entities
 
         public int? Point { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
+
+        [NotMapped]
+        public int Total { get; set; }
         public Customer() 
         {
             Orders = new HashSet<Order>();

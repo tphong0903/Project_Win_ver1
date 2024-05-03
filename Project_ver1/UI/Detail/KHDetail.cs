@@ -1,4 +1,5 @@
 ﻿using BusinessAccessLayer;
+using DataAccessLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -39,21 +40,18 @@ namespace Project_ver1.UI.Detail
         {
             try
             {
-                dtKhachHang = new DataTable();
-                dtKhachHang.Clear();
-                dtKhachHang = dbkh.SPcuaKhachHang(Phone).Tables[0];
-                dgvSP.DataSource = dtKhachHang;
+                dgvSP.DataSource = dbkh.SPcuaKhachHang(Phone);
 
-                DataTable dt = new DataTable();
-                dt.Clear();
-                dt = dbkh.TimKhachHang(Phone, "").Tables[0];
+                dgvKhachHang.DataSource = dbkh.TimKhachHang(Phone, "");
+                txtSDT.Text = dgvKhachHang.Rows[0].Cells[0].Value.ToString();
+                txtTen.Text = dgvKhachHang.Rows[0].Cells[1].Value.ToString();
+                txtNgaySinh.Text = dgvKhachHang.Rows[0].Cells[2].Value.ToString();
+                ComboGioiTinh.Text = dgvKhachHang.Rows[0].Cells[3].Value.ToString();
+                txtDiem.Text = dgvKhachHang.Rows[0].Cells[4].Value.ToString();
+                string a = (string.IsNullOrEmpty(dgvKhachHang.Rows[0].Cells[5].Value.ToString()) ? "0" : dgvKhachHang.Rows[0].Cells[5].Value.ToString());
+                decimal value = Convert.ToDecimal(a);
+                txtTotal.Text = value.ToString("N0"); 
 
-                txtSDT.Text = dt.Rows[0].Field<string>(0);
-                txtTen.Text = dt.Rows[0].Field<string>(1);
-                txtNgaySinh.Text = dt.Rows[0].Field<DateTime>(2).ToString();
-                ComboGioiTinh.Text = dt.Rows[0].Field<string>(3).ToString();
-                txtDiem.Text = dt.Rows[0].Field<int>(4).ToString();
-                txtTotal.Text = dt.Rows[0].Field<int?>(5).ToString() == "" ? "0" : dt.Rows[0].Field<int?>(5).ToString();
             }
             catch (SqlException x)
             {
