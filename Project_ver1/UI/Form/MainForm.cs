@@ -102,11 +102,10 @@ namespace Project_ver1
         #region Funtion
         void addForm()
         {
-            DataTable dtsp = new DataTable();
-            dtsp.Clear();
-            dtsp = dbnv.TimNhanVien(ID,"").Tables[0];
-            lblChucVu.Text = dtsp.Rows[0].Field<string>(6);
-            lblTen.Text = dtsp.Rows[0].Field<string>(1);
+            DataGridView dgv = new DataGridView();
+            dgv.DataSource = dbnv.TimAllNhanVien(ID);
+            //lblChucVu.Text = dgv.Rows[0].Cells[6].Value.ToString();
+            //lblTen.Text = dgv.Rows[0].Cells[1].Value.ToString();
 
 
             frm1.TopLevel = false;

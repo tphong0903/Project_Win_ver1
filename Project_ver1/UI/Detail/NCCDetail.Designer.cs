@@ -54,8 +54,10 @@
             this.gunaLabel1 = new Guna.UI.WinForms.GunaLabel();
             this.gunaLabel2 = new Guna.UI.WinForms.GunaLabel();
             this.Tong = new Guna.UI2.WinForms.Guna2TextBox();
+            this.dgv = new System.Windows.Forms.DataGridView();
             gunaLabel8 = new Guna.UI.WinForms.GunaLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSanPham)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
             // gunaLabel8
@@ -444,12 +446,24 @@
             this.Tong.Size = new System.Drawing.Size(337, 44);
             this.Tong.TabIndex = 164;
             // 
+            // dgv
+            // 
+            this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv.Location = new System.Drawing.Point(25, 475);
+            this.dgv.Name = "dgv";
+            this.dgv.RowHeadersWidth = 51;
+            this.dgv.RowTemplate.Height = 24;
+            this.dgv.Size = new System.Drawing.Size(64, 35);
+            this.dgv.TabIndex = 165;
+            this.dgv.Visible = false;
+            // 
             // NCCDetail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(945, 522);
+            this.Controls.Add(this.dgv);
             this.Controls.Add(this.gunaLabel2);
             this.Controls.Add(this.Tong);
             this.Controls.Add(this.gunaLabel1);
@@ -472,6 +486,7 @@
             this.Text = "NCCDetail";
             this.Load += new System.EventHandler(this.NCCDetail_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvSanPham)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -499,5 +514,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn GiaTien;
+        private System.Windows.Forms.DataGridView dgv;
     }
 }

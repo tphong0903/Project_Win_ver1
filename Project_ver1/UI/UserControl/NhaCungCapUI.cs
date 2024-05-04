@@ -29,10 +29,7 @@ namespace Project_ver1.UI
         {
             try
             {
-                dtCungCap = new DataTable();
-                dtCungCap.Clear();
-                dtCungCap = dbncc.LayNhaCungCap().Tables[0];
-                dgvNCC.DataSource = dtCungCap;
+                dgvNCC.DataSource = dbncc.LayNhaCungCap();
 
                 ID = dgvNCC.Rows[0].Cells[0].Value.ToString().ToLower();
                 LabelSNCC.Text = (dgvNCC.RowCount - 1).ToString();
@@ -45,8 +42,7 @@ namespace Project_ver1.UI
         #region Event
         private void NhaCungCapUI_FormClosing(object sender, FormClosingEventArgs e)
         {
-            dtCungCap.Dispose();
-            dtCungCap = null;
+
         }
 
         private void NhaCungCapUI_Load(object sender, EventArgs e)
@@ -109,8 +105,7 @@ namespace Project_ver1.UI
                 DataTable dtHoaDon = new DataTable();
                 dtHoaDon.Clear();
 
-                dtHoaDon = dbncc.TimNhaCungCap(hd, name).Tables[0];
-                dgvNCC.DataSource = dtHoaDon;
+                dgvNCC.DataSource = dbncc.TimNhaCungCap(hd, name);
                 int r = dgvNCC.RowCount;
                 if (r > 1)
                 {

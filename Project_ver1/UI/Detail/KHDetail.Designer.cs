@@ -423,7 +423,7 @@
             this.dgvKhachHang.AccessibleName = "";
             this.dgvKhachHang.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvKhachHang.Location = new System.Drawing.Point(16, 466);
-            this.dgvKhachHang.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvKhachHang.Margin = new System.Windows.Forms.Padding(4);
             this.dgvKhachHang.Name = "dgvKhachHang";
             this.dgvKhachHang.RowHeadersWidth = 51;
             this.dgvKhachHang.Size = new System.Drawing.Size(64, 28);
@@ -467,6 +467,7 @@
             this.GiaTien.MinimumWidth = 6;
             this.GiaTien.Name = "GiaTien";
             this.GiaTien.ReadOnly = true;
+            this.GiaTien.Visible = false;
             this.GiaTien.Width = 112;
             // 
             // Column1

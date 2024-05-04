@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccessLayer.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -19,16 +20,13 @@ namespace BusinessAccessLayer
         {
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
                 return false;
-
-            DataTable dt = new DataTable();
-            DataSet ds = new DataSet();
-            ds = dbnv.TimAllNhanVien(username);
-            dt = ds.Tables[0];
-            if (dt.Rows.Count > 0)
+            List<dynamic> list = dbnv.TimAllNhanVien(username);
+            if (list.Any())
             {
-                string dbPassword = dt.Rows[0].Field<string>(8); // Assuming the password field name is "Password"
-                int active = Int32.Parse(dt.Rows[0].Field<string>(7)); // Assuming the active field name is "Active"
-                ConnStr = dbnv.LayConStr(username, password);
+                dynamic employee = list.First();
+                string dbPassword = employee.PassWordAccount;
+                int active = Int32.Parse(employee.Active);
+                //ConnStr = dbnv.LayConStr(username, password);
                 return active == 1 && password == dbPassword;
             }
             return false;

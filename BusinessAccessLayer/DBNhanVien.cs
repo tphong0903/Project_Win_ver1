@@ -7,9 +7,11 @@ using System.Data.SqlClient;
 using System.Data;
 //
 using DataAccessLayer;
-using Microsoft.SqlServer.Server;
-using System.Net;
+using System.Data.Entity;
+using System.Security.Policy;
 using System.Xml.Linq;
+using DataAccessLayer.Entities;
+using System.Net;
 
 namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
 {
@@ -24,85 +26,212 @@ namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
         }
 
         // Method to retrieve active employees
-        public DataSet LayNhanVien()
+        public List<dynamic> LayNhanVien()
         {
-            // Returning the result of the ExecuteQueryDataSet method of the DAL class
-            return db.ExecuteQueryDataSet("select * from EMPLOYEES_ACTIVE_VIEW", CommandType.Text, null);
+            using(var context = new QLCuaHang())
+            {
+                var query = from p in context.Employees.Include(e=>e.Orders)
+                            where p.Active=="1"
+                            select new 
+                            {
+                                p.EmployeeID,
+                                p.NameEmployee,
+                                p.Birthday,
+                                p.Gender,
+                                p.AddressEmployee,
+                                p.PhoneNumber,
+                                p.RoleEmployee,
+                                Tong = p.Orders.Any() ? p.Orders.Sum(o => (int?)o.Total) : 0,
+                               
+                            };
+                return query.ToList<dynamic>();
+            }
+           
         }
 
         // Method to retrieve all employees
-        public DataSet LayALLNhanVien()
+        public List<dynamic> LayALLNhanVien()
         {
-            // Returning the result of the ExecuteQueryDataSet method of the DAL class
-            return db.ExecuteQueryDataSet("select * from EMPLOYEES_All_VIEW", CommandType.Text, null);
+            using (var context = new QLCuaHang())
+            {
+                var query = from p in context.Employees.Include(e => e.Orders)
+                            select new
+                            {
+                                p.EmployeeID,
+                                p.NameEmployee,
+                                p.Birthday,
+                                p.Gender,
+                                p.AddressEmployee,
+                                p.PhoneNumber,
+                                p.RoleEmployee,
+                                p.Active,
+                                p.PassWordAccount,
+                                Tong = p.Orders.Any() ? p.Orders.Sum(o => (int?)o.Total) : 0,
+
+                            };
+                return query.ToList<dynamic>();
+            }
         }
 
-        // Method to search for employees by ID and name
-        public DataSet TimNhanVien(string ID, string name)
+        public List<dynamic> TimNhanVien(string ID, string name)
         {
-            // Returning the result of the ExecuteQueryDataSet method of the DAL class
-            return db.ExecuteQueryDataSet("select * from Find_Employee(N'" + ID + "',N'" + name + "')", CommandType.Text, null);
+            using (var context = new QLCuaHang())
+            {
+                var query = from p in context.Employees.Include(e => e.Orders)
+                            where p.EmployeeID.Contains(ID) && p.NameEmployee.Contains(name)
+                            select new
+                            {
+                                p.EmployeeID,
+                                p.NameEmployee,
+                                p.Birthday,
+                                p.Gender,
+                                p.RoleEmployee,
+                                Tong = p.Orders.Any() ? p.Orders.Sum(o => (int?)o.Total) : 0,
+
+                            };
+                return query.ToList<dynamic>();
+            }
         }
 
         // Method to search for all employees by ID
-        public DataSet TimAllNhanVien(string ID)
+        public List<dynamic> TimAllNhanVien(string ID)
         {
-            // Returning the result of the ExecuteQueryDataSet method of the DAL class
-            return db.ExecuteQueryDataSet("select * from EMPLOYEES_All_VIEW where EmployeeID like '%'+'" + ID + "'+'%'", CommandType.Text, null);
+            using (var context = new QLCuaHang())
+            {
+                var query = from p in context.Employees.Include(e => e.Orders)
+                            where p.EmployeeID.Contains(ID)
+                            select new
+                            {
+                                p.EmployeeID,
+                                p.NameEmployee,
+                                p.Birthday,
+                                p.Gender,
+                                p.AddressEmployee,
+                                p.PhoneNumber,
+                                p.RoleEmployee,
+                                p.Active,
+                                p.PassWordAccount,
+                                Tong = p.Orders.Any() ? p.Orders.Sum(o => (int?)o.Total) : 0,
+
+                            };
+                return query.ToList<dynamic>();
+            }
         }
 
         // Method to add a new employee
         public bool ThemNhanVien(ref string err, string id, string name, DateTime birthday, string gender, string address, string sdt, string role, int active, string password)
         {
-            // Returning the result of the MyExecuteNonQuery method of the DAL class
-            return db.MyExecuteNonQuery("spInsertEmployee", CommandType.StoredProcedure, ref err,
-                // Passing the parameters to the stored procedure
-                new SqlParameter("@EmployeeID", id),
-                new SqlParameter("@NameEmployee", name),
-                new SqlParameter("@Birthday", birthday),
-                new SqlParameter("@Gender", gender),
-                new SqlParameter("@AddressEmployee", address),
-                new SqlParameter("@PhoneNumber", sdt),
-                new SqlParameter("@RoleEmployee", role),
-                new SqlParameter("@Active", active),
-                new SqlParameter("@PassWordAccount", password)
-                );
+                using (var context = new QLCuaHang())
+                {
+                    using (var transaction = context.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            var newEmployee = new Employee
+                            {
+                                EmployeeID = id,
+                                NameEmployee = name,
+                                Birthday = birthday.Date,
+                                Gender = gender,
+                                AddressEmployee = address,
+                                PhoneNumber = sdt,
+                                RoleEmployee = role,
+                                Active = active.ToString(),
+                                PassWordAccount = password
+                            };
+
+                            context.Employees.Add(newEmployee);
+                            context.SaveChanges();
+                            transaction.Commit();
+
+                            return true;
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            err = ex.Message;
+                            return false;
+                        }
+                    }
+                }
+            
+
         }
 
         // Method to update an employee
         public bool CapNhatNhanVien(ref string err, string id, string name, DateTime birthday, string gender, string address, string sdt, string role, int active, string password)
         {
-            // Returning the result of the MyExecuteNonQuery method of the DAL class
-            return db.MyExecuteNonQuery("spUpdateEmployee", CommandType.StoredProcedure, ref err,
-                // Passing the parameters to the stored procedure
-                new SqlParameter("@EmployeeID", id),
-                new SqlParameter("@NameEmployee", name),
-                new SqlParameter("@Birthday", birthday),
-                new SqlParameter("@Gender", gender),
-                new SqlParameter("@AddressEmployee", address),
-                new SqlParameter("@PhoneNumber", sdt),
-                new SqlParameter("@RoleEmployee", role),
-                new SqlParameter("@Active", active),
-                new SqlParameter("@PassWordAccount", password)
-                );
+            using (var context = new QLCuaHang())
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var employeeToUpdate = context.Employees.FirstOrDefault(e => e.EmployeeID == id);
+
+                        if (employeeToUpdate != null)
+                        {
+                            employeeToUpdate.NameEmployee = name;
+                            employeeToUpdate.Birthday = birthday.Date;
+                            employeeToUpdate.Gender = gender;
+                            employeeToUpdate.AddressEmployee = address;
+                            employeeToUpdate.PhoneNumber = sdt;
+                            employeeToUpdate.RoleEmployee = role;
+                            employeeToUpdate.Active = active.ToString();
+                            employeeToUpdate.PassWordAccount = password;
+
+                            context.SaveChanges();
+                            transaction.Commit();
+
+                            return true;
+                        }
+                        else
+                        {
+                            err = "Employee not found.";
+                            return false;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        err = ex.Message; 
+                        return false;
+                    }
+                }
+            }
         }
 
-        // Method to delete an employee
         public bool XoaNhanVien(ref string err, string id)
         {
-            // Returning the result of the MyExecuteNonQuery method of the DAL class
-            return db.MyExecuteNonQuery("spDeleteEmployee", CommandType.StoredProcedure, ref err,
-                // Passing the parameter to the stored procedure
-                new SqlParameter("@EmployeeID", id)
-                );
-        }
-        public string LayConStr(string id, string pass)
-        {
-            DataTable dt = new DataTable();
-            DataSet ds = new DataSet();
-            ds = db.ExecuteQueryDataSet("Select * from dbo.LoginCSDL('" + id + "','" + pass + "')", CommandType.Text, null);
-            dt = ds.Tables[0];
-            return dt.Rows[0].Field<string>(0);
+            using (var context = new QLCuaHang())
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var employeeToUpdate = context.Employees.FirstOrDefault(e => e.EmployeeID == id);
+
+                        if (employeeToUpdate != null)
+                        {
+                            employeeToUpdate.Active = "0";
+                            context.SaveChanges();
+                            transaction.Commit();
+                            return true;
+                        }
+                        else
+                        {
+                            err = "Employee not found.";
+                            return false;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        err = ex.Message;
+                        return false;
+                    }
+                }
+            }
         }
     }
 }

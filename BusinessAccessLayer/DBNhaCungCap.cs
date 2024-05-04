@@ -7,66 +7,158 @@ using System.Data.SqlClient;
 using System.Data;
 //
 using DataAccessLayer;
+using System.Data.Entity;
+using DataAccessLayer.Entities;
 
 namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
 {
     public class DBNhaCungCap // Declaring the DBNhaCungCap class
     {
-        DAL db = null; // Declaring an instance of the DAL class and initializing it to null
+        DAL db = null;
 
-        // Constructor for the DBNhaCungCap class
         public DBNhaCungCap()
         {
-            db = new DAL(); // Initializing the db instance with a new instance of the DAL class
+            db = new DAL();
         }
-
-        // Method to retrieve suppliers
-        public DataSet LayNhaCungCap()
+        public List<dynamic> LayNhaCungCap()
         {
-            // Returning the result of the ExecuteQueryDataSet method of the DAL class
-            return db.ExecuteQueryDataSet("select * from SUPPLIER_VIEW", CommandType.Text, null);
+            using (var context = new QLCuaHang())
+            {
+                var query = from c in context.Suppliers.Include(p => p.Imports)
+                            select new
+                            {
+                                c.Supplier_ID,
+                                c.CompanyName,
+                                c.PhoneNumber,
+                                c.AddressSupplier,
+                                c.Email,
+                                Tong = c.Imports.Any() ? c.Imports.Sum(o => (int)o.Total) : 0
+                            };
+                return query.ToList<dynamic>();
+            }
         }
-
-        // Method to search for suppliers by ID and name
-        public DataSet TimNhaCungCap(string ID, string name)
+        public List<dynamic> TimNhaCungCap(string ID, string name)
         {
-            // Returning the result of the ExecuteQueryDataSet method of the DAL class
-            return db.ExecuteQueryDataSet("select * from Find_Supplier('" + ID + "',N'" + name + "')", CommandType.Text, null);
+            using (var context = new QLCuaHang())
+            {
+                var query = from c in context.Suppliers.Include(p => p.Imports)
+                            where c.CompanyName.Contains(name) && c.Supplier_ID.Contains(ID)
+                            select new
+                            {
+                                c.Supplier_ID,
+                                c.CompanyName,
+                                c.PhoneNumber,
+                                c.AddressSupplier,
+                                c.Email,
+                                Tong = c.Imports.Any() ? c.Imports.Sum(o => (int)o.Total) : 0
+                            };
+
+                return query.ToList<dynamic>();
+            }
         }
-
-        // Method to retrieve products associated with a supplier
-        public DataSet SPCuaNhaCungCap(string ID)
+        public List<dynamic> SPCuaNhaCungCap(string ID)
         {
-            // Returning the result of the ExecuteQueryDataSet method of the DAL class
-            return db.ExecuteQueryDataSet("select * from ProductOfSupplier('" + ID + "')", CommandType.Text, null);
+
+            using (var context = new QLCuaHang())
+            {
+                var query = from id in context.ImportDetails
+                            join p in context.Products on id.Product_ID equals p.Product_ID
+                            join i in context.Imports on id.Import_ID equals i.Import_ID
+                            where i.Supplier_ID == ID
+                            group new { id, p } by new { id.Product_ID, p.ProductName, id.Unitcost } into grouped
+                            select new
+                            {
+                                Product_ID = grouped.Key.Product_ID,
+                                ProductName = grouped.Key.ProductName,
+                                Quantity = grouped.Sum(x => x.id.Quantity),
+                                Unitcost = grouped.Key.Unitcost
+                            };
+
+                return query.ToList<dynamic>();
+            }
+
         }
 
         // Method to add a new supplier
-        public bool ThemNhaCungCap(ref string err, string Supplier_ID, string CompanyName,
-             string PhoneNumber, string AddressSupplier, string Email)
+        public bool ThemNhaCungCap(ref string err, string Supplier_ID, string CompanyName, string PhoneNumber, string AddressSupplier, string Email)
         {
-            // Returning the result of the MyExecuteNonQuery method of the DAL class
-            return db.MyExecuteNonQuery("spInsertSupplier", CommandType.StoredProcedure, ref err,
-                // Passing the parameters to the stored procedure
-                new SqlParameter("@Supplier_ID", Supplier_ID),
-                new SqlParameter("@CompanyName", CompanyName),
-                new SqlParameter("@PhoneNumber", PhoneNumber),
-                new SqlParameter("@AddressSupplier", AddressSupplier),
-                new SqlParameter("@Email", Email));
+            using (var context = new QLCuaHang())
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        if (string.IsNullOrEmpty(CompanyName))
+                        {
+                            err = "Lỗi: Vui lòng nhập chính xác, đầy đủ thông tin";
+                            return false; ;
+                        }
+
+                        var supplier = new Supplier
+                        {
+                            Supplier_ID = Supplier_ID,
+                            CompanyName = CompanyName,
+                            PhoneNumber = PhoneNumber,
+                            AddressSupplier = AddressSupplier,
+                            Email = Email
+                        };
+
+                        context.Suppliers.Add(supplier);
+                        context.SaveChanges();
+                        transaction.Commit();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        err = "Lỗi: " + ex.Message;
+                        return false;
+                    }
+                }
+            }
         }
 
         // Method to update a supplier
-        public bool CapNhatNhaCungCap(ref string err, string Supplier_ID, string CompanyName,
-            string PhoneNumber, string AddressSupplier, string Email)
+        public bool CapNhatNhaCungCap(ref string err, string Supplier_ID, string CompanyName, string PhoneNumber, string AddressSupplier, string Email)
         {
-            // Returning the result of the MyExecuteNonQuery method of the DAL class
-            return db.MyExecuteNonQuery("spUpdateSupplier", CommandType.StoredProcedure, ref err,
-                // Passing the parameters to the stored procedure
-                new SqlParameter("@Supplier_ID", Supplier_ID),
-                new SqlParameter("@CompanyName", CompanyName),
-                new SqlParameter("@PhoneNumber", PhoneNumber),
-                new SqlParameter("@AddressSupplier", AddressSupplier),
-                new SqlParameter("@Email", Email));
+            using (var context = new QLCuaHang())
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        // Retrieve the supplier to update
+                        var supplierToUpdate = context.Suppliers.FirstOrDefault(s => s.Supplier_ID == Supplier_ID);
+
+                        if (supplierToUpdate != null)
+                        {
+                            // Update the supplier properties
+                            supplierToUpdate.CompanyName = CompanyName;
+                            supplierToUpdate.PhoneNumber = PhoneNumber;
+                            supplierToUpdate.AddressSupplier = AddressSupplier;
+                            supplierToUpdate.Email = Email;
+
+                            // Save changes to the database
+                            context.SaveChanges();
+
+                            transaction.Commit(); // Commit the transaction
+
+                            return true; // Successful update
+                        }
+                        else
+                        {
+                            err = "Supplier not found."; // Set error message
+                            return false; // Supplier not found
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback(); // Rollback the transaction
+                        err = "Error: " + ex.Message; // Set error message
+                        return false; // Failed update
+                    }
+                }
+            }
         }
     }
 }

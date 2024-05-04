@@ -31,10 +31,7 @@ namespace Project_ver1.UI
         {
             try
             {
-                dtNhanVien = new DataTable();
-                dtNhanVien.Clear();
-                dtNhanVien = dbnv.LayNhanVien().Tables[0]; 
-                dgvNhanVien.DataSource = dtNhanVien;
+                dgvNhanVien.DataSource = dbnv.LayNhanVien();
 
                 ID = dgvNhanVien.Rows[0].Cells[0].Value.ToString().ToLower();
                 LabelSNV.Text = (dgvNhanVien.RowCount - 1).ToString();
@@ -58,28 +55,14 @@ namespace Project_ver1.UI
 
         private void ReadButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                a = new NVDetail(1, ID);
-                a.ShowDialog();
-            }
-            catch (Exception ex)
-            {
-                
-            }
+            a = new NVDetail(1, ID);
+            a.ShowDialog();
         }
 
         private void UpdateButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                a = new NVDetail(2, ID);
-                a.ShowDialog();
-            }
-            catch (Exception ex)
-            {
-                
-            }
+            a = new NVDetail(2, ID);
+            a.ShowDialog();
         }
 
         private void AddButton_Click(object sender, EventArgs e)
@@ -107,11 +90,7 @@ namespace Project_ver1.UI
 
                 string hd = MNV.Text;
                 string name =NameText.Text;
-                DataTable dtHoaDon = new DataTable();
-                dtHoaDon.Clear();
-
-                dtHoaDon = dbnv.TimNhanVien(hd, name).Tables[0];
-                dgvNhanVien.DataSource = dtHoaDon;
+                dgvNhanVien.DataSource = dbnv.TimNhanVien(hd, name);
                 int r = dgvNhanVien.RowCount;
                 if (r > 1)
                 {

@@ -20,7 +20,7 @@ namespace Project_ver1.UI
         public NVDetail(int check, string iD)
         {
             Check = check;
-            ID = iD;
+            ID = iD.ToUpper();
             InitializeComponent();
             dbnv = new DBNhanVien();
             SaveButton.Visible = false;
@@ -47,20 +47,17 @@ namespace Project_ver1.UI
         {
             try
             {
-                DataTable dt = new DataTable();
-                dt.Clear();
-                dt = dbnv.TimAllNhanVien(ID).Tables[0];
-                
-                textBoxMaNV.Text=dt.Rows[0].Field<string>(0);
-                textBoxTenNV.Text = dt.Rows[0].Field<string>(1);
-                dateTimePicker.Text = dt.Rows[0].Field<DateTime>(2).ToString();
-                comboBoxGioiTinh.Text =dt.Rows[0].Field<string>(3).ToString();
-                textBoxDiaChi.Text = dt.Rows[0].Field<string>(4);
-                textBoxSDT.Text = dt.Rows[0].Field<string>(5);
-                comboBoxChucVu.Text = dt.Rows[0].Field<string>(6);
-                textBoxTrangThai.Text = dt.Rows[0].Field<string>(7);
-                textBoxMK.Text = dt.Rows[0].Field<string>(8);
-                textBoxTotal.Text = dt.Rows[0].Field<int?>(9).ToString();
+                dgv.DataSource = dbnv.TimAllNhanVien(ID);
+                textBoxMaNV.Text= dgv.Rows[0].Cells[0].Value.ToString();
+                textBoxTenNV.Text = dgv.Rows[0].Cells[1].Value.ToString();
+                dateTimePicker.Text = dgv.Rows[0].Cells[2].Value.ToString();
+                comboBoxGioiTinh.Text = dgv.Rows[0].Cells[3].Value.ToString();
+                textBoxDiaChi.Text = dgv.Rows[0].Cells[4].Value.ToString();
+                textBoxSDT.Text = dgv.Rows[0].Cells[5].Value.ToString();
+                comboBoxChucVu.Text = dgv.Rows[0].Cells[6].Value.ToString();
+                textBoxTrangThai.Text = dgv.Rows[0].Cells[7].Value.ToString();
+                textBoxMK.Text = dgv.Rows[0].Cells[8].Value.ToString();
+                textBoxTotal.Text = dgv.Rows[0].Cells[9].Value.ToString();
             }
             catch (SqlException x)
             {

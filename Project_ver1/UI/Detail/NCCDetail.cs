@@ -32,20 +32,14 @@ namespace Project_ver1.UI.Detail
         {
             try
             {
-                DataTable dtNCC = new DataTable();
-                dtNCC.Clear();
-                dtNCC = DBNhaCungCap.SPCuaNhaCungCap(ID).Tables[0];
-                dgvSanPham.DataSource = dtNCC;
-
-                DataTable dt = new DataTable();
-                dt.Clear();
-                dt = DBNhaCungCap.TimNhaCungCap(ID, "").Tables[0];
-                textBoxMaNhaCungCap.Text = dt.Rows[0].Field<string>(0);
-                textBoxTenNhaCungCap.Text = dt.Rows[0].Field<string>(1);
-                textBoxSoDienThoai.Text = dt.Rows[0].Field<string>(2);
-                textBoxDiaChi.Text = dt.Rows[0].Field<string>(3);
-                textBoxEmail.Text= dt.Rows[0].Field<string>(4);
-                Tong.Text= dt.Rows[0].Field<int?>(5).ToString()=="" ? "0":dt.Rows[0].Field<int?>(5).ToString();
+                dgvSanPham.DataSource = DBNhaCungCap.SPCuaNhaCungCap(ID);
+                dgv.DataSource = DBNhaCungCap.TimNhaCungCap(ID, "");
+                textBoxMaNhaCungCap.Text = dgv.Rows[0].Cells[0].Value.ToString();
+                textBoxTenNhaCungCap.Text = dgv.Rows[0].Cells[1].Value.ToString();
+                textBoxSoDienThoai.Text = dgv.Rows[0].Cells[2].Value.ToString();
+                textBoxDiaChi.Text = dgv.Rows[0].Cells[3].Value.ToString();
+                textBoxEmail.Text= dgv.Rows[0].Cells[4].Value.ToString();
+                Tong.Text= dgv.Rows[0].Cells[5].Value.ToString() == "" ? "0": dgv.Rows[0].Cells[5].Value.ToString().ToString();
             }
             catch (SqlException ex)
             {

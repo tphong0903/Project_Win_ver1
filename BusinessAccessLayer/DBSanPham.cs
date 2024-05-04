@@ -246,47 +246,51 @@ namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
         {
             using (var context = new QLCuaHang())
             {
-                try
+                using (var dbContextTransaction = context.Database.BeginTransaction())
                 {
-                    var brandID = context.Brands
-                        .Where(b => b.BrandName.Contains(th))
-                        .Select(b => b.Brand_ID)
-                        .FirstOrDefault();
-
-                    var categoryID = context.Categories
-                        .Where(c => c.CategoryName.Contains(dm))
-                        .Select(c => c.Category_ID)
-                        .FirstOrDefault();
-
-                    var picID = context.PictureProducts
-                        .Where(p => p.Picture_Name.Contains(Img))
-                        .Select(p => p.Picture_ID)
-                        .FirstOrDefault();
-
-                    if (string.IsNullOrEmpty(ma) || string.IsNullOrEmpty(ten) || gia <= 0 || string.IsNullOrEmpty(Img) || string.IsNullOrEmpty(th) || string.IsNullOrEmpty(dm))
+                    try
                     {
-                        throw new ArgumentException("Vui lòng nhập đầy đủ và chính xác thông tin sản phẩm.");
+                        var brandID = context.Brands
+                            .Where(b => b.BrandName.Contains(th))
+                            .Select(b => b.Brand_ID)
+                            .FirstOrDefault();
+
+                        var categoryID = context.Categories
+                            .Where(c => c.CategoryName.Contains(dm))
+                            .Select(c => c.Category_ID)
+                            .FirstOrDefault();
+
+                        var picID = context.PictureProducts
+                            .Where(p => p.Picture_Name.Contains(Img))
+                            .Select(p => p.Picture_ID)
+                            .FirstOrDefault();
+
+                        if (string.IsNullOrEmpty(ma) || string.IsNullOrEmpty(ten) || gia <= 0 || string.IsNullOrEmpty(Img) || string.IsNullOrEmpty(th) || string.IsNullOrEmpty(dm))
+                        {
+                            throw new ArgumentException("Vui lòng nhập đầy đủ và chính xác thông tin sản phẩm.");
+                        }
+
+                        var product = new Product
+                        {
+                            Product_ID = ma,
+                            ProductName = ten,
+                            UnitPrice = gia,
+                            Quantity = sl,
+                            Brand_ID = brandID,
+                            Category_ID = categoryID,
+                            Picture_ID = picID
+                        };
+
+                        context.Products.Add(product);
+                        context.SaveChanges();
+                        dbContextTransaction.Commit();
+                        return true;
                     }
-
-                    var product = new Product
+                    catch (Exception ex)
                     {
-                        Product_ID = ma,
-                        ProductName = ten,
-                        UnitPrice = gia,
-                        Quantity = sl,
-                        Brand_ID = brandID,
-                        Category_ID = categoryID,
-                        Picture_ID = picID
-                    };
-
-                    context.Products.Add(product);
-                    context.SaveChanges();
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Lỗi khi thêm sản phẩm: " + ex.Message);
-                    return false;
+                        dbContextTransaction.Rollback();
+                        return false;
+                    }
                 }
             }
         }

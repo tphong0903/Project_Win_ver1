@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NVDetail));
             this.SaveButton = new Guna.UI.WinForms.GunaButton();
-            this.a = new System.Windows.Forms.DataGridView();
+            this.dgv = new System.Windows.Forms.DataGridView();
             this.textBoxSDT = new Guna.UI2.WinForms.Guna2TextBox();
             this.textBoxTotal = new Guna.UI2.WinForms.Guna2TextBox();
             this.textBoxTenNV = new Guna.UI2.WinForms.Guna2TextBox();
@@ -51,7 +51,7 @@
             this.dateTimePicker = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.gunaLabel10 = new Guna.UI.WinForms.GunaLabel();
             this.textBoxDiaChi = new Guna.UI2.WinForms.Guna2TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.a)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
             // SaveButton
@@ -83,17 +83,17 @@
             this.SaveButton.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.SaveButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
-            // a
+            // dgv
             // 
-            this.a.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.a.Location = new System.Drawing.Point(13, 347);
-            this.a.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.a.Name = "a";
-            this.a.RowHeadersWidth = 51;
-            this.a.RowTemplate.Height = 24;
-            this.a.Size = new System.Drawing.Size(52, 33);
-            this.a.TabIndex = 35;
-            this.a.Visible = false;
+            this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv.Location = new System.Drawing.Point(13, 347);
+            this.dgv.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dgv.Name = "dgv";
+            this.dgv.RowHeadersWidth = 51;
+            this.dgv.RowTemplate.Height = 24;
+            this.dgv.Size = new System.Drawing.Size(52, 33);
+            this.dgv.TabIndex = 35;
+            this.dgv.Visible = false;
             // 
             // textBoxSDT
             // 
@@ -464,7 +464,7 @@
             this.Controls.Add(this.textBoxMK);
             this.Controls.Add(this.textBoxTrangThai);
             this.Controls.Add(this.SaveButton);
-            this.Controls.Add(this.a);
+            this.Controls.Add(this.dgv);
             this.Controls.Add(this.textBoxSDT);
             this.Controls.Add(this.textBoxTotal);
             this.Controls.Add(this.textBoxTenNV);
@@ -478,7 +478,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nhân Viên";
-            ((System.ComponentModel.ISupportInitialize)(this.a)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -486,7 +486,7 @@
 
         #endregion
         private Guna.UI.WinForms.GunaButton SaveButton;
-        private System.Windows.Forms.DataGridView a;
+        private System.Windows.Forms.DataGridView dgv;
         private Guna.UI2.WinForms.Guna2TextBox textBoxSDT;
         private Guna.UI2.WinForms.Guna2TextBox textBoxTotal;
         private Guna.UI2.WinForms.Guna2TextBox textBoxTenNV;
