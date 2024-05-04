@@ -61,19 +61,16 @@ namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
 
             using (var context = new QLCuaHang())
             {
-                var query = from id in context.ImportDetails
-                            join p in context.Products on id.Product_ID equals p.Product_ID
-                            join i in context.Imports on id.Import_ID equals i.Import_ID
-                            where i.Supplier_ID == ID
-                            group new { id, p } by new { id.Product_ID, p.ProductName, id.Unitcost } into grouped
+                var query = from id in context.ImportDetails.Include(i=>i.Import)
+                            where id.Import.Supplier_ID == ID
+                            group id by new { id.Product_ID, id.Product.ProductName, id.Unitcost, id.Quantity } into grouped
                             select new
                             {
                                 Product_ID = grouped.Key.Product_ID,
                                 ProductName = grouped.Key.ProductName,
-                                Quantity = grouped.Sum(x => x.id.Quantity),
+                                Quantity = grouped.Sum(x => x.Quantity),
                                 Unitcost = grouped.Key.Unitcost
                             };
-
                 return query.ToList<dynamic>();
             }
 
@@ -127,35 +124,32 @@ namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
                 {
                     try
                     {
-                        // Retrieve the supplier to update
                         var supplierToUpdate = context.Suppliers.FirstOrDefault(s => s.Supplier_ID == Supplier_ID);
 
                         if (supplierToUpdate != null)
                         {
-                            // Update the supplier properties
                             supplierToUpdate.CompanyName = CompanyName;
                             supplierToUpdate.PhoneNumber = PhoneNumber;
                             supplierToUpdate.AddressSupplier = AddressSupplier;
                             supplierToUpdate.Email = Email;
 
-                            // Save changes to the database
                             context.SaveChanges();
 
-                            transaction.Commit(); // Commit the transaction
+                            transaction.Commit();
 
-                            return true; // Successful update
+                            return true;
                         }
                         else
                         {
-                            err = "Supplier not found."; // Set error message
-                            return false; // Supplier not found
+                            err = "Supplier not found.";
+                            return false;
                         }
                     }
                     catch (Exception ex)
                     {
-                        transaction.Rollback(); // Rollback the transaction
-                        err = "Error: " + ex.Message; // Set error message
-                        return false; // Failed update
+                        transaction.Rollback();
+                        err = "Error: " + ex.Message; 
+                        return false; 
                     }
                 }
             }

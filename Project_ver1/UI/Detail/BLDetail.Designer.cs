@@ -49,7 +49,9 @@
             this.textBoxTenNhaCungCap = new Guna.UI2.WinForms.Guna2TextBox();
             this.textBoxMaBienLai = new Guna.UI2.WinForms.Guna2TextBox();
             this.gunaLabel4 = new Guna.UI.WinForms.GunaLabel();
+            this.dgv = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSanPham)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
             // dateTimePickerNgayThanhToan
@@ -348,12 +350,24 @@
             this.gunaLabel4.TabIndex = 144;
             this.gunaLabel4.Text = "Chi tiết biên lai";
             // 
+            // dgv
+            // 
+            this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv.Location = new System.Drawing.Point(361, 396);
+            this.dgv.Margin = new System.Windows.Forms.Padding(4);
+            this.dgv.Name = "dgv";
+            this.dgv.RowHeadersWidth = 51;
+            this.dgv.Size = new System.Drawing.Size(40, 31);
+            this.dgv.TabIndex = 180;
+            this.dgv.Visible = false;
+            // 
             // BLDetail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(934, 440);
+            this.Controls.Add(this.dgv);
             this.Controls.Add(this.gunaLabel4);
             this.Controls.Add(this.gunaLabel9);
             this.Controls.Add(this.dateTimePickerNgayThanhToan);
@@ -373,6 +387,7 @@
             this.Text = "BLDetail";
             this.Load += new System.EventHandler(this.BLDetail_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvSanPham)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -396,5 +411,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn GiaTien;
+        private System.Windows.Forms.DataGridView dgv;
     }
 }

@@ -315,10 +315,11 @@ namespace DataAccessLayer
             };
             context.ImportDetails.AddOrUpdate(p => new { p.Import_ID, p.Product_ID }, importDetails);
 
+
             var orders = new[]
             {
-                new Order { Order_ID = "HD00001", PhoneNumber = "0923455789", EmployeeID = "QL01", OrderDate = DateTime.Parse("2024-03-08"), Total = 2760000, DiscountCode = "8THANG3" },
-                new Order { Order_ID = "HD00002", PhoneNumber = "0912345678", EmployeeID = "BH01", OrderDate = DateTime.Parse("2024-02-14"), Total = 800000, DiscountCode = "14THANG2" },
+                new Order { Order_ID = "HD00001", PhoneNumber = "0923455789", EmployeeID = "QL01", OrderDate = DateTime.Parse("2024-03-08"), Total = 0, DiscountCode = "8THANG3" },
+                new Order { Order_ID = "HD00002", PhoneNumber = "0912345678", EmployeeID = "BH01", OrderDate = DateTime.Parse("2024-02-14"), Total = 0, DiscountCode = "14THANG2" },
                 // Add more Order objects as needed
             };
             context.Orders.AddOrUpdate(p => p.Order_ID, orders);

@@ -33,13 +33,9 @@ namespace Project_ver1.UI.Detail
         {
             try
             {
-                DataTable dt = new DataTable();
                 dgvSanPham.DataSource = dbsp.LaySanPham();
-
-                dt = new DataTable();
-                dt = dbhd.LayHoaDon().Tables[0];
-
-                int s = dt.Rows.Count+1;
+                dgv.DataSource = dbhd.LayHoaDon();
+                int s = dgv.RowCount+1;
                 string hd = "HD";
                 if (s < 10)
                     hd = hd + "0000";
@@ -68,10 +64,7 @@ namespace Project_ver1.UI.Detail
             string GiaBan = dgvSanPham.Rows[r].Cells[2].Value.ToString();
             string SLCon = dgvSanPham.Rows[r].Cells[3].Value.ToString();
             string SL = SLmua.Text;
-            DataTable dt = new DataTable();
-            dt.Clear();
-            dt = dbhd.LayGiamGia(txtGiamGia.Text).Tables[0];
-            double PhanTram = dt.Rows[0].Field<int>(1);
+            double PhanTram = dbhd.LayGiamGia(txtGiamGia.Text);
             if (SL == "" || Int32.Parse(SL) > Int32.Parse(SLCon))
             {
                 MessageBox.Show("Khong du san pham");

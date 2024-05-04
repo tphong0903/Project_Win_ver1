@@ -55,16 +55,19 @@
             this.Ngay = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.gunaLabel7 = new Guna.UI.WinForms.GunaLabel();
             this.gunaLabel8 = new Guna.UI.WinForms.GunaLabel();
+            this.dgv = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
             // gunaLabel6
             // 
             this.gunaLabel6.AutoSize = true;
             this.gunaLabel6.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.gunaLabel6.Location = new System.Drawing.Point(30, 451);
+            this.gunaLabel6.Location = new System.Drawing.Point(22, 366);
+            this.gunaLabel6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.gunaLabel6.Name = "gunaLabel6";
-            this.gunaLabel6.Size = new System.Drawing.Size(92, 19);
+            this.gunaLabel6.Size = new System.Drawing.Size(81, 16);
             this.gunaLabel6.TabIndex = 23;
             this.gunaLabel6.Text = "Thành tiền";
             // 
@@ -72,9 +75,10 @@
             // 
             this.gunaLabel5.AutoSize = true;
             this.gunaLabel5.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.gunaLabel5.Location = new System.Drawing.Point(30, 389);
+            this.gunaLabel5.Location = new System.Drawing.Point(22, 316);
+            this.gunaLabel5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.gunaLabel5.Name = "gunaLabel5";
-            this.gunaLabel5.Size = new System.Drawing.Size(77, 19);
+            this.gunaLabel5.Size = new System.Drawing.Size(67, 16);
             this.gunaLabel5.TabIndex = 22;
             this.gunaLabel5.Text = "Giảm giá";
             // 
@@ -82,9 +86,10 @@
             // 
             this.gunaLabel4.AutoSize = true;
             this.gunaLabel4.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.gunaLabel4.Location = new System.Drawing.Point(30, 257);
+            this.gunaLabel4.Location = new System.Drawing.Point(22, 209);
+            this.gunaLabel4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.gunaLabel4.Name = "gunaLabel4";
-            this.gunaLabel4.Size = new System.Drawing.Size(119, 19);
+            this.gunaLabel4.Size = new System.Drawing.Size(105, 16);
             this.gunaLabel4.TabIndex = 21;
             this.gunaLabel4.Text = "Tên nhân viên";
             // 
@@ -92,9 +97,10 @@
             // 
             this.gunaLabel3.AutoSize = true;
             this.gunaLabel3.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.gunaLabel3.Location = new System.Drawing.Point(30, 186);
+            this.gunaLabel3.Location = new System.Drawing.Point(22, 151);
+            this.gunaLabel3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.gunaLabel3.Name = "gunaLabel3";
-            this.gunaLabel3.Size = new System.Drawing.Size(134, 19);
+            this.gunaLabel3.Size = new System.Drawing.Size(117, 16);
             this.gunaLabel3.TabIndex = 20;
             this.gunaLabel3.Text = "Tên khách hàng";
             // 
@@ -102,9 +108,10 @@
             // 
             this.gunaLabel2.AutoSize = true;
             this.gunaLabel2.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.gunaLabel2.Location = new System.Drawing.Point(30, 119);
+            this.gunaLabel2.Location = new System.Drawing.Point(22, 97);
+            this.gunaLabel2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.gunaLabel2.Name = "gunaLabel2";
-            this.gunaLabel2.Size = new System.Drawing.Size(112, 19);
+            this.gunaLabel2.Size = new System.Drawing.Size(99, 16);
             this.gunaLabel2.TabIndex = 19;
             this.gunaLabel2.Text = "Số điện thoại";
             // 
@@ -124,23 +131,23 @@
             this.SoDienThoai.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.SoDienThoai.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.SoDienThoai.HoverState.Parent = this.SoDienThoai;
-            this.SoDienThoai.Location = new System.Drawing.Point(9, 132);
-            this.SoDienThoai.Margin = new System.Windows.Forms.Padding(4);
+            this.SoDienThoai.Location = new System.Drawing.Point(7, 107);
             this.SoDienThoai.Name = "SoDienThoai";
             this.SoDienThoai.PasswordChar = '\0';
             this.SoDienThoai.PlaceholderText = "";
             this.SoDienThoai.SelectedText = "";
             this.SoDienThoai.ShadowDecoration.Parent = this.SoDienThoai;
-            this.SoDienThoai.Size = new System.Drawing.Size(317, 44);
+            this.SoDienThoai.Size = new System.Drawing.Size(238, 36);
             this.SoDienThoai.TabIndex = 25;
             // 
             // gunaLabel1
             // 
             this.gunaLabel1.AutoSize = true;
             this.gunaLabel1.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.gunaLabel1.Location = new System.Drawing.Point(30, 59);
+            this.gunaLabel1.Location = new System.Drawing.Point(22, 48);
+            this.gunaLabel1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.gunaLabel1.Name = "gunaLabel1";
-            this.gunaLabel1.Size = new System.Drawing.Size(102, 19);
+            this.gunaLabel1.Size = new System.Drawing.Size(90, 16);
             this.gunaLabel1.TabIndex = 18;
             this.gunaLabel1.Text = "Mã hóa đơn";
             // 
@@ -159,14 +166,13 @@
             this.ThanhTien.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.ThanhTien.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.ThanhTien.HoverState.Parent = this.ThanhTien;
-            this.ThanhTien.Location = new System.Drawing.Point(9, 465);
-            this.ThanhTien.Margin = new System.Windows.Forms.Padding(4);
+            this.ThanhTien.Location = new System.Drawing.Point(7, 378);
             this.ThanhTien.Name = "ThanhTien";
             this.ThanhTien.PasswordChar = '\0';
             this.ThanhTien.PlaceholderText = "";
             this.ThanhTien.SelectedText = "";
             this.ThanhTien.ShadowDecoration.Parent = this.ThanhTien;
-            this.ThanhTien.Size = new System.Drawing.Size(317, 44);
+            this.ThanhTien.Size = new System.Drawing.Size(238, 36);
             this.ThanhTien.TabIndex = 29;
             // 
             // GiamGia
@@ -184,14 +190,13 @@
             this.GiamGia.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.GiamGia.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.GiamGia.HoverState.Parent = this.GiamGia;
-            this.GiamGia.Location = new System.Drawing.Point(9, 403);
-            this.GiamGia.Margin = new System.Windows.Forms.Padding(4);
+            this.GiamGia.Location = new System.Drawing.Point(7, 327);
             this.GiamGia.Name = "GiamGia";
             this.GiamGia.PasswordChar = '\0';
             this.GiamGia.PlaceholderText = "";
             this.GiamGia.SelectedText = "";
             this.GiamGia.ShadowDecoration.Parent = this.GiamGia;
-            this.GiamGia.Size = new System.Drawing.Size(317, 44);
+            this.GiamGia.Size = new System.Drawing.Size(238, 36);
             this.GiamGia.TabIndex = 28;
             // 
             // TenNV
@@ -209,14 +214,13 @@
             this.TenNV.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.TenNV.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.TenNV.HoverState.Parent = this.TenNV;
-            this.TenNV.Location = new System.Drawing.Point(9, 270);
-            this.TenNV.Margin = new System.Windows.Forms.Padding(4);
+            this.TenNV.Location = new System.Drawing.Point(7, 219);
             this.TenNV.Name = "TenNV";
             this.TenNV.PasswordChar = '\0';
             this.TenNV.PlaceholderText = "";
             this.TenNV.SelectedText = "";
             this.TenNV.ShadowDecoration.Parent = this.TenNV;
-            this.TenNV.Size = new System.Drawing.Size(317, 44);
+            this.TenNV.Size = new System.Drawing.Size(238, 36);
             this.TenNV.TabIndex = 27;
             // 
             // TenKH
@@ -234,14 +238,13 @@
             this.TenKH.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.TenKH.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.TenKH.HoverState.Parent = this.TenKH;
-            this.TenKH.Location = new System.Drawing.Point(9, 198);
-            this.TenKH.Margin = new System.Windows.Forms.Padding(4);
+            this.TenKH.Location = new System.Drawing.Point(7, 161);
             this.TenKH.Name = "TenKH";
             this.TenKH.PasswordChar = '\0';
             this.TenKH.PlaceholderText = "";
             this.TenKH.SelectedText = "";
             this.TenKH.ShadowDecoration.Parent = this.TenKH;
-            this.TenKH.Size = new System.Drawing.Size(317, 44);
+            this.TenKH.Size = new System.Drawing.Size(238, 36);
             this.TenKH.TabIndex = 26;
             // 
             // MaHD
@@ -259,14 +262,13 @@
             this.MaHD.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.MaHD.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.MaHD.HoverState.Parent = this.MaHD;
-            this.MaHD.Location = new System.Drawing.Point(9, 71);
-            this.MaHD.Margin = new System.Windows.Forms.Padding(4);
+            this.MaHD.Location = new System.Drawing.Point(7, 58);
             this.MaHD.Name = "MaHD";
             this.MaHD.PasswordChar = '\0';
             this.MaHD.PlaceholderText = "";
             this.MaHD.SelectedText = "";
             this.MaHD.ShadowDecoration.Parent = this.MaHD;
-            this.MaHD.Size = new System.Drawing.Size(317, 44);
+            this.MaHD.Size = new System.Drawing.Size(238, 36);
             this.MaHD.TabIndex = 24;
             // 
             // dgvSP
@@ -303,7 +305,8 @@
             this.dgvSP.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvSP.EnableHeadersVisualStyles = false;
             this.dgvSP.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(245)))), ((int)(((byte)(247)))));
-            this.dgvSP.Location = new System.Drawing.Point(357, 119);
+            this.dgvSP.Location = new System.Drawing.Point(268, 97);
+            this.dgvSP.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgvSP.MultiSelect = false;
             this.dgvSP.Name = "dgvSP";
             this.dgvSP.ReadOnly = true;
@@ -321,7 +324,7 @@
             this.dgvSP.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvSP.RowTemplate.Height = 24;
             this.dgvSP.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSP.Size = new System.Drawing.Size(561, 328);
+            this.dgvSP.Size = new System.Drawing.Size(421, 266);
             this.dgvSP.TabIndex = 30;
             this.dgvSP.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Light;
             this.dgvSP.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(248)))), ((int)(((byte)(249)))));
@@ -383,15 +386,16 @@
             this.dataGridViewTextBoxColumn3.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Width = 129;
+            this.dataGridViewTextBoxColumn3.Width = 106;
             // 
             // gunaLabel9
             // 
             this.gunaLabel9.AutoSize = true;
             this.gunaLabel9.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.gunaLabel9.Location = new System.Drawing.Point(27, 322);
+            this.gunaLabel9.Location = new System.Drawing.Point(20, 262);
+            this.gunaLabel9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.gunaLabel9.Name = "gunaLabel9";
-            this.gunaLabel9.Size = new System.Drawing.Size(139, 19);
+            this.gunaLabel9.Size = new System.Drawing.Size(120, 16);
             this.gunaLabel9.TabIndex = 46;
             this.gunaLabel9.Text = "Ngày thanh toán";
             // 
@@ -405,12 +409,13 @@
             this.Ngay.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.Ngay.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.Ngay.HoverState.Parent = this.Ngay;
-            this.Ngay.Location = new System.Drawing.Point(8, 332);
+            this.Ngay.Location = new System.Drawing.Point(6, 270);
+            this.Ngay.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Ngay.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
             this.Ngay.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.Ngay.Name = "Ngay";
             this.Ngay.ShadowDecoration.Parent = this.Ngay;
-            this.Ngay.Size = new System.Drawing.Size(318, 54);
+            this.Ngay.Size = new System.Drawing.Size(238, 44);
             this.Ngay.TabIndex = 47;
             this.Ngay.Value = new System.DateTime(2024, 3, 22, 21, 10, 19, 800);
             // 
@@ -418,9 +423,10 @@
             // 
             this.gunaLabel7.AutoSize = true;
             this.gunaLabel7.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.gunaLabel7.Location = new System.Drawing.Point(380, 9);
+            this.gunaLabel7.Location = new System.Drawing.Point(285, 7);
+            this.gunaLabel7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.gunaLabel7.Name = "gunaLabel7";
-            this.gunaLabel7.Size = new System.Drawing.Size(192, 27);
+            this.gunaLabel7.Size = new System.Drawing.Size(157, 22);
             this.gunaLabel7.TabIndex = 144;
             this.gunaLabel7.Text = "Chi tiết hóa đơn";
             // 
@@ -429,18 +435,29 @@
             this.gunaLabel8.AutoSize = true;
             this.gunaLabel8.BackColor = System.Drawing.Color.White;
             this.gunaLabel8.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.gunaLabel8.Location = new System.Drawing.Point(499, 91);
+            this.gunaLabel8.Location = new System.Drawing.Point(374, 74);
+            this.gunaLabel8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.gunaLabel8.Name = "gunaLabel8";
-            this.gunaLabel8.Size = new System.Drawing.Size(286, 24);
+            this.gunaLabel8.Size = new System.Drawing.Size(231, 19);
             this.gunaLabel8.TabIndex = 178;
             this.gunaLabel8.Text = "Các sản phẩm trong hóa đơn";
             // 
+            // dgv
+            // 
+            this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv.Location = new System.Drawing.Point(268, 389);
+            this.dgv.Name = "dgv";
+            this.dgv.Size = new System.Drawing.Size(30, 25);
+            this.dgv.TabIndex = 179;
+            this.dgv.Visible = false;
+            // 
             // HDDetail
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(950, 524);
+            this.ClientSize = new System.Drawing.Size(712, 426);
+            this.Controls.Add(this.dgv);
             this.Controls.Add(this.gunaLabel8);
             this.Controls.Add(this.gunaLabel7);
             this.Controls.Add(this.gunaLabel9);
@@ -459,6 +476,7 @@
             this.Controls.Add(this.TenKH);
             this.Controls.Add(this.MaHD);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.Name = "HDDetail";
             this.ShowInTaskbar = false;
@@ -466,6 +484,7 @@
             this.Text = "HDDetail";
             this.Load += new System.EventHandler(this.HDDetail_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvSP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -494,5 +513,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private Guna.UI.WinForms.GunaLabel gunaLabel8;
+        private System.Windows.Forms.DataGridView dgv;
     }
 }

@@ -28,8 +28,8 @@ namespace Project_ver1.UI.Detail
             {
                 dgvSanPham.DataSource = dbsp.LaySanPhamChoFormBienLai();
 
-                dtSanPham = dbbl.LayBienLai().Tables[0];
-                int s= dtSanPham.Rows.Count +1;
+                dgv.DataSource = dbbl.LayBienLai();
+                int s = dgv.RowCount + 1;
                 string bl = "NH";
                 if (s < 10)
                     bl = bl + "0000";

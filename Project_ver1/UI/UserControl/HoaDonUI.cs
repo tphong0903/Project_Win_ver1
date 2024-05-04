@@ -20,7 +20,7 @@ namespace Project_ver1.UI
         DBHoaDon dbhd;
         DataTable dtHoaDon = null;
         string HD = null;
-        string date = null;
+        string mkh;
         string hd = null;
         string strMaNV=null;
         public HoaDonUI(string s)
@@ -36,13 +36,10 @@ namespace Project_ver1.UI
             try
             {
 
-                dtHoaDon = new DataTable();
-                dtHoaDon.Clear();
-                dtHoaDon = dbhd.LayHoaDon().Tables[0];
-                dgvHoaDon.DataSource = dtHoaDon;
+                dgvHoaDon.DataSource = dbhd.LayHoaDon();
 
                 HD = dgvHoaDon.Rows[0].Cells[0].Value.ToString().ToLower();
-                LabelSoHoaDon.Text = (dgvHoaDon.RowCount - 1).ToString();
+                LabelSoHoaDon.Text = (dgvHoaDon.RowCount).ToString();
             }
             catch (SqlException ex)
             {
@@ -57,8 +54,7 @@ namespace Project_ver1.UI
 
         private void HoaDonUI_FormClosing(object sender, FormClosingEventArgs e)
         {
-            dtHoaDon.Dispose();
-            dtHoaDon = null;
+            
         }
 
         private void AddButton_Click(object sender, EventArgs e)
@@ -90,30 +86,15 @@ namespace Project_ver1.UI
         {
             try
             {
-                
-                if (tick.Checked==true) 
-                {
-                    DateTime a = DateTime.Parse(Date.Text);
-                    if(a.Month <10)
-                        date = a.Year+"-0"+a.Month+"-"+a.Day;
-                    else
-                        date = a.Year + "-" + a.Month + "-" + a.Day;
-                }
-                else
-                {
-                    date = null;
-                }
+
+                mkh = txtMKH.Text;
                 hd = MHD.Text;
-                dtHoaDon = new DataTable();
-                dtHoaDon.Clear();
-            
-                dtHoaDon = dbhd.TimHoaDon(hd, date).Tables[0];
-                dgvHoaDon.DataSource = dtHoaDon;
+                dgvHoaDon.DataSource = dbhd.TimHoaDon(hd, mkh);
                 int r = dgvHoaDon.RowCount;
                 if (r > 1)
                 {
                     HD = dgvHoaDon.Rows[0].Cells[0].Value.ToString();
-                    LabelSoHoaDon.Text = (dgvHoaDon.RowCount - 1).ToString();
+                    LabelSoHoaDon.Text = (dgvHoaDon.RowCount).ToString();
                 }
 
             }

@@ -49,8 +49,7 @@ namespace Project_ver1.UI
 
         private void NhanVienUI_FormClosing(object sender, FormClosingEventArgs e)
         {
-            dtNhanVien.Dispose();
-            dtNhanVien = null;
+            
         }
 
         private void ReadButton_Click(object sender, EventArgs e)

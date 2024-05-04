@@ -63,16 +63,14 @@ namespace BusinessAccessLayer
             using (var context = new QLCuaHang())
             {
                 var query = from od in context.OrderDetails
-                            join o in context.Orders on od.Order_ID equals o.Order_ID
-                            join p in context.Products on od.Product_ID equals p.Product_ID
-                            where o.PhoneNumber == phoneNumber
-                            group new { od, p } by new { p.Product_ID, p.ProductName, p.UnitPrice } into grouped
+                            where od.Order.Customer.PhoneNumber == phoneNumber
+                            group od by new { od.Product.Product_ID, od.Product.ProductName, od.Product.UnitPrice } into grouped
                             select new
                             {
                                 Product_ID = grouped.Key.Product_ID,
                                 ProductName = grouped.Key.ProductName,
-                                Quantity = grouped.Sum(x => x.od.Quantity),
-
+                                Quantity = grouped.Sum(x => x.Quantity),
+                                UnitPrice = grouped.Key.UnitPrice
                             };
                 var result = query.ToList().Select(x => new Product
                 {

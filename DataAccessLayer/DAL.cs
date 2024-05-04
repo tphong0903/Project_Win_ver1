@@ -29,9 +29,10 @@ namespace DataAccessLayer // Declaring the DataAccessLayer namespace
                 DAL.ConnStrBuilder.InitialCatalog = "QuanLyBanHangTheThao";
                 DAL.ConnStrBuilder.IntegratedSecurity = true;
                 DAL.ConnStrBuilder.Encrypt = false;
-                Database.SetInitializer(new Initializer());
-                
-
+                using(var context = new QLCuaHang())
+                {
+                    Database.SetInitializer(new Initializer());
+                }
             }
             conn = new SqlConnection(DAL.ConnStrBuilder.ToString());
             comm = conn.CreateCommand();

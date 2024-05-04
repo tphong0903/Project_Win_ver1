@@ -7,6 +7,9 @@ using System.Data.SqlClient;
 using System.Data;
 //
 using DataAccessLayer;
+using System.Data.Entity;
+using DataAccessLayer.Entities;
+using DataAccessLayer.Map;
 
 namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
 {
@@ -16,69 +19,145 @@ namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
         public DBBienLai() // Constructor for the DBBienLai class
         {
             db = new DAL(); // Initializing the db instance with a new instance of the DAL class
+            using (var context = new QLCuaHang())
+            {
+                var importsWithDetails = context.Imports.Include(i => i.ImportDetails);
+                foreach (var import in importsWithDetails)
+                {
+                    import.Total = import.ImportDetails.Sum(d => d.Quantity * d.Unitcost);
+                }
+                context.SaveChanges();
+            }
         }
 
         // Method to retrieve receipts
-        public DataSet LayBienLai()
+        public List<dynamic> LayBienLai()
         {
-            return db.ExecuteQueryDataSet( // Returning the result of the ExecuteQueryDataSet method of the DAL class
-                "select * from IMPORTS_VIEW", CommandType.Text, null); // SQL query to select all data from the IMPORTS_VIEW view
+            using (var context = new QLCuaHang())
+            {
+                var query = from import in context.Imports.Include(o=>o.Supplier)
+                            select new
+                            {
+                                import.Import_ID,
+                                import.ImportDay,
+                                import.Total,
+                                import.Supplier_ID,
+                                import.Supplier.CompanyName
+                            };
+                return query.ToList<dynamic>();
+            }
         }
 
         // Method to search for receipts by ID and date
-        public DataSet TimBienLai(string HD, string date)
+        public List<dynamic> TimBienLai(string HD, string MKH)
         {
-            return db.ExecuteQueryDataSet( // Returning the result of the ExecuteQueryDataSet method of the DAL class
-                "select * from Find_Import('" + HD + "','" + date + "')", CommandType.Text, null); // SQL query to search for a receipt using the Find_Import stored procedure with parameters HD and date
+            using (var context = new QLCuaHang())
+            {
+
+                var query = from import in context.Imports
+                            .Include(o => o.Supplier)
+                            where import.Import_ID.ToLower().Contains(HD) && import.Supplier_ID.Contains(MKH)
+                            select new
+                            {
+                                import.Import_ID,
+                                import.ImportDay,
+                                import.Total,
+                                import.Supplier_ID,
+                                import.Supplier.CompanyName
+                            };
+                return query.ToList<dynamic>();
+            }
         }
 
-        // Method to retrieve products associated with a receipt
-        public DataSet SPCuaBienLai(string HD)
+        public List<dynamic> SPCuaBienLai(string HD)
         {
-            return db.ExecuteQueryDataSet( // Returning the result of the ExecuteQueryDataSet method of the DAL class
-                "select * from ProductOfImport('" + HD + "')", CommandType.Text, null); // SQL query to select products associated with a receipt using the ProductOfImport stored procedure with parameter HD
+            using (var context = new QLCuaHang())
+            {
+
+                var query = (from import in context.ImportDetails.Include(o => o.Product)
+                             where import.Import_ID.ToLower().Contains(HD)
+                             select new
+                             {
+                                 import.Product_ID,
+                                 import.Product.ProductName,
+                                 import.Quantity,
+                                 import.Unitcost
+                             });
+                return query.ToList<dynamic>();
+            }
         }
 
-        // Method to add a new receipt
-        public bool ThemBienLai(ref string err, string Import_ID, string Supplier_ID,
-             DateTime ImportDay, int Total)
+        public bool ThemBienLai(ref string err, string Import_ID, string Supplier_ID, DateTime ImportDay, int Total)
         {
-            return db.MyExecuteNonQuery("spInsertImport", // Returning the result of the MyExecuteNonQuery method of the DAL class
-                CommandType.StoredProcedure, ref err, // Calling the spInsertImport stored procedure to add a new receipt
-                new SqlParameter("@Import_ID", Import_ID), // Passing the parameters to the stored procedure
-                new SqlParameter("@Supplier_ID", Supplier_ID),
-                new SqlParameter("@ImportDay", ImportDay),
-                new SqlParameter("@Total", Total));
-        }
+            using (var context = new QLCuaHang())
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        if (string.IsNullOrEmpty(Supplier_ID))
+                        {
+                            throw new ArgumentException("Vui lòng nhập chính xác, đầy đủ thông tin");
+                        }
 
-        // Method to update a receipt
-        public bool CapNhatBienLai(ref string err, string Import_ID, string Supplier_ID,
-            DateTime ImportDay, int Total)
-        {
-            return db.MyExecuteNonQuery("spInsertImport", // Returning the result of the MyExecuteNonQuery method of the DAL class
-                CommandType.StoredProcedure, ref err, // Calling the spInsertImport stored procedure to update a receipt
-                new SqlParameter("@Import_ID", Import_ID), // Passing the parameters to the stored procedure
-                new SqlParameter("@Supplier_ID", Supplier_ID),
-                new SqlParameter("@ImportDay", ImportDay),
-                new SqlParameter("@Total", Total));
-        }
+                        var import = new Import
+                        {
+                            Import_ID = Import_ID,
+                            Supplier_ID = Supplier_ID,
+                            ImportDay = ImportDay.Date,
+                            Total = Total
+                        };
 
-        // Method to add details of a receipt
-        public bool ThemChiTietBienLai(ref string err, string Import_ID, string Product_ID,
-            int Quantity, int Unitcost)
-        {
-            return db.MyExecuteNonQuery("spInsertImportDetail", // Returning the result of the MyExecuteNonQuery method of the DAL class
-                CommandType.StoredProcedure, ref err, // Calling the spInsertImportDetail stored procedure to add details of a receipt
-                new SqlParameter("@Import_ID", Import_ID), // Passing the parameters to the stored procedure
-                new SqlParameter("@Product_ID", Product_ID),
-                new SqlParameter("@Quantity", Quantity),
-                new SqlParameter("@Unitcost", Unitcost));
+                        context.Imports.Add(import);
+                        context.SaveChanges();
+
+                        transaction.Commit();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        err = "Lỗi: " + ex.Message;
+                        return false;
+                    }
+                }
+            }
         }
-        public bool XoaBienLai(ref string err, string Import_ID)
+        public bool ThemChiTietBienLai(ref string err, string Import_ID, string Product_ID,int Quantity, int Unitcost)
         {
-            return db.MyExecuteNonQuery("spDeleteImport", // Returning the result of the MyExecuteNonQuery method of the DAL class
-                CommandType.StoredProcedure, ref err, // Calling the spInsertImport stored procedure to update a receipt
-                new SqlParameter("@Import_ID", Import_ID));
+            using (var context = new QLCuaHang())
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        if (string.IsNullOrEmpty(Import_ID))
+                        {
+                            throw new ArgumentException("Vui lòng nhập chính xác, đầy đủ thông tin");
+                        }
+
+                        var importDetail = new ImportDetail
+                        {
+                            Import_ID = Import_ID,
+                            Product_ID = Product_ID,
+                            Quantity = Quantity,
+                            Unitcost = Unitcost
+                        };
+
+                        context.ImportDetails.Add(importDetail);
+                        context.SaveChanges();
+
+                        transaction.Commit();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        err = "Lỗi: " + ex.Message;
+                        return false;
+                    }
+                }
+            }
         }
     }
 }

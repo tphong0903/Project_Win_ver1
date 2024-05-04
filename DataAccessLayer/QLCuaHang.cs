@@ -14,11 +14,7 @@ namespace DataAccessLayer
     {
         public QLCuaHang() : base("name=Ktrahuhu")
         {
-            //if (!Database.Exists("Ktrahuhu"))
-            //{
-            //    //  Thiết lập chế độ khởi tạo để tự động di chuyển CSDL lên phiên bản mới nhất
-            //    Database.SetInitializer(new MigrateDatabaseToLatestVersion<QLCuaHang, Configuration>());
-            //}
+
         }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Employee> Employees { get; set; }

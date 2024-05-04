@@ -21,7 +21,7 @@ namespace Project_ver1.UI
         BLDetail a = null;
         TaoBLForm b = null;
         string HD = null;
-        string date = null;
+        string NCC = null;
         string hd = null;
         public BienLaiUI()
         {
@@ -32,10 +32,7 @@ namespace Project_ver1.UI
         {
             try
             {
-                dtBienLai = new DataTable();
-                dtBienLai.Clear();
-                dtBienLai = dbbl.LayBienLai().Tables[0];
-                dgvBienLai.DataSource = dtBienLai;
+                dgvBienLai.DataSource = dbbl.LayBienLai();
 
                 HD = dgvBienLai.Rows[0].Cells[0].Value.ToString().ToLower();
                 LabelSoBienLai.Text = (dgvBienLai.RowCount - 1).ToString();
@@ -53,8 +50,6 @@ namespace Project_ver1.UI
 
         private void BienLaiUI_FormClosing(object sender, FormClosingEventArgs e)
         {
-            dtBienLai.Dispose();
-            dtBienLai = null;
         }
 
         private void ReadButton_Click(object sender, EventArgs e)
@@ -91,24 +86,9 @@ namespace Project_ver1.UI
             try
             {
 
-                if (tick.Checked == true)
-                {
-                    DateTime a = DateTime.Parse(Ngay.Text);
-                    if (a.Month < 10)
-                        date = a.Year + "-0" + a.Month + "-" + a.Day;
-                    else
-                        date = a.Year + "-" + a.Month + "-" + a.Day;
-                }
-                else
-                {
-                    date = null;
-                }
+                NCC = txtMNCC.Text;
                 hd = MBL.Text;
-                dtBienLai = new DataTable();
-                dtBienLai.Clear();
-
-                dtBienLai = dbbl.TimBienLai(hd, date).Tables[0];
-                dgvBienLai.DataSource = dtBienLai;
+                dgvBienLai.DataSource = dbbl.TimBienLai(hd, NCC);
                 int r = dgvBienLai.RowCount;
                 if (r > 1)
                 {
@@ -125,28 +105,6 @@ namespace Project_ver1.UI
         private void ReloadButton_Click(object sender, EventArgs e)
         {
             LoadData();
-        }
-        private void Delete_Click(object sender, EventArgs e)
-        {
-            string err = "";
-            try
-            {
-                int r = dgvBienLai.CurrentCell.RowIndex;
-                MessageBox.Show(dgvBienLai.Rows[r].Cells[0].Value.ToString());
-                bool f = dbbl.XoaBienLai(ref err, dgvBienLai.Rows[r].Cells[0].Value.ToString());
-                if (f)
-                {
-                    MessageBox.Show("Đã xóa xong!");
-                }
-                else
-                {
-                    MessageBox.Show("Đã xóa chưa xong!\n\r" + "Lỗi:" + err);
-                }
-            }
-            catch (SqlException ex)
-            {
-                MessageBox.Show("Không thể truy cập!!!\n\nLỗi: " + ex.Message);
-            }
         }
         #endregion
     }

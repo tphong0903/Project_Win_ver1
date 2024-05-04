@@ -28,19 +28,14 @@ namespace Project_ver1.UI.Detail
         {
             try
             {
-                DataTable dtsp = new DataTable();
-                dtsp.Clear();
-                dtsp = dbbl.SPCuaBienLai(ID).Tables[0];
-                dgvSanPham.DataSource = dtsp;
 
-                DataTable dt = new DataTable();
-                dt.Clear();
-                dt = dbbl.TimBienLai(ID, "").Tables[0];
-                textBoxMaBienLai.Text = dt.Rows[0].Field<string>(0);
-                textBoxMaNhaCungCap.Text = dt.Rows[0].Field<string>(3);
-                textBoxTenNhaCungCap.Text = dt.Rows[0].Field<string>(4);
-                dateTimePickerNgayThanhToan.Text = dt.Rows[0].Field<DateTime>(1).ToString();
-                textBoxThanhTien.Text = dt.Rows[0].Field<int>(2).ToString();
+                dgvSanPham.DataSource = dbbl.SPCuaBienLai(ID);
+                dgv.DataSource = dbbl.TimBienLai(ID, "");
+                textBoxMaBienLai.Text = dgv.Rows[0].Cells[0].Value.ToString();
+                textBoxMaNhaCungCap.Text = dgv.Rows[0].Cells[3].Value.ToString();
+                textBoxTenNhaCungCap.Text = dgv.Rows[0].Cells[4].Value.ToString();
+                dateTimePickerNgayThanhToan.Text = dgv.Rows[0].Cells[1].Value.ToString();
+                textBoxThanhTien.Text = dgv.Rows[0].Cells[2].Value.ToString();
             }
             catch (SqlException ex)
             {

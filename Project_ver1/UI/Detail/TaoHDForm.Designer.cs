@@ -33,12 +33,12 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaoHDForm));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaoHDForm));
             this.gunaLabel6 = new Guna.UI.WinForms.GunaLabel();
             this.gunaLabel5 = new Guna.UI.WinForms.GunaLabel();
             this.gunaLabel4 = new Guna.UI.WinForms.GunaLabel();
@@ -55,11 +55,6 @@
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Gia = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SL = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvSPMua = new Guna.UI.WinForms.GunaDataGridView();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ReloadButton = new Guna.UI.WinForms.GunaButton();
             this.DeleBtn = new Guna.UI.WinForms.GunaButton();
             this.gunaLabel3 = new Guna.UI.WinForms.GunaLabel();
@@ -70,7 +65,14 @@
             this.SLmua = new Guna.UI2.WinForms.Guna2TextBox();
             this.gunaLabel10 = new Guna.UI.WinForms.GunaLabel();
             this.txtGiamGia = new Guna.UI2.WinForms.Guna2TextBox();
+            this.dgv = new System.Windows.Forms.DataGridView();
+            this.dgvSPMua = new Guna.UI.WinForms.GunaDataGridView();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSanPham)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSPMua)).BeginInit();
             this.SuspendLayout();
             // 
@@ -78,7 +80,8 @@
             // 
             this.gunaLabel6.AutoSize = true;
             this.gunaLabel6.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.gunaLabel6.Location = new System.Drawing.Point(687, 112);
+            this.gunaLabel6.Location = new System.Drawing.Point(515, 91);
+            this.gunaLabel6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.gunaLabel6.Name = "gunaLabel6";
             this.gunaLabel6.Size = new System.Drawing.Size(81, 16);
             this.gunaLabel6.TabIndex = 35;
@@ -88,7 +91,8 @@
             // 
             this.gunaLabel5.AutoSize = true;
             this.gunaLabel5.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.gunaLabel5.Location = new System.Drawing.Point(363, 112);
+            this.gunaLabel5.Location = new System.Drawing.Point(272, 91);
+            this.gunaLabel5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.gunaLabel5.Name = "gunaLabel5";
             this.gunaLabel5.Size = new System.Drawing.Size(67, 16);
             this.gunaLabel5.TabIndex = 34;
@@ -98,7 +102,8 @@
             // 
             this.gunaLabel4.AutoSize = true;
             this.gunaLabel4.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.gunaLabel4.Location = new System.Drawing.Point(685, 48);
+            this.gunaLabel4.Location = new System.Drawing.Point(514, 39);
+            this.gunaLabel4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.gunaLabel4.Name = "gunaLabel4";
             this.gunaLabel4.Size = new System.Drawing.Size(101, 16);
             this.gunaLabel4.TabIndex = 33;
@@ -108,7 +113,8 @@
             // 
             this.gunaLabel2.AutoSize = true;
             this.gunaLabel2.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.gunaLabel2.Location = new System.Drawing.Point(361, 48);
+            this.gunaLabel2.Location = new System.Drawing.Point(271, 39);
+            this.gunaLabel2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.gunaLabel2.Name = "gunaLabel2";
             this.gunaLabel2.Size = new System.Drawing.Size(99, 16);
             this.gunaLabel2.TabIndex = 31;
@@ -130,21 +136,22 @@
             this.txtSDT.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.txtSDT.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtSDT.HoverState.Parent = this.txtSDT;
-            this.txtSDT.Location = new System.Drawing.Point(340, 62);
-            this.txtSDT.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.txtSDT.Location = new System.Drawing.Point(255, 50);
+            this.txtSDT.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.txtSDT.Name = "txtSDT";
             this.txtSDT.PasswordChar = '\0';
             this.txtSDT.PlaceholderText = "";
             this.txtSDT.SelectedText = "";
             this.txtSDT.ShadowDecoration.Parent = this.txtSDT;
-            this.txtSDT.Size = new System.Drawing.Size(317, 44);
+            this.txtSDT.Size = new System.Drawing.Size(238, 36);
             this.txtSDT.TabIndex = 37;
             // 
             // gunaLabel1
             // 
             this.gunaLabel1.AutoSize = true;
             this.gunaLabel1.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.gunaLabel1.Location = new System.Drawing.Point(36, 49);
+            this.gunaLabel1.Location = new System.Drawing.Point(27, 40);
+            this.gunaLabel1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.gunaLabel1.Name = "gunaLabel1";
             this.gunaLabel1.Size = new System.Drawing.Size(90, 16);
             this.gunaLabel1.TabIndex = 30;
@@ -165,15 +172,15 @@
             this.txtTongTien.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.txtTongTien.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTongTien.HoverState.Parent = this.txtTongTien;
-            this.txtTongTien.Location = new System.Drawing.Point(667, 126);
-            this.txtTongTien.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.txtTongTien.Location = new System.Drawing.Point(500, 102);
+            this.txtTongTien.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.txtTongTien.Name = "txtTongTien";
             this.txtTongTien.PasswordChar = '\0';
             this.txtTongTien.PlaceholderText = "";
             this.txtTongTien.SelectedText = "";
             this.txtTongTien.SelectionStart = 1;
             this.txtTongTien.ShadowDecoration.Parent = this.txtTongTien;
-            this.txtTongTien.Size = new System.Drawing.Size(317, 44);
+            this.txtTongTien.Size = new System.Drawing.Size(238, 36);
             this.txtTongTien.TabIndex = 41;
             // 
             // txtMaNV
@@ -191,14 +198,14 @@
             this.txtMaNV.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.txtMaNV.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtMaNV.HoverState.Parent = this.txtMaNV;
-            this.txtMaNV.Location = new System.Drawing.Point(665, 62);
-            this.txtMaNV.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.txtMaNV.Location = new System.Drawing.Point(499, 50);
+            this.txtMaNV.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.txtMaNV.Name = "txtMaNV";
             this.txtMaNV.PasswordChar = '\0';
             this.txtMaNV.PlaceholderText = "";
             this.txtMaNV.SelectedText = "";
             this.txtMaNV.ShadowDecoration.Parent = this.txtMaNV;
-            this.txtMaNV.Size = new System.Drawing.Size(317, 44);
+            this.txtMaNV.Size = new System.Drawing.Size(238, 36);
             this.txtMaNV.TabIndex = 39;
             // 
             // txtMaHD
@@ -216,21 +223,22 @@
             this.txtMaHD.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.txtMaHD.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtMaHD.HoverState.Parent = this.txtMaHD;
-            this.txtMaHD.Location = new System.Drawing.Point(15, 62);
-            this.txtMaHD.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.txtMaHD.Location = new System.Drawing.Point(11, 50);
+            this.txtMaHD.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.txtMaHD.Name = "txtMaHD";
             this.txtMaHD.PasswordChar = '\0';
             this.txtMaHD.PlaceholderText = "";
             this.txtMaHD.SelectedText = "";
             this.txtMaHD.ShadowDecoration.Parent = this.txtMaHD;
-            this.txtMaHD.Size = new System.Drawing.Size(317, 44);
+            this.txtMaHD.Size = new System.Drawing.Size(238, 36);
             this.txtMaHD.TabIndex = 36;
             // 
             // gunaLabel9
             // 
             this.gunaLabel9.AutoSize = true;
             this.gunaLabel9.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.gunaLabel9.Location = new System.Drawing.Point(36, 112);
+            this.gunaLabel9.Location = new System.Drawing.Point(27, 91);
+            this.gunaLabel9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.gunaLabel9.Name = "gunaLabel9";
             this.gunaLabel9.Size = new System.Drawing.Size(120, 16);
             this.gunaLabel9.TabIndex = 46;
@@ -246,13 +254,13 @@
             this.txtDate.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.txtDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.txtDate.HoverState.Parent = this.txtDate;
-            this.txtDate.Location = new System.Drawing.Point(13, 126);
-            this.txtDate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtDate.Location = new System.Drawing.Point(10, 102);
+            this.txtDate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtDate.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
             this.txtDate.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.txtDate.Name = "txtDate";
             this.txtDate.ShadowDecoration.Parent = this.txtDate;
-            this.txtDate.Size = new System.Drawing.Size(317, 44);
+            this.txtDate.Size = new System.Drawing.Size(238, 36);
             this.txtDate.TabIndex = 47;
             this.txtDate.Value = new System.DateTime(2024, 4, 24, 0, 0, 0, 0);
             // 
@@ -290,8 +298,8 @@
             this.dgvSanPham.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvSanPham.EnableHeadersVisualStyles = false;
             this.dgvSanPham.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(245)))), ((int)(((byte)(247)))));
-            this.dgvSanPham.Location = new System.Drawing.Point(13, 242);
-            this.dgvSanPham.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dgvSanPham.Location = new System.Drawing.Point(10, 197);
+            this.dgvSanPham.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgvSanPham.MultiSelect = false;
             this.dgvSanPham.Name = "dgvSanPham";
             this.dgvSanPham.ReadOnly = true;
@@ -309,7 +317,7 @@
             this.dgvSanPham.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvSanPham.RowTemplate.Height = 24;
             this.dgvSanPham.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSanPham.Size = new System.Drawing.Size(471, 311);
+            this.dgvSanPham.Size = new System.Drawing.Size(353, 253);
             this.dgvSanPham.TabIndex = 48;
             this.dgvSanPham.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Light;
             this.dgvSanPham.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(248)))), ((int)(((byte)(249)))));
@@ -370,120 +378,6 @@
             this.SL.ReadOnly = true;
             this.SL.Width = 106;
             // 
-            // dgvSPMua
-            // 
-            this.dgvSPMua.AllowUserToResizeRows = false;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(248)))), ((int)(((byte)(249)))));
-            this.dgvSPMua.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
-            this.dgvSPMua.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            this.dgvSPMua.BackgroundColor = System.Drawing.Color.White;
-            this.dgvSPMua.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvSPMua.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dgvSPMua.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(215)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.LemonChiffon;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvSPMua.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
-            this.dgvSPMua.ColumnHeadersHeight = 29;
-            this.dgvSPMua.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn6,
-            this.dataGridViewTextBoxColumn7});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvSPMua.DefaultCellStyle = dataGridViewCellStyle8;
-            this.dgvSPMua.EnableHeadersVisualStyles = false;
-            this.dgvSPMua.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(245)))), ((int)(((byte)(247)))));
-            this.dgvSPMua.Location = new System.Drawing.Point(541, 242);
-            this.dgvSPMua.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dgvSPMua.MultiSelect = false;
-            this.dgvSPMua.Name = "dgvSPMua";
-            this.dgvSPMua.ReadOnly = true;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvSPMua.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
-            this.dgvSPMua.RowHeadersVisible = false;
-            this.dgvSPMua.RowHeadersWidth = 51;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.LightGray;
-            this.dgvSPMua.RowsDefaultCellStyle = dataGridViewCellStyle10;
-            this.dgvSPMua.RowTemplate.Height = 24;
-            this.dgvSPMua.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSPMua.Size = new System.Drawing.Size(441, 311);
-            this.dgvSPMua.TabIndex = 49;
-            this.dgvSPMua.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Light;
-            this.dgvSPMua.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(248)))), ((int)(((byte)(249)))));
-            this.dgvSPMua.ThemeStyle.AlternatingRowsStyle.Font = null;
-            this.dgvSPMua.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
-            this.dgvSPMua.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
-            this.dgvSPMua.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
-            this.dgvSPMua.ThemeStyle.BackColor = System.Drawing.Color.White;
-            this.dgvSPMua.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(245)))), ((int)(((byte)(247)))));
-            this.dgvSPMua.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(215)))), ((int)(((byte)(179)))));
-            this.dgvSPMua.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            this.dgvSPMua.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.dgvSPMua.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.Black;
-            this.dgvSPMua.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.dgvSPMua.ThemeStyle.HeaderStyle.Height = 29;
-            this.dgvSPMua.ThemeStyle.ReadOnly = true;
-            this.dgvSPMua.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
-            this.dgvSPMua.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dgvSPMua.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            this.dgvSPMua.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.Black;
-            this.dgvSPMua.ThemeStyle.RowsStyle.Height = 24;
-            this.dgvSPMua.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
-            this.dgvSPMua.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.Black;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "Product_ID";
-            this.dataGridViewTextBoxColumn4.HeaderText = "Mã sản phẩm";
-            this.dataGridViewTextBoxColumn4.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Width = 135;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "ProductName";
-            this.dataGridViewTextBoxColumn5.HeaderText = "Tên sản phẩm";
-            this.dataGridViewTextBoxColumn5.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.Width = 142;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "UnitPrice";
-            this.dataGridViewTextBoxColumn6.HeaderText = "Giá bán";
-            this.dataGridViewTextBoxColumn6.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            this.dataGridViewTextBoxColumn6.Width = 92;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "Quantity";
-            this.dataGridViewTextBoxColumn7.HeaderText = "Số Lượng";
-            this.dataGridViewTextBoxColumn7.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.ReadOnly = true;
-            this.dataGridViewTextBoxColumn7.Width = 112;
-            // 
             // ReloadButton
             // 
             this.ReloadButton.AnimationHoverSpeed = 0.07F;
@@ -498,8 +392,8 @@
             this.ReloadButton.Image = null;
             this.ReloadButton.ImageAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.ReloadButton.ImageSize = new System.Drawing.Size(20, 20);
-            this.ReloadButton.Location = new System.Drawing.Point(147, 560);
-            this.ReloadButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ReloadButton.Location = new System.Drawing.Point(110, 455);
+            this.ReloadButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ReloadButton.Name = "ReloadButton";
             this.ReloadButton.OnHoverBaseColor = System.Drawing.Color.LemonChiffon;
             this.ReloadButton.OnHoverBorderColor = System.Drawing.Color.Black;
@@ -507,7 +401,7 @@
             this.ReloadButton.OnHoverImage = null;
             this.ReloadButton.OnPressedColor = System.Drawing.Color.Black;
             this.ReloadButton.Radius = 15;
-            this.ReloadButton.Size = new System.Drawing.Size(107, 49);
+            this.ReloadButton.Size = new System.Drawing.Size(80, 40);
             this.ReloadButton.TabIndex = 109;
             this.ReloadButton.Text = "Thêm";
             this.ReloadButton.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -527,8 +421,8 @@
             this.DeleBtn.Image = null;
             this.DeleBtn.ImageAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.DeleBtn.ImageSize = new System.Drawing.Size(20, 20);
-            this.DeleBtn.Location = new System.Drawing.Point(715, 560);
-            this.DeleBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.DeleBtn.Location = new System.Drawing.Point(536, 455);
+            this.DeleBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.DeleBtn.Name = "DeleBtn";
             this.DeleBtn.OnHoverBaseColor = System.Drawing.Color.LemonChiffon;
             this.DeleBtn.OnHoverBorderColor = System.Drawing.Color.Black;
@@ -536,7 +430,7 @@
             this.DeleBtn.OnHoverImage = null;
             this.DeleBtn.OnPressedColor = System.Drawing.Color.Black;
             this.DeleBtn.Radius = 15;
-            this.DeleBtn.Size = new System.Drawing.Size(107, 49);
+            this.DeleBtn.Size = new System.Drawing.Size(80, 40);
             this.DeleBtn.TabIndex = 110;
             this.DeleBtn.Text = "Xóa";
             this.DeleBtn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -546,7 +440,8 @@
             // 
             this.gunaLabel3.AutoSize = true;
             this.gunaLabel3.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.gunaLabel3.Location = new System.Drawing.Point(709, 213);
+            this.gunaLabel3.Location = new System.Drawing.Point(532, 173);
+            this.gunaLabel3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.gunaLabel3.Name = "gunaLabel3";
             this.gunaLabel3.Size = new System.Drawing.Size(94, 22);
             this.gunaLabel3.TabIndex = 111;
@@ -574,14 +469,14 @@
             this.NameText.IconRight = ((System.Drawing.Image)(resources.GetObject("NameText.IconRight")));
             this.NameText.IconRightCursor = System.Windows.Forms.Cursors.Hand;
             this.NameText.IconRightSize = new System.Drawing.Size(30, 30);
-            this.NameText.Location = new System.Drawing.Point(13, 207);
-            this.NameText.Margin = new System.Windows.Forms.Padding(11, 10, 11, 10);
+            this.NameText.Location = new System.Drawing.Point(10, 168);
+            this.NameText.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
             this.NameText.Name = "NameText";
             this.NameText.PasswordChar = '\0';
             this.NameText.PlaceholderText = "";
             this.NameText.SelectedText = "";
             this.NameText.ShadowDecoration.Parent = this.NameText;
-            this.NameText.Size = new System.Drawing.Size(239, 33);
+            this.NameText.Size = new System.Drawing.Size(179, 27);
             this.NameText.TabIndex = 112;
             this.NameText.TextChanged += new System.EventHandler(this.FindButton_Click);
             // 
@@ -589,7 +484,8 @@
             // 
             this.gunaLabel7.AutoSize = true;
             this.gunaLabel7.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.gunaLabel7.Location = new System.Drawing.Point(36, 194);
+            this.gunaLabel7.Location = new System.Drawing.Point(27, 158);
+            this.gunaLabel7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.gunaLabel7.Name = "gunaLabel7";
             this.gunaLabel7.Size = new System.Drawing.Size(103, 16);
             this.gunaLabel7.TabIndex = 113;
@@ -609,8 +505,8 @@
             this.SaveBtn.Image = null;
             this.SaveBtn.ImageAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.SaveBtn.ImageSize = new System.Drawing.Size(20, 20);
-            this.SaveBtn.Location = new System.Drawing.Point(875, 645);
-            this.SaveBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.SaveBtn.Location = new System.Drawing.Point(656, 524);
+            this.SaveBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.SaveBtn.Name = "SaveBtn";
             this.SaveBtn.OnHoverBaseColor = System.Drawing.Color.LemonChiffon;
             this.SaveBtn.OnHoverBorderColor = System.Drawing.Color.Black;
@@ -618,7 +514,7 @@
             this.SaveBtn.OnHoverImage = null;
             this.SaveBtn.OnPressedColor = System.Drawing.Color.Black;
             this.SaveBtn.Radius = 15;
-            this.SaveBtn.Size = new System.Drawing.Size(107, 49);
+            this.SaveBtn.Size = new System.Drawing.Size(80, 40);
             this.SaveBtn.TabIndex = 114;
             this.SaveBtn.Text = "Lưu";
             this.SaveBtn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -628,7 +524,8 @@
             // 
             this.gunaLabel8.AutoSize = true;
             this.gunaLabel8.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.gunaLabel8.Location = new System.Drawing.Point(276, 194);
+            this.gunaLabel8.Location = new System.Drawing.Point(207, 158);
+            this.gunaLabel8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.gunaLabel8.Name = "gunaLabel8";
             this.gunaLabel8.Size = new System.Drawing.Size(71, 16);
             this.gunaLabel8.TabIndex = 115;
@@ -649,21 +546,22 @@
             this.SLmua.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.SLmua.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.SLmua.HoverState.Parent = this.SLmua;
-            this.SLmua.Location = new System.Drawing.Point(263, 207);
-            this.SLmua.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.SLmua.Location = new System.Drawing.Point(197, 168);
+            this.SLmua.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.SLmua.Name = "SLmua";
             this.SLmua.PasswordChar = '\0';
             this.SLmua.PlaceholderText = "";
             this.SLmua.SelectedText = "";
             this.SLmua.ShadowDecoration.Parent = this.SLmua;
-            this.SLmua.Size = new System.Drawing.Size(221, 33);
+            this.SLmua.Size = new System.Drawing.Size(166, 27);
             this.SLmua.TabIndex = 116;
             // 
             // gunaLabel10
             // 
             this.gunaLabel10.AutoSize = true;
             this.gunaLabel10.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.gunaLabel10.Location = new System.Drawing.Point(420, 9);
+            this.gunaLabel10.Location = new System.Drawing.Point(315, 7);
+            this.gunaLabel10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.gunaLabel10.Name = "gunaLabel10";
             this.gunaLabel10.Size = new System.Drawing.Size(129, 22);
             this.gunaLabel10.TabIndex = 130;
@@ -684,22 +582,147 @@
             this.txtGiamGia.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.txtGiamGia.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtGiamGia.HoverState.Parent = this.txtGiamGia;
-            this.txtGiamGia.Location = new System.Drawing.Point(341, 126);
-            this.txtGiamGia.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.txtGiamGia.Location = new System.Drawing.Point(256, 102);
+            this.txtGiamGia.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.txtGiamGia.Name = "txtGiamGia";
             this.txtGiamGia.PasswordChar = '\0';
             this.txtGiamGia.PlaceholderText = "";
             this.txtGiamGia.SelectedText = "";
             this.txtGiamGia.ShadowDecoration.Parent = this.txtGiamGia;
-            this.txtGiamGia.Size = new System.Drawing.Size(317, 44);
+            this.txtGiamGia.Size = new System.Drawing.Size(238, 36);
             this.txtGiamGia.TabIndex = 40;
+            // 
+            // dgv
+            // 
+            this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv.Location = new System.Drawing.Point(10, 7);
+            this.dgv.Name = "dgv";
+            this.dgv.Size = new System.Drawing.Size(30, 26);
+            this.dgv.TabIndex = 131;
+            this.dgv.Visible = false;
+            // 
+            // dgvSPMua
+            // 
+            this.dgvSPMua.AllowUserToResizeRows = false;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(248)))), ((int)(((byte)(249)))));
+            this.dgvSPMua.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvSPMua.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dgvSPMua.BackgroundColor = System.Drawing.Color.White;
+            this.dgvSPMua.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvSPMua.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvSPMua.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(215)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.LemonChiffon;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvSPMua.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            this.dgvSPMua.ColumnHeadersHeight = 29;
+            this.dgvSPMua.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4,
+            this.dataGridViewTextBoxColumn5,
+            this.dataGridViewTextBoxColumn6});
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvSPMua.DefaultCellStyle = dataGridViewCellStyle8;
+            this.dgvSPMua.EnableHeadersVisualStyles = false;
+            this.dgvSPMua.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(245)))), ((int)(((byte)(247)))));
+            this.dgvSPMua.Location = new System.Drawing.Point(385, 197);
+            this.dgvSPMua.Margin = new System.Windows.Forms.Padding(2);
+            this.dgvSPMua.MultiSelect = false;
+            this.dgvSPMua.Name = "dgvSPMua";
+            this.dgvSPMua.ReadOnly = true;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvSPMua.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            this.dgvSPMua.RowHeadersVisible = false;
+            this.dgvSPMua.RowHeadersWidth = 51;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.LightGray;
+            this.dgvSPMua.RowsDefaultCellStyle = dataGridViewCellStyle10;
+            this.dgvSPMua.RowTemplate.Height = 24;
+            this.dgvSPMua.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvSPMua.Size = new System.Drawing.Size(353, 253);
+            this.dgvSPMua.TabIndex = 132;
+            this.dgvSPMua.Theme = Guna.UI.WinForms.GunaDataGridViewPresetThemes.Light;
+            this.dgvSPMua.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(248)))), ((int)(((byte)(249)))));
+            this.dgvSPMua.ThemeStyle.AlternatingRowsStyle.Font = null;
+            this.dgvSPMua.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
+            this.dgvSPMua.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
+            this.dgvSPMua.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
+            this.dgvSPMua.ThemeStyle.BackColor = System.Drawing.Color.White;
+            this.dgvSPMua.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(245)))), ((int)(((byte)(247)))));
+            this.dgvSPMua.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(215)))), ((int)(((byte)(179)))));
+            this.dgvSPMua.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
+            this.dgvSPMua.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.dgvSPMua.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.Black;
+            this.dgvSPMua.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.dgvSPMua.ThemeStyle.HeaderStyle.Height = 29;
+            this.dgvSPMua.ThemeStyle.ReadOnly = true;
+            this.dgvSPMua.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
+            this.dgvSPMua.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvSPMua.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            this.dgvSPMua.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.Black;
+            this.dgvSPMua.ThemeStyle.RowsStyle.Height = 24;
+            this.dgvSPMua.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
+            this.dgvSPMua.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.Black;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "Product_ID";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Mã sản phẩm";
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Width = 135;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "ProductName";
+            this.dataGridViewTextBoxColumn4.HeaderText = "Tên sản phẩm";
+            this.dataGridViewTextBoxColumn4.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Width = 142;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "UnitPrice";
+            this.dataGridViewTextBoxColumn5.HeaderText = "Giá bán";
+            this.dataGridViewTextBoxColumn5.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.Width = 92;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "Quantity";
+            this.dataGridViewTextBoxColumn6.HeaderText = "Số lượng";
+            this.dataGridViewTextBoxColumn6.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            this.dataGridViewTextBoxColumn6.Width = 106;
             // 
             // TaoHDForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(995, 708);
+            this.ClientSize = new System.Drawing.Size(746, 575);
+            this.Controls.Add(this.dgvSPMua);
+            this.Controls.Add(this.dgv);
             this.Controls.Add(this.gunaLabel10);
             this.Controls.Add(this.gunaLabel8);
             this.Controls.Add(this.SLmua);
@@ -709,7 +732,6 @@
             this.Controls.Add(this.gunaLabel3);
             this.Controls.Add(this.DeleBtn);
             this.Controls.Add(this.ReloadButton);
-            this.Controls.Add(this.dgvSPMua);
             this.Controls.Add(this.dgvSanPham);
             this.Controls.Add(this.gunaLabel9);
             this.Controls.Add(this.txtDate);
@@ -725,13 +747,14 @@
             this.Controls.Add(this.txtMaHD);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "TaoHDForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TaoHDForm";
             this.Load += new System.EventHandler(this.TaoHDForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvSanPham)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSPMua)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -751,11 +774,6 @@
         private Guna.UI2.WinForms.Guna2TextBox txtMaHD;
         private Guna.UI.WinForms.GunaLabel gunaLabel9;
         private Guna.UI.WinForms.GunaDataGridView dgvSanPham;
-        private Guna.UI.WinForms.GunaDataGridView dgvSPMua;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private Guna.UI.WinForms.GunaButton ReloadButton;
         private Guna.UI.WinForms.GunaButton DeleBtn;
         private Guna.UI.WinForms.GunaLabel gunaLabel3;
@@ -771,5 +789,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Gia;
         private System.Windows.Forms.DataGridViewTextBoxColumn SL;
         private Guna.UI2.WinForms.Guna2TextBox txtGiamGia;
+        private System.Windows.Forms.DataGridView dgv;
+        private Guna.UI.WinForms.GunaDataGridView dgvSPMua;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
     }
 }

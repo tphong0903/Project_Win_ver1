@@ -7,6 +7,9 @@ using System.Data.SqlClient;
 using System.Data;
 //
 using DataAccessLayer;
+using System.Data.Entity;
+using DataAccessLayer.Entities;
+using System.Runtime.Remoting.Contexts;
 
 namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
 {
@@ -16,77 +19,199 @@ namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
         public DBHoaDon() // Constructor for the DBHoaDon class
         {
             db = new DAL(); // Initializing the db instance with a new instance of the DAL class
+            using(var context = new QLCuaHang())
+            {
+                var ordersWithDetails = context.Orders.Include(o => o.OrderDetails).ToList();
+                foreach (var order in ordersWithDetails)
+                {
+                    order.Total = order.OrderDetails.Sum(d => d.Quantity * d.Product.UnitPrice);
+
+                }
+                context.SaveChanges();
+            }
         }
 
         // Method to retrieve bills
-        public DataSet LayHoaDon()
+        public List<dynamic> LayHoaDon()
         {
-            return db.ExecuteQueryDataSet( // Returning the result of the ExecuteQueryDataSet method of the DAL class
-                "select * from BILLS_VIEW", CommandType.Text, null); // SQL query to select all data from the BILLS_VIEW view
+            using (var context = new QLCuaHang())
+            {
+                var query = from order in context.Orders
+                            .Include(o => o.Employee)
+                            .Include(o => o.Customer)
+                            .Include(o => o.Discount)
+                            select new
+                            {
+                                order.Order_ID,
+                                order.Customer.NameCustomer,
+                                order.Employee.NameEmployee,
+                                order.OrderDate,
+                                order.Total,
+                                order.Discount.PercentageDiscount,
+                                order.PhoneNumber,
+                                DiscountCode = order.Discount != null ? order.Discount.DiscountCode : "",
+                                order.EmployeeID
+                            };
+                
+                return query.ToList<dynamic>();
+            }
         }
-        public DataSet LayGiamGia(string s)
+        public int LayGiamGia(string discountCode)
         {
-            return db.ExecuteQueryDataSet( // Returning the result of the ExecuteQueryDataSet method of the DAL class
-                "select * from Discounts where DiscountCode = '"+s+"'", CommandType.Text, null); // SQL query to select all data from the BILLS_VIEW view
+            using (var context = new QLCuaHang())
+            {
+                var discounts = context.Discounts.Where(d => d.DiscountCode == discountCode).Select(p => p.PercentageDiscount).FirstOrDefault();
+
+                return discounts;
+            }
         }
-        // Method to search for bills by ID and date
-        public DataSet TimHoaDon(string HD, string date)
+        public List<dynamic> TimHoaDon(string HD, string MKH)
         {
-            return db.ExecuteQueryDataSet( // Returning the result of the ExecuteQueryDataSet method of the DAL class
-                "select * from Find_Order('" + HD + "','" + date + "')", CommandType.Text, null); // SQL query to search for a bill using the Find_Order stored procedure with parameters HD and date
+            using (var context = new QLCuaHang())
+            {
+                
+                var query = from order in context.Orders
+                            .Include(o => o.Employee)
+                            .Include(o => o.Customer)
+                            .Include(o => o.Discount)
+                            where order.Order_ID.ToLower().Contains(HD) && order.PhoneNumber.Contains(MKH)
+                            select new
+                            {
+                                order.Order_ID,
+                                order.Customer.NameCustomer,
+                                order.Employee.NameEmployee,
+                                order.OrderDate,
+                                order.Total,
+                                order.Discount.PercentageDiscount,
+                                order.PhoneNumber,
+                                DiscountCode = order.Discount != null ? order.Discount.DiscountCode : "",
+                                order.EmployeeID
+                            };
+                return query.ToList<dynamic>();
+            }
         }
 
         // Method to retrieve products associated with a bill
-        public DataSet SPCuaHoaDon(string HD)
+        public List<dynamic> SPCuaHoaDon(string HD)
         {
-            return db.ExecuteQueryDataSet( // Returning the result of the ExecuteQueryDataSet method of the DAL class
-                "select * from ProductOfOrder('" + HD + "')", CommandType.Text, null); // SQL query to select products associated with a bill using the ProductOfOrder stored procedure with parameter HD
+            using (var context = new QLCuaHang())
+            {
+
+                var query = (from order in context.OrderDetails.Include(o=>o.Product)
+                            where order.Order_ID.ToLower().Contains(HD)
+                            select new
+                            {
+                                order.Product_ID,
+                                order.Product.ProductName,
+                                order.Quantity,
+                            });
+                return query.ToList<dynamic>();
+            }
         }
 
         // Method to add a new bill
-        public bool ThemHoaDon(ref string err, string order_ID, string sdt, string nv,
-             DateTime orderdate, int Total, string magiam)
+        public bool ThemHoaDon(ref string err, string order_ID, string sdt, string nv,DateTime orderdate, int Total, string magiam)
         {
-            return db.MyExecuteNonQuery("spInsertOrder", // Returning the result of the MyExecuteNonQuery method of the DAL class
-                CommandType.StoredProcedure, ref err, // Calling the spInsertOrder stored procedure to add a new bill
-                new SqlParameter("@Order_ID", order_ID), // Passing the parameters to the stored procedure
-                new SqlParameter("@PhoneNumber", sdt),
-                new SqlParameter("@EmployeeID", nv),
-                new SqlParameter("@OrderDate", orderdate),
-                new SqlParameter("@Total", Total),
-                new SqlParameter("@DiscountCode", magiam));
+            using (var context = new QLCuaHang())
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        if (string.IsNullOrEmpty(sdt))
+                        {
+                            throw new ArgumentException("Vui lòng nhập chính xác, đầy đủ thông tin");
+                        }
+
+                        var order = new Order
+                        {
+                            Order_ID = order_ID,
+                            PhoneNumber = sdt,
+                            EmployeeID = nv,
+                            OrderDate = orderdate,
+                            Total = Total,
+                            DiscountCode = string.IsNullOrEmpty(magiam) ? null : magiam
+                        };
+
+                        context.Orders.Add(order);
+                        context.SaveChanges();
+                        transaction.Commit();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        err = "Lỗi: " + ex.Message;
+                        return false;
+                    }
+                }
+            }
         }
 
-        // Method to update a bill
-        public bool CapNhatHoaDon(ref string err, string order_ID, string sdt, string nv,
-             DateTime orderdate, int Total, string magiam)
+        public bool ThemChiTietHoaDon(ref string err, string Order_ID, string Product_ID,int Quantity)
         {
-            return db.MyExecuteNonQuery("spUpdateOrder", // Returning the result of the MyExecuteNonQuery method of the DAL class
-                CommandType.StoredProcedure, ref err, // Calling the spUpdateOrder stored procedure to update a bill
-                new SqlParameter("@Order_ID", order_ID), // Passing the parameters to the stored procedure
-                new SqlParameter("@PhoneNumber", sdt),
-                new SqlParameter("@EmployeeID", nv),
-                new SqlParameter("@OrderDate", orderdate),
-                new SqlParameter("@Total", Total),
-                new SqlParameter("@DiscountCode", magiam));
-        }
+            using (var context = new QLCuaHang())
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        if (string.IsNullOrEmpty(Product_ID))
+                        {
+                            throw new ArgumentException("Vui lòng nhập chính xác, đầy đủ thông tin");
+                        }
 
-        // Method to add details of a bill
-        public bool ThemChiTietHoaDon(ref string err, string Order_ID, string Product_ID,
-            int Quantity)
-        {
-            return db.MyExecuteNonQuery("spInsertOrderDetail", // Returning the result of the MyExecuteNonQuery method of the DAL class
-                CommandType.StoredProcedure, ref err, // Calling the spInsertOrderDetail stored procedure to add details of a bill
-                new SqlParameter("@Order_ID", Order_ID), // Passing the parameters to the stored procedure
-                new SqlParameter("@Product_ID", Product_ID),
-                new SqlParameter("@Quantity", Quantity));
+                        var orderDetail = new OrderDetail
+                        {
+                            Order_ID = Order_ID,
+                            Product_ID = Product_ID,
+                            Quantity = Quantity
+                        };
+
+                        context.OrderDetails.Add(orderDetail);
+                        context.SaveChanges();
+
+                        transaction.Commit();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        err = "Lỗi: " + ex.Message;
+                        return false;
+                    }
+                }
+            }
         }
         public bool XoaHoaDon(ref string err, string Order_ID)
         {
-            Console.WriteLine(Order_ID);
-            return db.MyExecuteNonQuery("spDeleteOrder", // Returning the result of the MyExecuteNonQuery method of the DAL class
-                CommandType.StoredProcedure, ref err, // Calling the spInsertOrderDetail stored procedure to add details of a bill
-                new SqlParameter("@Order_ID", Order_ID));
+            using (var context = new QLCuaHang())
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var order = context.Orders.FirstOrDefault(o => o.Order_ID == Order_ID);
+                        if (order == null)
+                        {
+                            err = "Không tìm thấy đơn hàng có ID " + Order_ID;
+                            return false;
+                        }
+
+                        context.Orders.Remove(order);
+                        context.SaveChanges();
+
+                        transaction.Commit();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        err = "Lỗi: " + ex.Message;
+                        return false;
+                    }
+                }
+            }
         }
     }
 }
