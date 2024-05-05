@@ -72,6 +72,7 @@ namespace Project_ver1.UI
         private void dgvKhachHang_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int r = dgvHoaDon.CurrentCell.RowIndex;
+            
             HD = dgvHoaDon.Rows[r].Cells[0].Value.ToString().ToLower();
             MaHD.Text = dgvHoaDon.Rows[r].Cells[0].Value.ToString();
             TenKhachHang.Text = dgvHoaDon.Rows[r].Cells[1].Value.ToString();
@@ -80,7 +81,7 @@ namespace Project_ver1.UI
             string a = (string.IsNullOrEmpty(dgvHoaDon.Rows[r].Cells[4].Value.ToString()) ? "0" : dgvHoaDon.Rows[r].Cells[4].Value.ToString());
             decimal value = Convert.ToDecimal(a);
             Total.Text = value.ToString("N0");
-            ChietKhau.Text = dgvHoaDon.Rows[r].Cells[5].Value.ToString()+"%";
+            ChietKhau.Text = dgvHoaDon.Rows[r].Cells[5].Value.ToString() + "%";
         }
         private void FindButton_Click(object sender, EventArgs e)
         {

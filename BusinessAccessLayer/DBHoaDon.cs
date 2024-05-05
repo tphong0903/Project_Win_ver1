@@ -47,9 +47,9 @@ namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
                                 order.Employee.NameEmployee,
                                 order.OrderDate,
                                 order.Total,
-                                order.Discount.PercentageDiscount,
+                                PercentageDiscount = order.Discount.DiscountCode != null ? order.Discount.PercentageDiscount : 0,
                                 order.PhoneNumber,
-                                DiscountCode = order.Discount != null ? order.Discount.DiscountCode : "",
+                                DiscountCode = order.Discount.DiscountCode != null ? order.Discount.DiscountCode : "",
                                 order.EmployeeID
                             };
                 

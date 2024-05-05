@@ -366,14 +366,6 @@ namespace DataAccessLayer
                 { "Áo bóng đá Nike không logo Đen", 30 },
                 { "Áo bóng đá Nike không logo Trắng", 31 }
             };
-
-            foreach (var update in updates)
-            {
-                context.Products.Where(p => p.ProductName.Contains(update.Key))
-                                   .ToList()
-                                   .ForEach(p => p.Picture_ID = update.Value);
-            }
-
             context.SaveChanges();
         }
     }
