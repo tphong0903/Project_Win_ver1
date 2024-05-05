@@ -14,10 +14,10 @@ namespace BusinessAccessLayer
 {
     public class DBKhachHang
     {
-        DAL db = null; // Declaring an instance of the DAL class
+        
         public DBKhachHang()
         {
-            db = new DAL(); // Initializing the instance of the DAL class
+            
         }
         public List<dynamic> LayKhachHang()
         {

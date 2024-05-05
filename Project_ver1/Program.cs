@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using BusinessAccessLayer;
 namespace Project_ver1
 {
     internal static class Program
@@ -20,6 +20,7 @@ namespace Project_ver1
                 SetProcessDPIAware();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Database db= new Database();
             Application.Run(new LoginForm());
         }
         // Fix sacle man hinh

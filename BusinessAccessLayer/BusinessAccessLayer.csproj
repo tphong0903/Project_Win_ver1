@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database.cs" />
     <Compile Include="DBBienLai.cs" />
     <Compile Include="DBHoaDon.cs" />
     <Compile Include="DBKhachHang.cs" />

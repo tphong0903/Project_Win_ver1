@@ -16,13 +16,11 @@ namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
 {
     public class DBSanPham // Declaring the DBSanPham class
     {
-        DAL db = null; // Declaring an instance of the DAL class and initializing it to null
 
         // Constructor for the DBSanPham class
         public DBSanPham()
         {
-            db = new DAL(); // Initializing the db instance with a new instance of the DAL class
-
+          
         }
         public List<dynamic> LoadSanPham()
         {

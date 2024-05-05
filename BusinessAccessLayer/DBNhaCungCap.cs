@@ -14,11 +14,10 @@ namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
 {
     public class DBNhaCungCap // Declaring the DBNhaCungCap class
     {
-        DAL db = null;
-
+     
         public DBNhaCungCap()
         {
-            db = new DAL();
+           
         }
         public List<dynamic> LayNhaCungCap()
         {

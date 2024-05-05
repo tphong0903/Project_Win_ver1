@@ -15,20 +15,10 @@ namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
 {
     public class DBHoaDon // Declaring the DBHoaDon class
     {
-        DAL db = null; // Declaring an instance of the DAL class and initializing it to null
+        
         public DBHoaDon() // Constructor for the DBHoaDon class
         {
-            db = new DAL(); // Initializing the db instance with a new instance of the DAL class
-            using(var context = new QLCuaHang())
-            {
-                var ordersWithDetails = context.Orders.Include(o => o.OrderDetails).ToList();
-                foreach (var order in ordersWithDetails)
-                {
-                    order.Total = order.OrderDetails.Sum(d => d.Quantity * d.Product.UnitPrice);
-
-                }
-                context.SaveChanges();
-            }
+            
         }
 
         // Method to retrieve bills
@@ -52,7 +42,7 @@ namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
                                 DiscountCode = order.Discount.DiscountCode != null ? order.Discount.DiscountCode : "",
                                 order.EmployeeID
                             };
-                
+
                 return query.ToList<dynamic>();
             }
         }
@@ -65,11 +55,29 @@ namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
                 return discounts;
             }
         }
+        public bool KiemTraNgayThangHopLe(string discountCode, DateTime orderdate)
+        {
+            using (var context = new QLCuaHang())
+            {
+                var discount = context.Discounts.FirstOrDefault(d => d.DiscountCode == discountCode);
+
+                if (discount != null)
+                {
+                    // Kiểm tra ngày bắt đầu và ngày kết thúc của mã giảm giá
+                    if (discount.StartDay <= orderdate && orderdate <= discount.EndDay)
+                    {
+                        return true; // Mã giảm giá hợp lệ về ngày tháng
+                    }
+                }
+
+                return false; // Mã giảm giá không hợp lệ về ngày tháng
+            }
+        }
         public List<dynamic> TimHoaDon(string HD, string MKH)
         {
             using (var context = new QLCuaHang())
             {
-                
+
                 var query = from order in context.Orders
                             .Include(o => o.Employee)
                             .Include(o => o.Customer)
@@ -82,9 +90,9 @@ namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
                                 order.Employee.NameEmployee,
                                 order.OrderDate,
                                 order.Total,
-                                order.Discount.PercentageDiscount,
+                                PercentageDiscount = order.Discount.DiscountCode != null ? order.Discount.PercentageDiscount : 0,
                                 order.PhoneNumber,
-                                DiscountCode = order.Discount != null ? order.Discount.DiscountCode : "",
+                                DiscountCode = order.Discount.DiscountCode != null ? order.Discount.DiscountCode : "",
                                 order.EmployeeID
                             };
                 return query.ToList<dynamic>();
@@ -97,90 +105,144 @@ namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
             using (var context = new QLCuaHang())
             {
 
-                var query = (from order in context.OrderDetails.Include(o=>o.Product)
-                            where order.Order_ID.ToLower().Contains(HD)
-                            select new
-                            {
-                                order.Product_ID,
-                                order.Product.ProductName,
-                                order.Quantity,
-                            });
+                var query = (from order in context.OrderDetails.Include(o => o.Product)
+                             where order.Order_ID.ToLower().Contains(HD)
+                             select new
+                             {
+                                 order.Product_ID,
+                                 order.Product.ProductName,
+                                 order.Quantity,
+                                 order.Product.UnitPrice,
+                             });
                 return query.ToList<dynamic>();
             }
         }
 
         // Method to add a new bill
-        public bool ThemHoaDon(ref string err, string order_ID, string sdt, string nv,DateTime orderdate, int Total, string magiam)
+        public bool ThemHoaDon(ref string err, string order_ID, string sdt, string nv, DateTime orderdate, int Total, string magiam)
         {
-            using (var context = new QLCuaHang())
+            try
             {
-                using (var transaction = context.Database.BeginTransaction())
+                if (string.IsNullOrEmpty(sdt))
                 {
-                    try
+                    throw new ArgumentException("Vui lòng nhập chính xác, đầy đủ thông tin");
+                }
+
+                using (var context = new QLCuaHang())
+                {
+                    using (var transaction = context.Database.BeginTransaction())
                     {
-                        if (string.IsNullOrEmpty(sdt))
+                        try
                         {
-                            throw new ArgumentException("Vui lòng nhập chính xác, đầy đủ thông tin");
+                            if (!string.IsNullOrEmpty(magiam) && !KiemTraNgayThangHopLe(magiam, orderdate))
+                            {
+                                throw new ArgumentException("Mã giảm giá không đúng hạn");
+                            }
+
+                            var order = new Order
+                            {
+                                Order_ID = order_ID,
+                                PhoneNumber = sdt,
+                                EmployeeID = nv,
+                                OrderDate = orderdate,
+                                Total = Total,
+                                DiscountCode = string.IsNullOrEmpty(magiam) ? null : magiam
+                            };
+
+                            context.Orders.Add(order);
+                            context.SaveChanges();
+                            transaction.Commit();
+                            return true;
                         }
-
-                        var order = new Order
+                        catch (Exception ex)
                         {
-                            Order_ID = order_ID,
-                            PhoneNumber = sdt,
-                            EmployeeID = nv,
-                            OrderDate = orderdate,
-                            Total = Total,
-                            DiscountCode = string.IsNullOrEmpty(magiam) ? null : magiam
-                        };
-
-                        context.Orders.Add(order);
-                        context.SaveChanges();
-                        transaction.Commit();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        err = "Lỗi: " + ex.Message;
-                        return false;
+                            transaction.Rollback();
+                            err = "Lỗi: " + ex.Message;
+                            return false;
+                        }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                err = "Lỗi: " + ex.Message;
+                return false;
+            }
         }
 
-        public bool ThemChiTietHoaDon(ref string err, string Order_ID, string Product_ID,int Quantity)
+        public bool ThemChiTietHoaDon(ref string err, string Order_ID, string Product_ID, int Quantity)
         {
-            using (var context = new QLCuaHang())
+            try
             {
-                using (var transaction = context.Database.BeginTransaction())
+                if (string.IsNullOrEmpty(Product_ID))
                 {
-                    try
+                    throw new ArgumentException("Vui lòng nhập đầy đủ thông tin sản phẩm");
+                }
+
+                using (var context = new QLCuaHang())
+                {
+                    using (var transaction = context.Database.BeginTransaction())
                     {
-                        if (string.IsNullOrEmpty(Product_ID))
+                        try
                         {
-                            throw new ArgumentException("Vui lòng nhập chính xác, đầy đủ thông tin");
+                            var orderDetail = new OrderDetail
+                            {
+                                Order_ID = Order_ID,
+                                Product_ID = Product_ID,
+                                Quantity = Quantity
+                            };
+
+                            var product = context.Products.FirstOrDefault(p => p.Product_ID == Product_ID);
+                            var order = context.Orders.FirstOrDefault(o => o.Order_ID == Order_ID);
+
+                            if (order != null && product != null)
+                            {
+                                int discountPercentage = 0;
+                                if (!string.IsNullOrEmpty(order.DiscountCode))
+                                {
+                                    discountPercentage = LayGiamGia(order.DiscountCode);
+                                }
+
+                                if (product.Quantity >= orderDetail.Quantity)
+                                {
+                                    product.Quantity -= orderDetail.Quantity;
+                                    order.Total += product.UnitPrice * orderDetail.Quantity * (100 - discountPercentage) / 100;
+                                }
+                                else
+                                {
+                                    throw new InvalidOperationException("Số lượng sản phẩm không đủ");
+                                }
+
+                                context.OrderDetails.Add(orderDetail);
+
+                                var customer = context.Customers.Include(c => c.Orders).FirstOrDefault(c => c.PhoneNumber == order.PhoneNumber);
+                                if (customer != null)
+                                {
+                                    customer.Point = customer.Orders.Sum(o => o.Total/10000);
+                                }
+
+                                context.SaveChanges();
+                                transaction.Commit();
+                                return true;
+                            }
+                            else
+                            {
+                                throw new InvalidOperationException("Không tìm thấy đơn hàng hoặc sản phẩm phù hợp");
+                            }
                         }
-
-                        var orderDetail = new OrderDetail
+                        catch (Exception ex)
                         {
-                            Order_ID = Order_ID,
-                            Product_ID = Product_ID,
-                            Quantity = Quantity
-                        };
-
-                        context.OrderDetails.Add(orderDetail);
-                        context.SaveChanges();
-
-                        transaction.Commit();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        err = "Lỗi: " + ex.Message;
-                        return false;
+                            transaction.Rollback();
+                            err = "Lỗi: " + ex.Message;
+                            return false;
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                err = "Lỗi: " + ex.Message;
+                return false;
             }
         }
         public bool XoaHoaDon(ref string err, string Order_ID)
@@ -191,16 +253,33 @@ namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
                 {
                     try
                     {
-                        var order = context.Orders.FirstOrDefault(o => o.Order_ID == Order_ID);
+                        var order = context.Orders.Include(o => o.OrderDetails).FirstOrDefault(o => o.Order_ID == Order_ID);
                         if (order == null)
                         {
                             err = "Không tìm thấy đơn hàng có ID " + Order_ID;
                             return false;
                         }
 
-                        context.Orders.Remove(order);
-                        context.SaveChanges();
+                        int totalValueToRemove = order.Total;
 
+                        foreach (var orderDetail in order.OrderDetails)
+                        {
+                            var product = context.Products.FirstOrDefault(p => p.Product_ID == orderDetail.Product_ID);
+                            if (product != null)
+                            {
+                                product.Quantity += orderDetail.Quantity;
+                            }
+                        }
+
+                        var customer = context.Customers.FirstOrDefault(c => c.PhoneNumber == order.PhoneNumber);
+                        if (customer != null)
+                        {
+                            customer.Point -= totalValueToRemove;
+                        }
+
+                        context.Orders.Remove(order);
+
+                        context.SaveChanges();
                         transaction.Commit();
                         return true;
                     }

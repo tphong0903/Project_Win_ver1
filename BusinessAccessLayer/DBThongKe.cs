@@ -4,23 +4,28 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer;
+using static System.Data.Entity.Infrastructure.Design.Executor;
+using System.Data.Entity;
+using DataAccessLayer.Entities;
+using System.Data.Entity.Core.Objects;
+using System.Runtime.Remoting.Messaging;
+
 namespace BusinessAccessLayer
 {
     // Defining a struct to represent revenue by date
     public struct RevenueByDate
     {
         public string Date { get; set; } // Date property
-        public decimal TotalAmount { get; set; } // TotalAmount property
+        public int TotalAmount { get; set; } // TotalAmount property
     }
 
     // Defining the DBThongKe class inheriting from the DAL class
     public class DBThongKe : DAL
     {
-        // Declaring instance variables
-        public DAL db = null;
         private DateTime startDate;
         private DateTime endDate;
         private int numberDays;
@@ -39,178 +44,157 @@ namespace BusinessAccessLayer
         // Constructor for the DBThongKe class
         public DBThongKe()
         {
-            db = new DAL(); // Initializing the db instance with a new instance of the DAL class
+            
 
         }
 
         // Method to get the number of customers, suppliers, and products
         private void GetNumberItems()
         {
-            // Opening the database connection if it's closed
-            if (db.conn.State == ConnectionState.Closed)
-                db.conn.Open();
+            using (var context = new QLCuaHang())
+            {
+                NumCustommers = context.Customers.Count();
+                NumSuppliers = context.Suppliers.Count();
+                NumProduct = context.Products.Count();
+                NumOrder = context.Orders.Where(o => o.OrderDate >= startDate && o.OrderDate <= endDate).Count();
+            }
 
-            // Retrieving the number of customers
-            db.comm.CommandText = "select count(PhoneNumber) from Customers";
-            NumCustommers = (int)db.comm.ExecuteScalar();
-
-            // Retrieving the number of suppliers
-            db.comm.CommandText = "select count(Supplier_ID) from Suppliers";
-            NumSuppliers = (int)db.comm.ExecuteScalar();
-
-            // Retrieving the number of products
-            db.comm.CommandText = "select count(Product_ID) from Products";
-            NumProduct = (int)db.comm.ExecuteScalar();
-
-            // Retrieving the number of orders within a specific date range
-            db.comm.CommandText = "select count(Order_ID) from Orders where OrderDate between @fromDate and @todate";
-            db.comm.Parameters.Add("@fromDate", System.Data.SqlDbType.Date).Value = startDate;
-            db.comm.Parameters.Add("@todate", System.Data.SqlDbType.Date).Value = endDate;
-            NumOrder = (int)db.comm.ExecuteScalar();
-            db.comm.Parameters.Clear();
-
-            // Closing the database connection
-            db.conn.Close();
         }
 
         // Method to perform analysis on orders
         private void GetOrderAnalisys()
         {
-            // Opening the database connection if it's closed
-            if (db.conn.State == ConnectionState.Closed)
-                db.conn.Open();
-
-            GrossRevenueList = new List<RevenueByDate>(); // Initializing the list of gross revenue
-
-            // Initializing total profit and total revenue
-            TotalProfit = 0;
-            TotalRevenue = 0;
-
-            // Retrieving total revenue by date
-            db.comm.CommandText = "SELECT * FROM TotalRevenue(@fromDate,@todate)";
-            db.comm.Parameters.Add("@fromDate", System.Data.SqlDbType.Date).Value = startDate;
-            db.comm.Parameters.Add("@todate", System.Data.SqlDbType.Date).Value = endDate;
-            var reader = db.comm.ExecuteReader();
-            db.comm.Parameters.Clear();
-
-            var resultTable = new List<KeyValuePair<DateTime, int>>(); // Initializing a list to hold results
-            while (reader.Read())
+            using (var context = new QLCuaHang())
             {
-                resultTable.Add(new KeyValuePair<DateTime, int>((DateTime)reader[0], (int)reader[1])); // Adding results to the list
-                TotalRevenue += (int)reader[1]; // Calculating total revenue
-            }
-            reader.Close();
+                GrossRevenueList = new List<RevenueByDate>();
 
-            // Retrieving total profit by date
-            db.comm.CommandText = @"SELECT * FROM TotalProfit(@fromDate,@todate)";
-            db.comm.Parameters.Add("@fromDate", System.Data.SqlDbType.Date).Value = startDate;
-            db.comm.Parameters.Add("@todate", System.Data.SqlDbType.Date).Value = endDate;
-            var reader1 = db.comm.ExecuteReader();
-            db.comm.Parameters.Clear();
+                // Initializing total profit and total revenue
+                TotalProfit = 0;
+                TotalRevenue = 0;
+                var reader = (from order in context.Orders
+                              where order.OrderDate >= startDate && order.OrderDate <= endDate
+                              group order by order.OrderDate into g
+                              select new
+                              {
+                                  Date = g.Key,
+                                  TotalAmount = g.Sum(o => o.Total)
+                              }).ToList();
+                var resultTable = new List<KeyValuePair<DateTime, int>>();
+                foreach (var data in reader)
+                {
+                    resultTable.Add(new KeyValuePair<DateTime, int>(data.Date, data.TotalAmount));
+                    TotalRevenue += data.TotalAmount;
+                }
 
-            while (reader1.Read())
-            {
-                decimal unitProfit = Convert.ToDecimal(reader1[1]);
-                TotalProfit += unitProfit; // Calculating total profit
-            }
-            reader1.Close();
+                var reader1 = from od in context.OrderDetails
+                              join p in context.Products on od.Product_ID equals p.Product_ID
+                              join id in context.ImportDetails on od.Product_ID equals id.Product_ID
+                              join o in context.Orders on od.Order_ID equals o.Order_ID
+                              where o.OrderDate >= startDate && o.OrderDate <= endDate
+                              group new { od, p, id, o } by o.OrderDate into g
+                              select new
+                              {
+                                  OrderDate = g.Key,
+                                  TotalProfit = g.Sum(item => (item.p.UnitPrice - item.id.Unitcost) * item.od.Quantity)
+                              };
+                foreach (var item in reader1)
+                {
+                    decimal unitProfit = Convert.ToDecimal(item.TotalProfit);
+                    TotalProfit += unitProfit;
+                }
 
-            // Grouping revenue by date
-            if (numberDays <= 1) // Group by hour
-            {
-                GrossRevenueList = (from orderList in resultTable
-                                    group orderList by orderList.Key.ToString("hh tt")
-                                    into order
-                                    select new RevenueByDate
-                                    {
-                                        Date = order.Key,
-                                        TotalAmount = order.Sum(amount => amount.Value)
-                                    }).ToList();
+                // Grouping revenue by date
+                if (numberDays <= 1) // Group by hour
+                {
+                    GrossRevenueList = (from orderList in resultTable
+                                        group orderList by orderList.Key.ToString("hh tt")
+                                        into order
+                                        select new RevenueByDate
+                                        {
+                                            Date = order.Key,
+                                            TotalAmount = order.Sum(amount => amount.Value)
+                                        }).ToList();
+                }
+                else if (numberDays <= 30) // Group by day
+                {
+                    GrossRevenueList = (from orderList in resultTable
+                                        group orderList by orderList.Key.ToString("dd MMM")
+                                        into order
+                                        select new RevenueByDate
+                                        {
+                                            Date = order.Key,
+                                            TotalAmount = order.Sum(amount => amount.Value)
+                                        }).ToList();
+                }
+                else if (numberDays <= 92) // Group by week
+                {
+                    GrossRevenueList = (from orderList in resultTable
+                                        group orderList by CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
+                                            orderList.Key, CalendarWeekRule.FirstDay, DayOfWeek.Monday)
+                                        into order
+                                        select new RevenueByDate
+                                        {
+                                            Date = "Week " + order.Key.ToString(),
+                                            TotalAmount = order.Sum(amount => amount.Value)
+                                        }).ToList();
+                }
+                else if (numberDays <= (365 * 2)) // Group by month
+                {
+                    bool isYear = numberDays <= 365 ? true : false;
+                    GrossRevenueList = (from orderList in resultTable
+                                        group orderList by orderList.Key.ToString("MMM yyyy")
+                                        into order
+                                        select new RevenueByDate
+                                        {
+                                            Date = isYear ? order.Key.Substring(0, order.Key.IndexOf(" ")) : order.Key,
+                                            TotalAmount = order.Sum(amount => amount.Value)
+                                        }).ToList();
+                }
+                else // Group by year
+                {
+                    GrossRevenueList = (from orderList in resultTable
+                                        group orderList by orderList.Key.ToString("yyyy")
+                                        into order
+                                        select new RevenueByDate
+                                        {
+                                            Date = order.Key,
+                                            TotalAmount = order.Sum(amount => amount.Value)
+                                        }).ToList();
+                }
             }
-            else if (numberDays <= 30) // Group by day
-            {
-                GrossRevenueList = (from orderList in resultTable
-                                    group orderList by orderList.Key.ToString("dd MMM")
-                                    into order
-                                    select new RevenueByDate
-                                    {
-                                        Date = order.Key,
-                                        TotalAmount = order.Sum(amount => amount.Value)
-                                    }).ToList();
-            }
-            else if (numberDays <= 92) // Group by week
-            {
-                GrossRevenueList = (from orderList in resultTable
-                                    group orderList by CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
-                                        orderList.Key, CalendarWeekRule.FirstDay, DayOfWeek.Monday)
-                                    into order
-                                    select new RevenueByDate
-                                    {
-                                        Date = "Week " + order.Key.ToString(),
-                                        TotalAmount = order.Sum(amount => amount.Value)
-                                    }).ToList();
-            }
-            else if (numberDays <= (365 * 2)) // Group by month
-            {
-                bool isYear = numberDays <= 365 ? true : false;
-                GrossRevenueList = (from orderList in resultTable
-                                    group orderList by orderList.Key.ToString("MMM yyyy")
-                                    into order
-                                    select new RevenueByDate
-                                    {
-                                        Date = isYear ? order.Key.Substring(0, order.Key.IndexOf(" ")) : order.Key,
-                                        TotalAmount = order.Sum(amount => amount.Value)
-                                    }).ToList();
-            }
-            else // Group by year
-            {
-                GrossRevenueList = (from orderList in resultTable
-                                    group orderList by orderList.Key.ToString("yyyy")
-                                    into order
-                                    select new RevenueByDate
-                                    {
-                                        Date = order.Key,
-                                        TotalAmount = order.Sum(amount => amount.Value)
-                                    }).ToList();
-            }
-            db.conn.Close();
         }
         // Method to perform analysis on products
         private void GetProductAnalisys()
         {
-            // Opening the database connection if it's closed
-            if (db.conn.State == ConnectionState.Closed)
-                db.conn.Open();
-
-            TopProductsList = new List<KeyValuePair<string, int>>(); // Initializing the list of top products
-            UnderstocksList = new List<KeyValuePair<string, int>>(); // Initializing the list of understocked products
-
-            // Retrieving top 5 products by sales
-            db.comm.CommandText = @"SELECT * FROM Top5Product(@fromDate,@todate)";
-            db.comm.Parameters.Add("@fromDate", System.Data.SqlDbType.Date).Value = startDate;
-            db.comm.Parameters.Add("@todate", System.Data.SqlDbType.Date).Value = endDate;
-            SqlDataReader reader = db.comm.ExecuteReader();
-            db.comm.Parameters.Clear();
-
-            while (reader.Read())
+            TopProductsList = new List<KeyValuePair<string, int>>();
+            UnderstocksList = new List<KeyValuePair<string, int>>();
+            using (var context = new QLCuaHang())
             {
-                TopProductsList.Add(new KeyValuePair<string, int>(reader[0].ToString(), (int)reader[1])); // Adding top products to the list
+                var topProductsList = (from od in context.OrderDetails
+                                       join p in context.Products on od.Product_ID equals p.Product_ID
+                                       join o in context.Orders on od.Order_ID equals o.Order_ID
+                                       where o.OrderDate >= startDate && o.OrderDate <= endDate
+                                       group od by p.ProductName into g
+                                       orderby g.Sum(od => od.Quantity) descending
+                                       select new
+                                       {
+                                           ProductName = g.Key,
+                                           Quantity = g.Sum(od => od.Quantity)
+                                       }).Take(5).ToList();
+
+                foreach (var item in topProductsList)
+                {
+                    TopProductsList.Add(new KeyValuePair<string, int>(item.ProductName, item.Quantity));
+                }
+
+                var understockedList = context.Products.Where(p => p.Quantity <= 6).Select(p => new { p.ProductName, p.Quantity }).ToList();
+
+                foreach (var item in understockedList)
+                {
+                    UnderstocksList.Add(new KeyValuePair<string, int>(item.ProductName, item.Quantity));
+                }
             }
-            reader.Close();
 
-            // Retrieving understocked products
-            db.comm.CommandText = @" select ProductName, Quantity
-                                            from Products
-                                            where Quantity <= 6";
-
-            reader = db.comm.ExecuteReader();
-            while (reader.Read())
-            {
-                UnderstocksList.Add(new KeyValuePair<string, int>(reader[0].ToString(), (int)reader[1])); // Adding understocked products to the list
-            }
-            reader.Close();
-
-            db.conn.Close(); // Closing the database connection
         }
 
         // Method to load data for analysis within a specified date range

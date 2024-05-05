@@ -15,19 +15,10 @@ namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
 {
     public class DBBienLai // Declaring the DBBienLai class
     {
-        DAL db = null; // Declaring an instance of the DAL class and initializing it to null
+     
         public DBBienLai() // Constructor for the DBBienLai class
         {
-            db = new DAL(); // Initializing the db instance with a new instance of the DAL class
-            using (var context = new QLCuaHang())
-            {
-                var importsWithDetails = context.Imports.Include(i => i.ImportDetails);
-                foreach (var import in importsWithDetails)
-                {
-                    import.Total = import.ImportDetails.Sum(d => d.Quantity * d.Unitcost);
-                }
-                context.SaveChanges();
-            }
+           
         }
 
         // Method to retrieve receipts
@@ -125,38 +116,58 @@ namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
         }
         public bool ThemChiTietBienLai(ref string err, string Import_ID, string Product_ID,int Quantity, int Unitcost)
         {
-            using (var context = new QLCuaHang())
+            try
             {
-                using (var transaction = context.Database.BeginTransaction())
+                if (string.IsNullOrEmpty(Import_ID) || string.IsNullOrEmpty(Product_ID) || Quantity <= 0 || Unitcost <= 0)
                 {
-                    try
+                    throw new ArgumentException("Vui lòng nhập đầy đủ và chính xác thông tin chi tiết biên lai");
+                }
+
+                using (var context = new QLCuaHang())
+                {
+                    using (var transaction = context.Database.BeginTransaction())
                     {
-                        if (string.IsNullOrEmpty(Import_ID))
+                        try
                         {
-                            throw new ArgumentException("Vui lòng nhập chính xác, đầy đủ thông tin");
+                            var importDetail = new ImportDetail
+                            {
+                                Import_ID = Import_ID,
+                                Product_ID = Product_ID,
+                                Quantity = Quantity,
+                                Unitcost = Unitcost
+                            };
+
+                            var product = context.Products.FirstOrDefault(p => p.Product_ID == Product_ID);
+                            var import = context.Imports.FirstOrDefault(i => i.Import_ID == Import_ID);
+
+                            if (product != null && import != null)
+                            {
+                                context.ImportDetails.Add(importDetail);
+                                product.Quantity += Quantity;
+                                import.Total += Quantity * Unitcost;
+
+                                context.SaveChanges();
+                                transaction.Commit();
+                                return true;
+                            }
+                            else
+                            {
+                                throw new InvalidOperationException("Không tìm thấy sản phẩm hoặc phiếu nhập phù hợp");
+                            }
                         }
-
-                        var importDetail = new ImportDetail
+                        catch (Exception ex)
                         {
-                            Import_ID = Import_ID,
-                            Product_ID = Product_ID,
-                            Quantity = Quantity,
-                            Unitcost = Unitcost
-                        };
-
-                        context.ImportDetails.Add(importDetail);
-                        context.SaveChanges();
-
-                        transaction.Commit();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        err = "Lỗi: " + ex.Message;
-                        return false;
+                            transaction.Rollback();
+                            err = "Lỗi: " + ex.Message;
+                            return false;
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                err = "Lỗi: " + ex.Message;
+                return false;
             }
         }
     }

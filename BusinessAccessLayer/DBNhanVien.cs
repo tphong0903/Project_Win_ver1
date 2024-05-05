@@ -8,21 +8,16 @@ using System.Data;
 //
 using DataAccessLayer;
 using System.Data.Entity;
-using System.Security.Policy;
-using System.Xml.Linq;
 using DataAccessLayer.Entities;
-using System.Net;
 
 namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
 {
     public class DBNhanVien // Declaring the DBNhanVien class
     {
-        DAL db = null; // Declaring an instance of the DAL class and initializing it to null
 
-        // Constructor for the DBNhanVien class
         public DBNhanVien()
         {
-            db = new DAL(); // Initializing the db instance with a new instance of the DAL class
+         
         }
 
         // Method to retrieve active employees
