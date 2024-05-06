@@ -25,7 +25,13 @@ namespace Project_ver1.UI
             InitializeComponent();
             dbnv = new DBNhanVien();
             if (s.Contains("BH"))
+            {
                 DeleBtn.Visible = false;
+                ReadButton.Visible = false;
+                UpdateButton.Visible = false;
+                AddButton.Visible = false;
+            }
+                
         }
         public void LoadData()
         {
