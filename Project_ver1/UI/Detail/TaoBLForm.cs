@@ -166,8 +166,14 @@ namespace Project_ver1.UI.Detail
                 if (result == DialogResult.Yes)
                 {
                     int rowIndex = insertGridView.CurrentRow.Index;
-                    insertGridView.Rows.RemoveAt(rowIndex);
-                    MessageBox.Show("Đã xóa hàng thành công.");
+                    if(rowIndex>=0)
+                    {
+                        SoLuong.Text = (Int32.Parse(SoLuong.Text) - Int32.Parse(insertGridView.Rows[rowIndex].Cells[3].Value.ToString())).ToString();
+                        textBoxThanhTien.Text = (Int32.Parse(textBoxThanhTien.Text) - Int32.Parse(insertGridView.Rows[rowIndex].Cells[2].Value.ToString()) * Int32.Parse(insertGridView.Rows[rowIndex].Cells[3].Value.ToString())).ToString();
+                        insertGridView.Rows.RemoveAt(rowIndex);
+                        MessageBox.Show("Đã xóa hàng thành công.");
+                    }
+                    
                 }
             }
             else

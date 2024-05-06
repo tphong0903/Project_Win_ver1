@@ -21,6 +21,7 @@ namespace Project_ver1.UI.Detail
         int r=0;
         int x = 0;
         int Tong = 0;
+        double PhanTram;
         public TaoHDForm(string s)
         {
             InitializeComponent();
@@ -64,7 +65,7 @@ namespace Project_ver1.UI.Detail
             string GiaBan = dgvSanPham.Rows[r].Cells[2].Value.ToString();
             string SLCon = dgvSanPham.Rows[r].Cells[3].Value.ToString();
             string SL = SLmua.Text;
-            double PhanTram = dbhd.LayGiamGia(txtGiamGia.Text);
+            PhanTram = dbhd.LayGiamGia(txtGiamGia.Text);
             if (SL == "" || Int32.Parse(SL) > Int32.Parse(SLCon))
             {
                 MessageBox.Show("Khong du san pham");
@@ -110,8 +111,10 @@ namespace Project_ver1.UI.Detail
                     // Kiểm tra nếu có dòng nào đang được chọn
                     if (rowIndex >= 0 && rowIndex < dgvSPMua.Rows.Count)
                     {
-                        // Xóa dòng hiện tại khỏi DataGridView
+                        Tong = Tong - Int32.Parse(dgvSPMua.Rows[rowIndex].Cells[2].Value.ToString()) * Int32.Parse(dgvSPMua.Rows[rowIndex].Cells[3].Value.ToString());
+                        txtTongTien.Text = (Tong * (1 - PhanTram / 100)).ToString();
                         dgvSPMua.Rows.RemoveAt(rowIndex);
+                        
                     }
                     else
                     {
