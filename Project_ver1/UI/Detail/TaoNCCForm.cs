@@ -25,26 +25,40 @@ namespace Project_ver1.UI.Detail
             string err = "";
             try
             {
-                // Lệnh Insert InTo 
-                bool f = dbncc.ThemNhaCungCap(ref err,
-                this.textBoxMaNhaCungCap.Text.ToString(),
-                this.textBoxTenNhaCungCap.Text.ToString(),
-                this.textBoxSoDienThoai.Text.ToString(),
-                this.textBoxDiaChi.Text.ToString(),
-                this.textBoxEmail.Text.ToString());
-                if (f)
+                // Hiển thị hộp thoại xác nhận
+                DialogResult result = MessageBox.Show("Bạn có chắc muốn thêm thông tin nhà cung cấp này không?", "Xác nhận thêm nhà cung cấp", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes) // Nếu người dùng chọn "Có"
                 {
-                    MessageBox.Show("Đã thêm xong!");
+                    // Thực hiện thêm thông tin nhà cung cấp vào cơ sở dữ liệu
+                    bool f = dbncc.ThemNhaCungCap(ref err,
+                                                    textBoxMaNhaCungCap.Text,
+                                                    textBoxTenNhaCungCap.Text,
+                                                    textBoxSoDienThoai.Text,
+                                                    textBoxDiaChi.Text,
+                                                    textBoxEmail.Text);
+                    if (f)
+                    {
+                        MessageBox.Show("Đã thêm thông tin nhà cung cấp thành công!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không thêm được thông tin nhà cung cấp!\n\rLỗi: " + err);
+                    }
                 }
                 else
                 {
-                    this.Close();
-                    MessageBox.Show("Đã thêm chưa xong!\n\r" + "Lỗi:" + err);
+                    // Người dùng chọn "Không" hoặc đóng hộp thoại xác nhận
+                    MessageBox.Show("Thao tác thêm thông tin nhà cung cấp đã bị hủy bởi người dùng.");
                 }
             }
             catch (SqlException ex)
             {
-                MessageBox.Show("Không thể truy cập!!!\n\nLỗi: " + ex.Message);
+                MessageBox.Show("Không thể truy cập cơ sở dữ liệu!!!\n\nLỗi: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Đã xảy ra lỗi khi thêm thông tin nhà cung cấp: " + ex.Message);
             }
         }
 

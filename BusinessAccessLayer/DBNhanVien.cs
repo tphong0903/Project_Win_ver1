@@ -228,5 +228,20 @@ namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
                 }
             }
         }
+        public bool CheckLogin(string username, string password)
+        {
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+                return false;
+            List<dynamic> list = TimAllNhanVien(username);
+
+            if (list.Any())
+            {
+                var employee = list.First();
+                string dbPassword = employee.PassWordAccount; 
+                int active = Int32.Parse(employee.Active);
+                return active == 1 && password == dbPassword;
+            }
+            return false;
+        }
     }
 }

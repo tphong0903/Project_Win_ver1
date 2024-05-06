@@ -28,7 +28,6 @@ namespace Project_ver1.UI.Detail
         {
             try
             {
-
                 dgvSanPham.DataSource = dbbl.SPCuaBienLai(ID);
                 dgv.DataSource = dbbl.TimBienLai(ID, "");
                 textBoxMaBienLai.Text = dgv.Rows[0].Cells[0].Value.ToString();

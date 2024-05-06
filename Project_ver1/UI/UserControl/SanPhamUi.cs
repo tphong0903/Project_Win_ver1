@@ -40,7 +40,7 @@ namespace Project_ver1
 
                 dtSanPham = new DataTable();
                 dgvSanPham.DataSource = dbsp.LoadSanPham();
-                SLSP.Text = (dgvSanPham.RowCount - 1).ToString();
+                SLSP.Text = (dgvSanPham.RowCount).ToString();
 
                
             }

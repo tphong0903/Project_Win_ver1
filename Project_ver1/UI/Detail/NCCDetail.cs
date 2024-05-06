@@ -58,26 +58,37 @@ namespace Project_ver1.UI.Detail
             string err = "";
             try
             {
-                // Lệnh Update
-                bool f = DBNhaCungCap.CapNhatNhaCungCap(ref err,
-                this.textBoxMaNhaCungCap.Text.ToString(),
-                this.textBoxTenNhaCungCap.Text.ToString(),
-                this.textBoxSoDienThoai.Text.ToString(),
-                this.textBoxDiaChi.Text.ToString(),
-                this.textBoxEmail.Text.ToString());
-                if (f)
+                // Hiển thị hộp thoại xác nhận
+                DialogResult result = MessageBox.Show("Bạn có chắc muốn cập nhật thông tin nhà cung cấp này không?", "Xác nhận cập nhật", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes) // Nếu người dùng chọn "Có"
                 {
-                    MessageBox.Show("Đã cập nhật xong!");
+                    // Thực hiện cập nhật thông tin nhà cung cấp
+                    bool f = DBNhaCungCap.CapNhatNhaCungCap(ref err,
+                                                            this.textBoxMaNhaCungCap.Text,
+                                                            this.textBoxTenNhaCungCap.Text,
+                                                            this.textBoxSoDienThoai.Text,
+                                                            this.textBoxDiaChi.Text,
+                                                            this.textBoxEmail.Text);
+                    if (f)
+                    {
+                        MessageBox.Show("Đã cập nhật thông tin nhà cung cấp thành công!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cập nhật thông tin nhà cung cấp không thành công!\n\rLỗi: " + err);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Đã cập nhật chưa xong!\n\r" + "Lỗi:" + err);
+                    // Người dùng chọn "Không" hoặc đóng hộp thoại xác nhận
+                    MessageBox.Show("Thao tác cập nhật đã bị hủy bởi người dùng.");
                 }
             }
             catch (SqlException ex)
             {
                 this.Close();
-                MessageBox.Show("Không thể truy cập!!!\n\nLỗi: " + ex.Message);
+                MessageBox.Show("Không thể truy cập cơ sở dữ liệu!!!\n\nLỗi: " + ex.Message);
             }
         }
     }

@@ -114,23 +114,44 @@ namespace Project_ver1.UI
             string err = "";
             try
             {
-                int r = dgvHoaDon.CurrentCell.RowIndex;
-                bool f = dbhd.XoaHoaDon(ref err, dgvHoaDon.Rows[r].Cells[0].Value.ToString());
-                if (f)
+                // Lấy chỉ số dòng hiện tại của DataGridView
+                int rowIndex = dgvHoaDon.CurrentCell.RowIndex;
+
+                // Lấy giá trị của ô trong cột đầu tiên của dòng hiện tại (giả sử đó là mã hóa đơn)
+                string maHoaDon = dgvHoaDon.Rows[rowIndex].Cells[0].Value.ToString();
+
+                // Hiển thị hộp thoại xác nhận
+                DialogResult result = MessageBox.Show("Bạn có chắc muốn xóa hóa đơn này không?", "Xác nhận xóa hóa đơn", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes) // Nếu người dùng chọn "Có"
                 {
-                    MessageBox.Show("Đã xóa xong!");
+                    // Thực hiện xóa hóa đơn từ cơ sở dữ liệu
+                    bool f = dbhd.XoaHoaDon(ref err, maHoaDon);
+                    if (f)
+                    {
+                        MessageBox.Show("Đã xóa hóa đơn thành công!");
+                    }
+                    else
+                    {
+                        if (err != "Maximum stored procedure, function, trigger, or view nesting level exceeded (limit 32).")
+                        {
+                            MessageBox.Show("Không xóa được hóa đơn!\n\rLỗi: " + err);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Đã xóa hóa đơn thành công!");
+                        }
+                    }
                 }
                 else
                 {
-                    if(err != "Maximum stored procedure, function, trigger, or view nesting level exceeded (limit 32).")
-                        MessageBox.Show("Đã xóa chưa xong!\n\r" + "Lỗi:" + err);
-                    else
-                        MessageBox.Show("Đã xóa xong!");
+                    // Người dùng chọn "Không" hoặc đóng hộp thoại xác nhận
+                    MessageBox.Show("Thao tác xóa hóa đơn đã bị hủy bởi người dùng.");
                 }
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-                MessageBox.Show("Không thể truy cập!!!\n\nLỗi: " + ex.Message);
+                MessageBox.Show("Đã xảy ra lỗi khi xóa hóa đơn: " + ex.Message);
             }
         }
         #endregion

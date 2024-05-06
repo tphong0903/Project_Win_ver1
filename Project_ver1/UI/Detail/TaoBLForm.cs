@@ -103,31 +103,57 @@ namespace Project_ver1.UI.Detail
             string err = "";
             try
             {
-                bool f = dbbl.ThemBienLai(ref err, textBoxMaBienLai.Text, textBoxMaNhaCungCap.Text, dateTimePickerNgayThanhToan.Value, 0);
-                if (f)
+                if (insertGridView.Rows.Count == 0)
                 {
-                    foreach (DataGridViewRow row in insertGridView.Rows)
-                    {
-                        if (row.Cells["Product_ID"].Value != null)
-                        {
-                            string maSP = row.Cells["Product_ID"].Value.ToString();
-                            int soLuong = Convert.ToInt32(row.Cells["Quantity"].Value);
-                            int giaNhap = Convert.ToInt32(row.Cells["UnitCost"].Value);
+                    MessageBox.Show("Không có dữ liệu để lưu.");
+                }
+                DialogResult result = MessageBox.Show("Bạn có chắc muốn lưu hóa đơn này không?", "Xác nhận lưu", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                            bool success = dbbl.ThemChiTietBienLai(ref err, textBoxMaBienLai.Text, maSP, soLuong, giaNhap);
+                if (result == DialogResult.Yes)
+                {
+                    bool invoiceSaved = dbbl.ThemBienLai(ref err, textBoxMaBienLai.Text, textBoxMaNhaCungCap.Text, dateTimePickerNgayThanhToan.Value, 0);
+                    if (invoiceSaved)
+                    {
+                        bool detailsSaved = true;
+                        foreach (DataGridViewRow row in insertGridView.Rows)
+                        {
+                            if (row.Cells["Product_ID"].Value != null)
+                            {
+                                string maSP = row.Cells["Product_ID"].Value.ToString();
+                                int soLuong = Convert.ToInt32(row.Cells["Quantity"].Value);
+                                int giaNhap = Convert.ToInt32(row.Cells["UnitCost"].Value);
+
+                                bool detailSaved = dbbl.ThemChiTietBienLai(ref err, textBoxMaBienLai.Text, maSP, soLuong, giaNhap);
+                                if (!detailSaved)
+                                {
+                                    detailsSaved = false;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (detailsSaved)
+                        {
+                            MessageBox.Show("Đã lưu hóa đơn thành công!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Lưu hóa đơn thất bại. Lỗi: " + err);
                         }
                     }
-                    MessageBox.Show("Successfully added!");
+                    else
+                    {
+                        MessageBox.Show("Lưu hóa đơn thất bại. Lỗi: " + err);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Failed to add!\n\r" + "Error:" + err);
+                    MessageBox.Show("Thao tác đã bị hủy bởi người dùng.");
                 }
-               
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error adding invoice: " + ex.Message);
+                MessageBox.Show("Lỗi khi thêm hóa đơn: " + ex.Message);
             }
         }
 
@@ -135,12 +161,18 @@ namespace Project_ver1.UI.Detail
         {
             if (insertGridView.CurrentRow != null)
             {
-                int x = insertGridView.CurrentRow.Index;
-                insertGridView.Rows.RemoveAt(x);
+                DialogResult result = MessageBox.Show("Bạn có chắc muốn xóa hàng này không?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    int rowIndex = insertGridView.CurrentRow.Index;
+                    insertGridView.Rows.RemoveAt(rowIndex);
+                    MessageBox.Show("Đã xóa hàng thành công.");
+                }
             }
             else
             {
-                MessageBox.Show("Please select a row to delete.");
+                MessageBox.Show("Vui lòng chọn một hàng để xóa.");
             }
         }
         #endregion

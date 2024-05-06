@@ -68,25 +68,44 @@ namespace Project_ver1.UI.Detail
             string err = "";
             try
             {
-                bool f = dbkh.CapNhatKhachHang(ref err,
-                    txtSDT.Text,
-                    txtTen.Text,
-                    txtNgaySinh.Value,
-                    ComboGioiTinh.Text,
-                    int.Parse(txtDiem.Text));
-                if (f)
+                // Hiển thị hộp thoại xác nhận
+                DialogResult result = MessageBox.Show("Bạn có chắc muốn cập nhật thông tin khách hàng này không?", "Xác nhận cập nhật", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes) // Nếu người dùng chọn "Có"
                 {
-                    LoadData();
-                    MessageBox.Show("Đã cập nhật xong!");
+                    bool f = dbkh.CapNhatKhachHang(ref err,
+                                                    txtSDT.Text,
+                                                    txtTen.Text,
+                                                    txtNgaySinh.Value,
+                                                    ComboGioiTinh.Text,
+                                                    int.Parse(txtDiem.Text));
+                    if (f)
+                    {
+                        LoadData(); // Tải lại dữ liệu sau khi cập nhật thành công
+                        MessageBox.Show("Đã cập nhật thông tin khách hàng thành công!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cập nhật thông tin khách hàng không thành công!\n\rLỗi: " + err);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Đã cập nhật chưa xong!\n\r" + "Lỗi:" + err);
+                    // Người dùng chọn "Không" hoặc đóng hộp thoại xác nhận
+                    MessageBox.Show("Thao tác cập nhật đã bị hủy bởi người dùng.");
                 }
             }
-            catch (SqlException)
+            catch (FormatException)
             {
-                MessageBox.Show("Không cập nhật được. Lỗi rồi!");
+                MessageBox.Show("Điểm phải là một số nguyên hợp lệ!");
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Không thể cập nhật thông tin khách hàng. Lỗi SQL: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi cập nhật thông tin khách hàng: " + ex.Message);
             }
         }
 

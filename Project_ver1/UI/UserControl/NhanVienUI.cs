@@ -34,7 +34,7 @@ namespace Project_ver1.UI
                 dgvNhanVien.DataSource = dbnv.LayNhanVien();
 
                 ID = dgvNhanVien.Rows[0].Cells[0].Value.ToString().ToLower();
-                LabelSNV.Text = (dgvNhanVien.RowCount - 1).ToString();
+                LabelSNV.Text = (dgvNhanVien.RowCount).ToString();
             }
             catch (SqlException)
             {
@@ -115,19 +115,38 @@ namespace Project_ver1.UI
             string err = "";
             try
             {
-                    bool f = dbnv.XoaNhanVien(ref err,txtMaNV.Text);
+                // Lấy mã nhân viên từ TextBox txtMaNV
+                string maNV = txtMaNV.Text;
+
+                // Hiển thị hộp thoại xác nhận
+                DialogResult result = MessageBox.Show("Bạn có chắc muốn xóa nhân viên có mã " + maNV + " không?", "Xác nhận xóa nhân viên", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes) // Nếu người dùng chọn "Có"
+                {
+                    // Thực hiện xóa nhân viên từ cơ sở dữ liệu
+                    bool f = dbnv.XoaNhanVien(ref err, maNV);
                     if (f)
                     {
-                        MessageBox.Show("Đã xóa xong!");
+                        MessageBox.Show("Đã xóa nhân viên thành công!");
                     }
                     else
                     {
-                        MessageBox.Show("Đã xóa chưa xong!\n\r" + "Lỗi:" + err);
+                        MessageBox.Show("Không xóa được nhân viên!\n\rLỗi: " + err);
                     }
+                }
+                else
+                {
+                    // Người dùng chọn "Không" hoặc đóng hộp thoại xác nhận
+                    MessageBox.Show("Thao tác xóa nhân viên đã bị hủy bởi người dùng.");
+                }
             }
-            catch (SqlException)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Không cập nhật được. Lỗi rồi!");
+                MessageBox.Show("Không thực hiện được thao tác xóa nhân viên!\n\nLỗi: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Đã xảy ra lỗi khi xóa nhân viên: " + ex.Message);
             }
         }
         #endregion

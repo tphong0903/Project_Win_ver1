@@ -32,7 +32,7 @@ namespace Project_ver1.UI
                 dgvNCC.DataSource = dbncc.LayNhaCungCap();
 
                 ID = dgvNCC.Rows[0].Cells[0].Value.ToString().ToLower();
-                LabelSNCC.Text = (dgvNCC.RowCount - 1).ToString();
+                LabelSNCC.Text = (dgvNCC.RowCount).ToString();
             }
             catch (SqlException ex)
             {

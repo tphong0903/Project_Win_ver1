@@ -35,7 +35,7 @@ namespace Project_ver1.UI
                 dgvBienLai.DataSource = dbbl.LayBienLai();
 
                 HD = dgvBienLai.Rows[0].Cells[0].Value.ToString().ToLower();
-                LabelSoBienLai.Text = (dgvBienLai.RowCount - 1).ToString();
+                LabelSoBienLai.Text = (dgvBienLai.RowCount).ToString();
             }
             catch (SqlException ex)
             {

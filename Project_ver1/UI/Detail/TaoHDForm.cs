@@ -99,8 +99,37 @@ namespace Project_ver1.UI.Detail
 
         private void Xoa_Click(object sender, EventArgs e)
         {
-            x = dgvSPMua.CurrentCell.RowIndex;
-            dgvSPMua.Rows.RemoveAt(x);
+            try
+            {
+                // Kiểm tra xem dgvSPMua có khác null không
+                if (dgvSPMua != null)
+                {
+                    // Lấy chỉ số (index) của dòng hiện tại đang được chọn
+                    int rowIndex = dgvSPMua.CurrentCell?.RowIndex ?? -1;
+
+                    // Kiểm tra nếu có dòng nào đang được chọn
+                    if (rowIndex >= 0 && rowIndex < dgvSPMua.Rows.Count)
+                    {
+                        // Xóa dòng hiện tại khỏi DataGridView
+                        dgvSPMua.Rows.RemoveAt(rowIndex);
+                    }
+                    else
+                    {
+                        // Hiển thị thông báo nếu không có dòng nào được chọn để xóa
+                        MessageBox.Show("Vui lòng chọn dòng cần xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                else
+                {
+                    // Hiển thị thông báo nếu dgvSPMua là null
+                    MessageBox.Show("DataGridView chưa được khởi tạo.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý ngoại lệ nếu có lỗi xảy ra trong quá trình xóa dòng
+                MessageBox.Show("Đã xảy ra lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void Luu_Click(object sender, EventArgs e)
@@ -108,30 +137,39 @@ namespace Project_ver1.UI.Detail
             string err = "";
             try
             {
+                // Hiển thị hộp thoại xác nhận
+                DialogResult result = MessageBox.Show("Bạn có chắc muốn thêm hóa đơn này không?", "Xác nhận thêm hóa đơn", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                bool f = dbhd.ThemHoaDon(ref err, txtMaHD.Text, txtSDT.Text, txtMaNV.Text, txtDate.Value, 0,txtGiamGia.Text) ;
-                if (f)
+                if (result == DialogResult.Yes) // Nếu người dùng chọn "Có"
                 {
-                    foreach (DataGridViewRow row in dgvSPMua.Rows)
+                    bool f = dbhd.ThemHoaDon(ref err, txtMaHD.Text, txtSDT.Text, txtMaNV.Text, txtDate.Value, 0, txtGiamGia.Text);
+                    if (f)
                     {
-                        if (row.Cells[0].Value != null)
+                        foreach (DataGridViewRow row in dgvSPMua.Rows)
                         {
-                            string maSP = row.Cells[0].Value.ToString();
-                            int soLuong = Convert.ToInt32(row.Cells[3].Value);
-                            bool success = dbhd.ThemChiTietHoaDon(ref err, txtMaHD.Text, maSP, soLuong);
+                            if (row.Cells[0].Value != null)
+                            {
+                                string maSP = row.Cells[0].Value.ToString();
+                                int soLuong = Convert.ToInt32(row.Cells[3].Value);
+                                bool success = dbhd.ThemChiTietHoaDon(ref err, txtMaHD.Text, maSP, soLuong);
+                            }
                         }
+                        MessageBox.Show("Thêm hóa đơn thành công!");
                     }
-                    MessageBox.Show("Successfully added!");
+                    else
+                    {
+                        MessageBox.Show("Thêm hóa đơn thất bại!\n\rLỗi: " + err);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Failed to add!\n\r" + "Error:" + err);
+                    // Người dùng chọn "Không" hoặc đóng hộp thoại xác nhận
+                    MessageBox.Show("Thao tác đã bị hủy bởi người dùng.");
                 }
-            
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error adding invoice: " + ex.Message);
+                MessageBox.Show("Lỗi khi thêm hóa đơn: " + ex.Message);
             }
         }
         #endregion

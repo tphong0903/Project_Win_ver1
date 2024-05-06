@@ -51,7 +51,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DAL.cs" />
     <Compile Include="Enitities\Brand.cs" />
     <Compile Include="Enitities\Category.cs" />
     <Compile Include="Enitities\Customer.cs" />

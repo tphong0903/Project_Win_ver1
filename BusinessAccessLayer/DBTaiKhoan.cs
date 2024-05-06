@@ -23,7 +23,7 @@ namespace BusinessAccessLayer
             List<dynamic> list = dbnv.TimAllNhanVien(username);
             if (list.Any())
             {
-                dynamic employee = list.First();
+                Employee employee = list.First();
                 string dbPassword = employee.PassWordAccount;
                 int active = Int32.Parse(employee.Active);
                 //ConnStr = dbnv.LayConStr(username, password);

@@ -12,7 +12,7 @@ namespace DataAccessLayer
 {
     public class QLCuaHang : DbContext
     {
-        public QLCuaHang() : base("name=Ktrahuhu")
+        public QLCuaHang() : base("name=FinalProject")
         {
 
         }

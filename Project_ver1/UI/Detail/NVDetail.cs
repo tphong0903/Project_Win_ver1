@@ -71,54 +71,71 @@ namespace Project_ver1.UI
             string err = "";
             try
             {
-                if (Check ==2)
+                // Hiển thị hộp thoại xác nhận
+                DialogResult result = MessageBox.Show("Bạn có chắc muốn thực hiện hành động này không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes) // Nếu người dùng chọn "Có"
                 {
-                    bool f = dbnv.CapNhatNhanVien(ref err,
-                    textBoxMaNV.Text,
-                    textBoxTenNV.Text,
-                    dateTimePicker.Value,
-                    comboBoxGioiTinh.Text,
-                    textBoxDiaChi.Text,
-                    textBoxSDT.Text,
-                    comboBoxChucVu.Text,
-                    int.Parse(textBoxTrangThai.Text),
-                    textBoxMK.Text);
-                    if (f)
+                    if (Check == 2) // Nếu đang cập nhật thông tin nhân viên
                     {
-                        MessageBox.Show("Đã cập nhật xong!");
+                        bool f = dbnv.CapNhatNhanVien(ref err,
+                                                        textBoxMaNV.Text,
+                                                        textBoxTenNV.Text,
+                                                        dateTimePicker.Value,
+                                                        comboBoxGioiTinh.Text,
+                                                        textBoxDiaChi.Text,
+                                                        textBoxSDT.Text,
+                                                        comboBoxChucVu.Text,
+                                                        int.Parse(textBoxTrangThai.Text),
+                                                        textBoxMK.Text);
+                        if (f)
+                        {
+                            MessageBox.Show("Đã cập nhật thông tin nhân viên thành công!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Cập nhật thông tin nhân viên không thành công!\n\rLỗi: " + err);
+                        }
                     }
-                    else
+                    else if (Check == 3) // Nếu đang thêm mới nhân viên
                     {
-                        MessageBox.Show("Đã cập nhật chưa xong!\n\r" + "Lỗi:" + err);
-                    }
-                } 
-                else if (Check ==3)
-                {
-                    bool f = dbnv.ThemNhanVien(ref err,
-                    textBoxMaNV.Text,
-                    textBoxTenNV.Text,
-                    dateTimePicker.Value,
-                    comboBoxGioiTinh.Text,
-                    textBoxDiaChi.Text,
-                    textBoxSDT.Text,
-                    comboBoxChucVu.Text,
-                    1,
-                    textBoxMK.Text);
-                    if (f)
-                    {
-                        MessageBox.Show("Đã thêm xong!");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Đã cập nhật chưa xong!\n\r" + "Lỗi:" + err);
+                        bool f = dbnv.ThemNhanVien(ref err,
+                                                    textBoxMaNV.Text,
+                                                    textBoxTenNV.Text,
+                                                    dateTimePicker.Value,
+                                                    comboBoxGioiTinh.Text,
+                                                    textBoxDiaChi.Text,
+                                                    textBoxSDT.Text,
+                                                    comboBoxChucVu.Text,
+                                                    1, // Trạng thái mặc định khi thêm mới (ví dụ: 1 là hoạt động)
+                                                    textBoxMK.Text);
+                        if (f)
+                        {
+                            MessageBox.Show("Đã thêm nhân viên mới thành công!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Thêm mới nhân viên không thành công!\n\rLỗi: " + err);
+                        }
                     }
                 }
-                //this.Close();
-                
+                else
+                {
+                    // Người dùng chọn "Không" hoặc đóng hộp thoại xác nhận
+                    MessageBox.Show("Thao tác đã bị hủy bởi người dùng.");
+                }
             }
-            catch (SqlException)
+            catch (FormatException)
             {
-                MessageBox.Show("Không cập nhật được. Lỗi rồi!");
+                MessageBox.Show("Vui lòng kiểm tra định dạng đầu vào!");
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Không thể truy cập cơ sở dữ liệu!!!\n\nLỗi: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
             }
         }
     }

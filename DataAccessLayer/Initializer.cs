@@ -134,43 +134,28 @@ namespace DataAccessLayer
                 }
             };
 
-            context.Employees.AddOrUpdate(p=>p.EmployeeID, employees);
+            context.Employees.AddOrUpdate(p => p.EmployeeID, employees);
             var customers = new[]
             {
-                new Customer
-                {
-                    PhoneNumber = "0901236767",
-                    NameCustomer = "Trần Đức Anh",
-                    Birthday = DateTime.Parse("2009-03-15"),
-                    Gender = "Nam",
-                    Point = 256
-                },
-                new Customer
-                {
-                    PhoneNumber = "0912345678",
-                    NameCustomer = "Nguyễn Thị Hương",
-                    Birthday = DateTime.Parse("1997-07-20"),
-                    Gender = "Nu",
-                    Point = 743
-                },
-                new Customer
-                {
-                    PhoneNumber = "0923455789",
-                    NameCustomer = "Lê Văn Nam",
-                    Birthday = DateTime.Parse("1995-09-25"),
-                    Gender = "Nam",
-                    Point = 512
-                },
-                // Thêm các khách hàng khác tương tự ở đây
+                new Customer { PhoneNumber = "0901236767", NameCustomer = "Trần Đức Anh", Birthday = DateTime.Parse("2009-03-15"), Gender = "Nam", Point = 256 },
+                new Customer { PhoneNumber = "0912345678", NameCustomer = "Nguyễn Thị Hương", Birthday = DateTime.Parse("1997-07-20"), Gender = "Nu", Point = 743 },
+                new Customer { PhoneNumber = "0923455789", NameCustomer = "Lê Văn Nam", Birthday = DateTime.Parse("1995-09-25"), Gender = "Nam", Point = 512 },
+                new Customer { PhoneNumber = "0934586890", NameCustomer = "Phạm Thị Loan", Birthday = DateTime.Parse("2000-07-20"), Gender = "Nu", Point = 899 },
+                new Customer { PhoneNumber = "0944567901", NameCustomer = "Hoàng Minh Tuấn", Birthday = DateTime.Parse("2005-04-05"), Gender = "Nam", Point = 347 },
+                new Customer { PhoneNumber = "0959839012", NameCustomer = "Vũ Thị Lan Anh", Birthday = DateTime.Parse("1988-06-12"), Gender = "Nu", Point = 631 },
+                new Customer { PhoneNumber = "0967801423", NameCustomer = "Đặng Xuân Hải", Birthday = DateTime.Parse("1993-04-05"), Gender = "Nam", Point = 178 },
+                new Customer { PhoneNumber = "0978986234", NameCustomer = "Bùi Hồng Loan", Birthday = DateTime.Parse("2002-10-22"), Gender = "Nu", Point = 425 },
+                new Customer { PhoneNumber = "0989013345", NameCustomer = "Đỗ Quang Huy", Birthday = DateTime.Parse("1980-12-28"), Gender = "Nam", Point = 568 },
+                new Customer { PhoneNumber = "0990124756", NameCustomer = "Ngô Thị Hà", Birthday = DateTime.Parse("1978-02-03"), Gender = "Nu", Point = 937 }
             };
 
-            context.Customers.AddOrUpdate(p => p.PhoneNumber,customers);
+            context.Customers.AddOrUpdate(p => p.PhoneNumber, customers);
 
             //  Thêm dữ liệu mẫu (seed data) vào bảng Products
             var products = new[]
             {
                 new Product { Product_ID = "88D2018", ProductName = "Yonex Astrox 88D 2018", UnitPrice = 6500000, Quantity = 0, Brand_ID = "YNX", Category_ID = "VCL", Picture_ID = 20 },
-                new Product { Product_ID = "88DP2022", ProductName = "Yonex Astrox 88D Pro 2022", UnitPrice = 4900000, Quantity = 0, Brand_ID = "YNX", Category_ID = "VCL", Picture_ID = 21 },
+                new Product { Product_ID = "88DP2022", ProductName = "Yonex Astrox 88D Pro 2022", UnitPrice = 4900000, Quantity = 6, Brand_ID = "YNX", Category_ID = "VCL", Picture_ID = 21 },
                 new Product { Product_ID = "88DS2022", ProductName = "Yonex Astrox 88S Pro 2022", UnitPrice = 4800000, Quantity = 0, Brand_ID = "YNX", Category_ID = "VCL", Picture_ID = 23 },
                 new Product { Product_ID = "88S2018", ProductName = "Yonex Astrox 88S 2018", UnitPrice = 6400000, Quantity = 0, Brand_ID = "YNX", Category_ID = "VCL", Picture_ID = 22 },
                 new Product { Product_ID = "99NAVY2020", ProductName = "Yonex Astrox 99 Navy 2020", UnitPrice = 5000000, Quantity = 0, Brand_ID = "YNX", Category_ID = "VCL", Picture_ID = 24 },
@@ -192,19 +177,19 @@ namespace DataAccessLayer
                 new Product { Product_ID = "ANKLĐXXL", ProductName = "Áo bóng đá Nike không logo Đen Size XXL", UnitPrice = 150000, Quantity = 0, Brand_ID = "NIK", Category_ID = "BĐBĐ", Picture_ID = 30 },
                 new Product { Product_ID = "ANKLTL", ProductName = "Áo bóng đá Nike không logo Trắng Size L", UnitPrice = 150000, Quantity = 0, Brand_ID = "NIK", Category_ID = "BĐBĐ", Picture_ID = 31 },
                 new Product { Product_ID = "ANKLTM", ProductName = "Áo bóng đá Nike không logo Trắng Size M", UnitPrice = 150000, Quantity = 0, Brand_ID = "NIK", Category_ID = "BĐBĐ", Picture_ID = 31 },
-                new Product { Product_ID = "ANKLTS", ProductName = "Áo bóng đá Nike không logo Trắng Size S", UnitPrice = 150000, Quantity = 0, Brand_ID = "NIK", Category_ID = "BĐBĐ", Picture_ID = 31 },
+                new Product { Product_ID = "ANKLTS", ProductName = "Áo bóng đá Nike không logo Trắng Size S", UnitPrice = 150000, Quantity = 8, Brand_ID = "NIK", Category_ID = "BĐBĐ", Picture_ID = 31 },
                 new Product { Product_ID = "ANKLTXL", ProductName = "Áo bóng đá Nike không logo Trắng Size XL", UnitPrice = 150000, Quantity = 0, Brand_ID = "NIK", Category_ID = "BĐBĐ", Picture_ID = 31 },
                 new Product { Product_ID = "ANKLTXXL", ProductName = "Áo bóng đá Nike không logo Trắng Size XXL", UnitPrice = 150000, Quantity = 0, Brand_ID = "NIK", Category_ID = "BĐBĐ", Picture_ID = 31 },
-                new Product { Product_ID = "AX70", ProductName = "Lining Axforce 70", UnitPrice = 4500000, Quantity = 0, Brand_ID = "LN", Category_ID = "VCL", Picture_ID = 7 },
+                new Product { Product_ID = "AX70", ProductName = "Lining Axforce 70", UnitPrice = 4500000, Quantity = 9, Brand_ID = "LN", Category_ID = "VCL", Picture_ID = 7 },
                 new Product { Product_ID = "AX80", ProductName = "Lining Axforce 80", UnitPrice = 5000000, Quantity = 0, Brand_ID = "LN", Category_ID = "VCL", Picture_ID = 8 },
-                new Product { Product_ID = "AX90", ProductName = "Lining Axforce 90", UnitPrice = 5400000, Quantity = 0, Brand_ID = "LN", Category_ID = "VCL", Picture_ID = 9 },
-                new Product { Product_ID = "AXM39", ProductName = "Adidas X Crazyfast Messi Size 39", UnitPrice = 2000000, Quantity = 0, Brand_ID = "ADD", Category_ID = "GBĐ", Picture_ID = 29 },
-                new Product { Product_ID = "AXM40", ProductName = "Adidas X Crazyfast Messi Size 40", UnitPrice = 2000000, Quantity = 0, Brand_ID = "ADD", Category_ID = "GBĐ", Picture_ID = 29 },
+                new Product { Product_ID = "AX90", ProductName = "Lining Axforce 90", UnitPrice = 5400000, Quantity = 18, Brand_ID = "LN", Category_ID = "VCL", Picture_ID = 9 },
+                new Product { Product_ID = "AXM39", ProductName = "Adidas X Crazyfast Messi Size 39", UnitPrice = 2000000, Quantity = 9, Brand_ID = "ADD", Category_ID = "GBĐ", Picture_ID = 29 },
+                new Product { Product_ID = "AXM40", ProductName = "Adidas X Crazyfast Messi Size 40", UnitPrice = 2000000, Quantity = 9, Brand_ID = "ADD", Category_ID = "GBĐ", Picture_ID = 29 },
                 new Product { Product_ID = "AXM41", ProductName = "Adidas X Crazyfast Messi Size 41", UnitPrice = 2000000, Quantity = 0, Brand_ID = "ADD", Category_ID = "GBĐ", Picture_ID = 29 },
                 new Product { Product_ID = "AXM42", ProductName = "Adidas X Crazyfast Messi Size 42", UnitPrice = 2000000, Quantity = 0, Brand_ID = "ADD", Category_ID = "GBĐ", Picture_ID = 29 },
                 new Product { Product_ID = "AXM43", ProductName = "Adidas X Crazyfast Messi Size 43", UnitPrice = 2000000, Quantity = 0, Brand_ID = "ADD", Category_ID = "GBĐ", Picture_ID = 29 },
                 new Product { Product_ID = "AXM44", ProductName = "Adidas X Crazyfast Messi Size 44", UnitPrice = 2000000, Quantity = 0, Brand_ID = "ADD", Category_ID = "GBĐ", Picture_ID = 29 },
-                new Product { Product_ID = "KMTTML", ProductName = "Kamito Tiến Minh Legend", UnitPrice = 2300000, Quantity = 0, Brand_ID = "KMT", Category_ID = "VCL", Picture_ID = 3 },
+                new Product { Product_ID = "KMTTML", ProductName = "Kamito Tiến Minh Legend", UnitPrice = 2300000, Quantity = 9, Brand_ID = "KMT", Category_ID = "VCL", Picture_ID = 3 },
                 new Product { Product_ID = "KMTVTT", ProductName = "Kamito VTT Gowo", UnitPrice = 1700000, Quantity = 0, Brand_ID = "KMT", Category_ID = "VCL", Picture_ID = 4 },
                 new Product { Product_ID = "KWS065Đ39", ProductName = "Kawasaki 065 Đỏ Size 39", UnitPrice = 800000, Quantity = 0, Brand_ID = "KWS", Category_ID = "GCL", Picture_ID = 5 },
                 new Product { Product_ID = "KWS065Đ40", ProductName = "Kawasaki 065 Đỏ Size 40", UnitPrice = 800000, Quantity = 0, Brand_ID = "KWS", Category_ID = "GCL", Picture_ID = 5 },
@@ -212,14 +197,14 @@ namespace DataAccessLayer
                 new Product { Product_ID = "KWS065Đ42", ProductName = "Kawasaki 065 Đỏ Size 42", UnitPrice = 800000, Quantity = 0, Brand_ID = "KWS", Category_ID = "GCL", Picture_ID = 5 },
                 new Product { Product_ID = "KWS065Đ43", ProductName = "Kawasaki 065 Đỏ Size 43", UnitPrice = 800000, Quantity = 0, Brand_ID = "KWS", Category_ID = "GCL", Picture_ID = 5 },
                 new Product { Product_ID = "KWS065Đ44", ProductName = "Kawasaki 065 Đỏ Size 44", UnitPrice = 800000, Quantity = 0, Brand_ID = "KWS", Category_ID = "GCL", Picture_ID = 5 },
-                new Product { Product_ID = "KWS065T39", ProductName = "Kawasaki 065 Trắng Size 39", UnitPrice = 800000, Quantity = 0, Brand_ID = "KWS", Category_ID = "GCL", Picture_ID = 6 },
-                new Product { Product_ID = "KWS065T40", ProductName = "Kawasaki 065 Trắng Size 40", UnitPrice = 800000, Quantity = 0, Brand_ID = "KWS", Category_ID = "GCL", Picture_ID = 6 },
+                new Product { Product_ID = "KWS065T39", ProductName = "Kawasaki 065 Trắng Size 39", UnitPrice = 800000, Quantity = 12, Brand_ID = "KWS", Category_ID = "GCL", Picture_ID = 6 },
+                new Product { Product_ID = "KWS065T40", ProductName = "Kawasaki 065 Trắng Size 40", UnitPrice = 800000, Quantity = 13, Brand_ID = "KWS", Category_ID = "GCL", Picture_ID = 6 },
                 new Product { Product_ID = "KWS065T41", ProductName = "Kawasaki 065 Trắng Size 41", UnitPrice = 800000, Quantity = 0, Brand_ID = "KWS", Category_ID = "GCL", Picture_ID = 6 },
                 new Product { Product_ID = "KWS065T42", ProductName = "Kawasaki 065 Trắng Size 42", UnitPrice = 800000, Quantity = 0, Brand_ID = "KWS", Category_ID = "GCL", Picture_ID = 6},
-                new Product { Product_ID = "KWS065T43", ProductName = "Kawasaki 065 Trắng Size 43", UnitPrice = 800000, Quantity = 0, Brand_ID = "KWS", Category_ID = "GCL", Picture_ID = 6 },
+                new Product { Product_ID = "KWS065T43", ProductName = "Kawasaki 065 Trắng Size 43", UnitPrice = 800000, Quantity = 9, Brand_ID = "KWS", Category_ID = "GCL", Picture_ID = 6 },
                 new Product { Product_ID = "KWS065T44", ProductName = "Kawasaki 065 Trắng Size 44", UnitPrice = 800000, Quantity = 0, Brand_ID = "KWS", Category_ID = "GCL", Picture_ID = 6 },
                 new Product { Product_ID = "LCA39", ProductName = "Lining ChenLong AYZU011-1 Size 39", UnitPrice = 2650000, Quantity = 0, Brand_ID = "LN", Category_ID = "GCL", Picture_ID = 10 },
-                new Product { Product_ID = "LCA40", ProductName = "Lining ChenLong AYZU011-1 Size 40", UnitPrice = 2650000, Quantity = 0, Brand_ID = "LN", Category_ID = "GCL", Picture_ID = 10 },
+                new Product { Product_ID = "LCA40", ProductName = "Lining ChenLong AYZU011-1 Size 40", UnitPrice = 2650000, Quantity = 8, Brand_ID = "LN", Category_ID = "GCL", Picture_ID = 10 },
                 new Product { Product_ID = "LCA41", ProductName = "Lining ChenLong AYZU011-1 Size 41", UnitPrice = 2650000, Quantity = 0, Brand_ID = "LN", Category_ID = "GCL", Picture_ID = 10 },
                 new Product { Product_ID = "LCA42", ProductName = "Lining ChenLong AYZU011-1 Size 42", UnitPrice = 2650000, Quantity = 0, Brand_ID = "LN", Category_ID = "GCL", Picture_ID = 10 },
                 new Product { Product_ID = "LCA43", ProductName = "Lining ChenLong AYZU011-1 Size 43", UnitPrice = 2650000, Quantity = 0, Brand_ID = "LN", Category_ID = "GCL", Picture_ID = 10 },
@@ -234,7 +219,7 @@ namespace DataAccessLayer
                 new Product { Product_ID = "PKT7004", ProductName = "Pro Kennex Thunder 7004", UnitPrice = 900000, Quantity = 0, Brand_ID = "PKN", Category_ID = "VCL", Picture_ID = 17 },
                 new Product { Product_ID = "PPTEP39ĐTF", ProductName = "Pan Patriot EVO Pod TF Đỏ Size 39", UnitPrice = 620000, Quantity = 0, Brand_ID = "PN", Category_ID = "GBĐ",  Picture_ID = 13 },
                 new Product { Product_ID = "PPTEP39TIC", ProductName = "Pan Patriot EVO Pod IC Trắng Size 39", UnitPrice = 610000, Quantity = 0, Brand_ID = "PN", Category_ID = "GBĐ", Picture_ID = 14 },
-                new Product { Product_ID = "PPTEP39TTF", ProductName = "Pan Patriot EVO Pod TF Trắng Size 39", UnitPrice = 620000, Quantity = 0, Brand_ID = "PN", Category_ID = "GBĐ", Picture_ID = 14 },
+                new Product { Product_ID = "PPTEP39TTF", ProductName = "Pan Patriot EVO Pod TF Trắng Size 39", UnitPrice = 620000, Quantity = 8, Brand_ID = "PN", Category_ID = "GBĐ", Picture_ID = 14 },
                 new Product { Product_ID = "PPTEP39VTF", ProductName = "Pan Patriot EVO Pod TF Vàng Size 39", UnitPrice = 620000, Quantity = 0, Brand_ID = "PN", Category_ID = "GBĐ", Picture_ID = 15 },
                 new Product { Product_ID = "PPTEP40ĐTF", ProductName = "Pan Patriot EVO Pod TF Đỏ Size 40", UnitPrice = 620000, Quantity = 0, Brand_ID = "PN", Category_ID = "GBĐ", Picture_ID = 13 },
                 new Product { Product_ID = "PPTEP40TIC", ProductName = "Pan Patriot EVO Pod IC Trắng Size 40", UnitPrice = 610000, Quantity = 0, Brand_ID = "PN", Category_ID = "GBĐ", Picture_ID = 14 },
@@ -265,20 +250,20 @@ namespace DataAccessLayer
                 new Product { Product_ID = "Y65Z3WN41", ProductName = "Yonex SHB 65 Z3 Woman Navy Size 41", UnitPrice = 2600000, Quantity = 0, Brand_ID = "YNX", Category_ID = "GCL", Picture_ID = 28 },
                 new Product { Product_ID = "Y65Z3WN42", ProductName = "Yonex SHB 65 Z3 Woman Navy Size 42", UnitPrice = 2600000, Quantity = 0, Brand_ID = "YNX", Category_ID = "GCL", Picture_ID = 28 },
                 new Product { Product_ID = "Y65Z3WT39", ProductName = "Yonex SHB 65 Z3 White Tiger Size 39", UnitPrice = 2700000, Quantity = 0, Brand_ID = "YNX", Category_ID = "GCL", Picture_ID = 27 },
-                new Product { Product_ID = "Y65Z3WT40", ProductName = "Yonex SHB 65 Z3 White Tiger Size 40", UnitPrice = 2700000, Quantity = 0, Brand_ID = "YNX", Category_ID = "GCL", Picture_ID = 27 },
+                new Product { Product_ID = "Y65Z3WT40", ProductName = "Yonex SHB 65 Z3 White Tiger Size 40", UnitPrice = 2700000, Quantity = 9, Brand_ID = "YNX", Category_ID = "GCL", Picture_ID = 27 },
                 new Product { Product_ID = "Y65Z3WT41", ProductName = "Yonex SHB 65 Z3 White Tiger Size 41", UnitPrice = 2700000, Quantity = 0, Brand_ID = "YNX", Category_ID = "GCL", Picture_ID = 27 },
                 new Product { Product_ID = "Y65Z3WT42", ProductName = "Yonex SHB 65 Z3 White Tiger Size 42", UnitPrice = 2700000, Quantity = 0, Brand_ID = "YNX", Category_ID = "GCL", Picture_ID = 27 },
                 new Product { Product_ID = "Y65Z3WT43", ProductName = "Yonex SHB 65 Z3 White Tiger Size 43", UnitPrice = 2700000, Quantity = 0, Brand_ID = "YNX", Category_ID = "GCL", Picture_ID = 27 },
                 new Product { Product_ID = "Y65Z3WT44", ProductName = "Yonex SHB 65 Z3 White Tiger Size 44", UnitPrice = 2700000, Quantity = 0, Brand_ID = "YNX", Category_ID = "GCL", Picture_ID = 27 },
-                new Product { Product_ID = "YEZ3NAVY39", ProductName = "Yonex Eclipsion Z3 Men Navy Size 39", UnitPrice = 2700000, Quantity = 0, Brand_ID = "YNX", Category_ID = "GCL", Picture_ID = 26 },
+                new Product { Product_ID = "YEZ3NAVY39", ProductName = "Yonex Eclipsion Z3 Men Navy Size 39", UnitPrice = 2700000, Quantity = 22, Brand_ID = "YNX", Category_ID = "GCL", Picture_ID = 26 },
                 new Product { Product_ID = "YEZ3NAVY40", ProductName = "Yonex Eclipsion Z3 Men Navy Size 40", UnitPrice = 2700000, Quantity = 0, Brand_ID = "YNX", Category_ID = "GCL", Picture_ID = 26 },
                 new Product { Product_ID = "YEZ3NAVY41", ProductName = "Yonex Eclipsion Z3 Men Navy Size 41", UnitPrice = 2700000, Quantity = 0, Brand_ID = "YNX", Category_ID = "GCL", Picture_ID = 26 },
-                new Product { Product_ID = "YEZ3NAVY42", ProductName = "Yonex Eclipsion Z3 Men Navy Size 42", UnitPrice = 2700000, Quantity = 0, Brand_ID = "YNX", Category_ID = "GCL", Picture_ID = 26 },
+                new Product { Product_ID = "YEZ3NAVY42", ProductName = "Yonex Eclipsion Z3 Men Navy Size 42", UnitPrice = 2700000, Quantity = 9, Brand_ID = "YNX", Category_ID = "GCL", Picture_ID = 26 },
                 new Product { Product_ID = "YEZ3NAVY43", ProductName = "Yonex Eclipsion Z3 Men Navy Size 43", UnitPrice = 2700000, Quantity = 0, Brand_ID = "YNX", Category_ID = "GCL", Picture_ID = 26 },
                 new Product { Product_ID = "YEZ3NAVY44", ProductName = "Yonex Eclipsion Z3 Men Navy Size 44", UnitPrice = 2700000, Quantity = 0, Brand_ID = "YNX", Category_ID = "GCL", Picture_ID = 26 },
                 new Product { Product_ID = "YEZ3WHITE39", ProductName = "Yonex Eclipsion Z3 Woman White Size 39", UnitPrice = 2600000, Quantity = 0, Brand_ID = "YNX", Category_ID = "GCL", Picture_ID = 33 },
                 new Product { Product_ID = "YEZ3WHITE40", ProductName = "Yonex Eclipsion Z3 Woman White Size 40", UnitPrice = 2600000, Quantity = 0, Brand_ID = "YNX", Category_ID = "GCL", Picture_ID = 33 },
-                new Product { Product_ID = "YEZ3WHITE41", ProductName = "Yonex Eclipsion Z3 Woman White Size 41", UnitPrice = 2600000, Quantity = 0, Brand_ID = "YNX", Category_ID = "GCL", Picture_ID = 33 },
+                new Product { Product_ID = "YEZ3WHITE41", ProductName = "Yonex Eclipsion Z3 Woman White Size 41", UnitPrice = 2600000, Quantity = 9, Brand_ID = "YNX", Category_ID = "GCL", Picture_ID = 33 },
                 new Product { Product_ID = "YEZ3WHITE42", ProductName = "Yonex Eclipsion Z3 Woman White Size 42", UnitPrice = 2600000, Quantity = 0, Brand_ID = "YNX", Category_ID = "GCL", Picture_ID = 33 },
                 new Product { Product_ID = "QCLYN955DS", ProductName = "Quần Cầu Lông Yonex 955 Trắng Size S", UnitPrice = 130000, Quantity = 0, Brand_ID = "YNX", Category_ID = "QCL", Picture_ID = 34 },
                 new Product { Product_ID = "QCLYN955DM", ProductName = "Quần Cầu Lông Yonex 955 Trắng Size M", UnitPrice = 130000, Quantity = 0, Brand_ID = "YNX", Category_ID = "QCL", Picture_ID = 34 },
@@ -296,14 +281,14 @@ namespace DataAccessLayer
             {
                 new Supplier { Supplier_ID = "ATS", CompanyName = "Anh Thắng Sport", PhoneNumber = "0981122234", AddressSupplier = "41 Đường C1, P13, Q. Tân Bình, TP Hồ Chí Minh", Email = "anhthangsport.com" },
                 new Supplier { Supplier_ID = "VNB", CompanyName = "Vietnam Badminton", PhoneNumber = "0977508430", AddressSupplier = "20 Cao Bá Nhạ, Phường Nguyễn Cư Trinh, Quận 1, TPHCM", Email = "info@shopvnb.com" },
-                new Supplier { Supplier_ID = "YNS", CompanyName = "Yonex Sunrise Vietnam", PhoneNumber = "0363609039", AddressSupplier = "157 Điện Biên Phủ, Phường Đa Kao, Quận 1, Thành Phố Hồ Chí Minh, Việt Nam", Email = "sunrisevn@risesun.com.sg" }
+                new Supplier { Supplier_ID = "YNS", CompanyName = "Yonex Sunrise Vietnam", PhoneNumber = "0363609038", AddressSupplier = "157 Điện Biên Phủ, Phường Đa Kao, Quận 1, Thành Phố Hồ Chí Minh, Việt Nam", Email = "sunrisevn@risesun.com.sg" }
             };
             context.Suppliers.AddOrUpdate(p => p.Supplier_ID, suppliers);
             var imports = new[]
             {
-                new Import { Import_ID = "NH00001", Supplier_ID = "ATS", ImportDay = DateTime.Parse("2024-01-15"), Total = 0 },
-                new Import { Import_ID = "NH00002", Supplier_ID = "VNB", ImportDay = DateTime.Parse("2024-01-15"), Total = 0 },
-                new Import { Import_ID = "NH00003", Supplier_ID = "YNS", ImportDay = DateTime.Parse("2024-01-15"), Total = 0 }
+                new Import { Import_ID = "NH00001", Supplier_ID = "ATS", ImportDay = DateTime.Parse("2024-01-15"), Total = 234230000 },
+                new Import { Import_ID = "NH00002", Supplier_ID = "VNB", ImportDay = new DateTime(2024, 1, 15), Total = 61100000 },
+                new Import { Import_ID = "NH00003", Supplier_ID = "YNS", ImportDay = new DateTime(2024, 1, 15), Total = 89050000 }
             };
             context.Imports.AddOrUpdate(p => p.Import_ID, imports);
             var importDetails = new[]
@@ -311,16 +296,38 @@ namespace DataAccessLayer
                 new ImportDetail { Import_ID = "NH00001", Product_ID = "KWS065T39", Quantity = 13, Unitcost = 700000 },
                 new ImportDetail { Import_ID = "NH00001", Product_ID = "LCA40", Quantity = 9, Unitcost = 2450000 },
                 new ImportDetail { Import_ID = "NH00001", Product_ID = "KWS065T43", Quantity = 9, Unitcost = 700000 },
-                // Add more ImportDetail objects for each SQL INSERT statement
+                new ImportDetail { Import_ID = "NH00003", Product_ID = "YEZ3NAVY39", Quantity = 22, Unitcost = 2550000 },
+                new ImportDetail { Import_ID = "NH00003", Product_ID = "YEZ3WHITE41", Quantity = 4, Unitcost = 2500000 },
+                new ImportDetail { Import_ID = "NH00001", Product_ID = "ANKLTS", Quantity = 8, Unitcost = 135000 },
+                new ImportDetail { Import_ID = "NH00003", Product_ID = "YEZ3NAVY42", Quantity = 9, Unitcost = 2550000 },
+                new ImportDetail { Import_ID = "NH00002", Product_ID = "YEZ3WHITE41", Quantity = 5, Unitcost = 2500000 },
+                new ImportDetail { Import_ID = "NH00001", Product_ID = "KWS065T40", Quantity = 13, Unitcost = 700000 },
+                new ImportDetail { Import_ID = "NH00001", Product_ID = "AX70", Quantity = 9, Unitcost = 4200000 },
+                new ImportDetail { Import_ID = "NH00001", Product_ID = "AX90", Quantity = 18, Unitcost = 5100000 },
+                new ImportDetail { Import_ID = "NH00002", Product_ID = "88DP2022", Quantity = 6, Unitcost = 4500000 },
+                new ImportDetail { Import_ID = "NH00001", Product_ID = "KMTTML", Quantity = 9, Unitcost = 2100000 },
+                new ImportDetail { Import_ID = "NH00002", Product_ID = "Y65Z3WT40", Quantity = 9, Unitcost = 2400000 },
+                new ImportDetail { Import_ID = "NH00001", Product_ID = "PPTEP39TTF", Quantity = 8, Unitcost = 600000 },
+                new ImportDetail { Import_ID = "NH00001", Product_ID = "AXM39", Quantity = 9, Unitcost = 1850000 },
+                new ImportDetail { Import_ID = "NH00001", Product_ID = "AXM40", Quantity = 9, Unitcost = 1850000 }
             };
             context.ImportDetails.AddOrUpdate(p => new { p.Import_ID, p.Product_ID }, importDetails);
 
 
             var orders = new[]
             {
-                new Order { Order_ID = "HD00001", PhoneNumber = "0923455789", EmployeeID = "QL01", OrderDate = DateTime.Parse("2024-03-08"), Total = 0, DiscountCode = "8THANG3" },
-                new Order { Order_ID = "HD00002", PhoneNumber = "0912345678", EmployeeID = "BH01", OrderDate = DateTime.Parse("2024-02-14"), Total = 0, DiscountCode = "14THANG2" },
-                // Add more Order objects as needed
+                new Order { Order_ID = "HD00001", PhoneNumber = "0923455789", EmployeeID = "QL01", OrderDate = DateTime.Parse("2024-03-08"), Total = 2760000, DiscountCode = "8thang3" },
+                new Order { Order_ID = "HD00002", PhoneNumber = "0934586890", EmployeeID = "BH01", OrderDate = DateTime.Parse("2024-02-14"), Total = 800000, DiscountCode = "14thang2" },
+                new Order { Order_ID = "HD00003", PhoneNumber = "0901236767", EmployeeID = "QL01", OrderDate = DateTime.Parse("2024-03-10"), Total = 8100000, DiscountCode = null },
+                new Order { Order_ID = "HD00004", PhoneNumber = "0912345678", EmployeeID = "BH01", OrderDate = DateTime.Parse("2024-03-10"), Total = 300000, DiscountCode = null },
+                new Order { Order_ID = "HD00005", PhoneNumber = "0923455789", EmployeeID = "QL01", OrderDate = DateTime.Parse("2024-03-10"), Total = 5300000, DiscountCode = null },
+                new Order { Order_ID = "HD00006", PhoneNumber = "0934586890", EmployeeID = "BH01", OrderDate = DateTime.Parse("2024-03-11"), Total = 800000, DiscountCode = null },
+                new Order { Order_ID = "HD00007", PhoneNumber = "0944567901", EmployeeID = "QL01", OrderDate = DateTime.Parse("2024-03-12"), Total = 15300000, DiscountCode = null },
+                new Order { Order_ID = "HD00008", PhoneNumber = "0959839012", EmployeeID = "QL01", OrderDate = DateTime.Parse("2024-03-13"), Total = 9800000, DiscountCode = null },
+                new Order { Order_ID = "HD00009", PhoneNumber = "0967801423", EmployeeID = "BH02", OrderDate = DateTime.Parse("2024-03-14"), Total = 2300000, DiscountCode = null },
+                new Order { Order_ID = "HD00010", PhoneNumber = "0978986234", EmployeeID = "BH02", OrderDate = DateTime.Parse("2024-03-15"), Total = 2700000, DiscountCode = null },
+                new Order { Order_ID = "HD00011", PhoneNumber = "0989013345", EmployeeID = "QL01", OrderDate = DateTime.Parse("2024-04-30"), Total = 930000, DiscountCode = "30THANG4" },
+                new Order { Order_ID = "HD00012", PhoneNumber = "0990124756", EmployeeID = "QL01", OrderDate = DateTime.Parse("2024-03-17"), Total = 4000000, DiscountCode = null },
             };
             context.Orders.AddOrUpdate(p => p.Order_ID, orders);
             var orderDetails = new[]
@@ -328,44 +335,22 @@ namespace DataAccessLayer
                 new OrderDetail { Order_ID = "HD00001", Product_ID = "KWS065T39", Quantity = 1 },
                 new OrderDetail { Order_ID = "HD00001", Product_ID = "LCA40", Quantity = 1 },
                 new OrderDetail { Order_ID = "HD00002", Product_ID = "KWS065T43", Quantity = 1 },
-                // Add more OrderDetail objects for each SQL INSERT statement
+                new OrderDetail { Order_ID = "HD00003", Product_ID = "YEZ3NAVY39", Quantity = 2 },
+                new OrderDetail { Order_ID = "HD00003", Product_ID = "YEZ3WHITE41", Quantity = 1 },
+                new OrderDetail { Order_ID = "HD00004", Product_ID = "ANKLTS", Quantity = 2 },
+                new OrderDetail { Order_ID = "HD00005", Product_ID = "YEZ3NAVY42", Quantity = 1 },
+                new OrderDetail { Order_ID = "HD00005", Product_ID = "YEZ3WHITE41", Quantity = 1 },
+                new OrderDetail { Order_ID = "HD00006", Product_ID = "KWS065T40", Quantity = 1 },
+                new OrderDetail { Order_ID = "HD00007", Product_ID = "AX70", Quantity = 1 },
+                new OrderDetail { Order_ID = "HD00007", Product_ID = "AX90", Quantity = 2 },
+                new OrderDetail { Order_ID = "HD00008", Product_ID = "88DP2022", Quantity = 2 },
+                new OrderDetail { Order_ID = "HD00009", Product_ID = "KMTTML", Quantity = 1 },
+                new OrderDetail { Order_ID = "HD00010", Product_ID = "Y65Z3WT40", Quantity = 1 },
+                new OrderDetail { Order_ID = "HD00011", Product_ID = "PPTEP39TTF", Quantity = 2 },
+                new OrderDetail { Order_ID = "HD00012", Product_ID = "AXM39", Quantity = 1 },
+                new OrderDetail { Order_ID = "HD00012", Product_ID = "AXM40", Quantity = 1 },
             };
             context.OrderDetails.AddOrUpdate(p => new { p.Order_ID, p.Product_ID }, orderDetails);
-
-            var updates = new Dictionary<string, int>
-            {
-                { "Áo cầu lông Yonex Đen", 1 },
-                { "Áo cầu lông Yonex Trắng", 2 },
-                { "Kamito Tiến Minh Legend", 3 },
-                { "Kamito VTT Gowo", 4 },
-                { "Kawasaki 065 Đỏ", 5 },
-                { "Kawasaki 065 Trắng", 6 },
-                { "Lining Axforce 70", 7 },
-                { "Lining Axforce 80", 8 },
-                { "Lining Axforce 90", 9 },
-                { "Lining ChenLong AYZU011-1", 10 },
-                { "Ống cầu lông Lining", 11 },
-                { "Ống cầu lông Yonex", 12 },
-                { "Pan Patriot EVO Pod TF Đỏ", 13 },
-                { "Pan Patriot EVO Pod TF Trắng", 14 },
-                { "Pan Patriot EVO Pod TF Vàng", 15 },
-                { "Pro Kennex Power Pro 705", 16 },
-                { "Pro Kennex Thunder 7004", 17 },
-                { "Quấn cán cầu lông Lining", 18 },
-                { "Quấn cán cầu lông Yonex", 19 },
-                { "Yonex Astrox 88D 2018", 20 },
-                { "Yonex Astrox 88D Pro 2022", 21 },
-                { "Yonex Astrox 88S 2018", 22 },
-                { "Yonex Astrox 88S Pro 2022", 23 },
-                { "Yonex Astrox 99 Navy 2020", 24 },
-                { "Yonex Astrox 99 Pro 2022", 25 },
-                { "Yonex Eclipsion Z3 Men Navy", 26 },
-                { "Yonex SHB 65 Z3 White Tiger", 27 },
-                { "Yonex SHB 65 Z3 Woman Navy", 28 },
-                { "Adidas X Crazyfast Messi", 29 },
-                { "Áo bóng đá Nike không logo Đen", 30 },
-                { "Áo bóng đá Nike không logo Trắng", 31 }
-            };
             context.SaveChanges();
         }
     }

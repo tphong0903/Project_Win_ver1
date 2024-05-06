@@ -142,47 +142,77 @@ namespace Project_ver1.UI
         {
             bool f = false;
             string err = "";
-            if(Check==2 && img == null)
+
+            try
             {
-                MessageBox.Show("Vui lòng chọn một hình ảnh trước khi lưu!");
-                return;
-            }
-            if (checkChangeImg)
-            {
-                string imgFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../Project_ver1/UI/Image");
-                string imgFileName = Path.GetFileName(selectedFilePath);
-                string imgFilePath = Path.Combine(imgFolderPath, imgFileName);
-                if (Check == 2)
+                // Hiển thị hộp thoại xác nhận
+                DialogResult result = MessageBox.Show("Bạn có chắc muốn lưu các thay đổi này không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes) // Nếu người dùng chọn "Có"
                 {
-                    img.Save(imgFilePath);
-                    f=dbsp.ThemHinhAnh(imgFileName);
-                }
-                else if (Check == 1)
-                {
-                    string present="";
-                    List<Product> productList = dbsp.ChiTietSP(Product_Id);
-                    foreach (var a in productList)
+                    if (Check == 2 && img == null)
                     {
-                        present = a.PictureProduct.Picture_Name.ToString();
+                        MessageBox.Show("Vui lòng chọn một hình ảnh trước khi lưu!");
+                        return;
                     }
-                    if (present != imgFileName)
+
+                    if (checkChangeImg)
                     {
-                        img.Save(imgFilePath);
-                        f=dbsp.SuaHinhAnh(imgFileName, int.Parse(maPic_ID));
+                        string imgFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../Project_ver1/UI/Image");
+                        string imgFileName = Path.GetFileName(selectedFilePath);
+                        string imgFilePath = Path.Combine(imgFolderPath, imgFileName);
+
+                        if (Check == 2)
+                        {
+                            // Lưu hình ảnh mới vào thư mục ứng dụng
+                            img.Save(imgFilePath);
+                            // Thêm hình ảnh vào cơ sở dữ liệu
+                            f = dbsp.ThemHinhAnh(imgFileName);
+                        }
+                        else if (Check == 1)
+                        {
+                            string present = "";
+                            List<Product> productList = dbsp.ChiTietSP(Product_Id);
+                            foreach (var product in productList)
+                            {
+                                present = product.PictureProduct.Picture_Name.ToString();
+                            }
+
+                            // Nếu hình ảnh mới khác với hình ảnh hiện tại của sản phẩm, thực hiện cập nhật hình ảnh
+                            if (present != imgFileName)
+                            {
+                                // Lưu hình ảnh mới vào thư mục ứng dụng
+                                img.Save(imgFilePath);
+                                // Cập nhật hình ảnh trong cơ sở dữ liệu
+                                f = dbsp.SuaHinhAnh(imgFileName, int.Parse(maPic_ID));
+                            }
+                        }
+
+                        if (f)
+                        {
+                            // Nếu thao tác thêm hoặc cập nhật hình ảnh thành công, tiến hành cập nhật hoặc thêm mới sản phẩm
+                            UpateOrAddProduct(imgFileName);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Đã xảy ra lỗi khi lưu hình ảnh vào cơ sở dữ liệu!");
+                        }
                     }
-                }
-                if (f)
-                {
-                    UpateOrAddProduct(imgFileName);
+                    else
+                    {
+                        // Nếu không có thay đổi hình ảnh, tiến hành cập nhật hoặc thêm mới sản phẩm với hình ảnh trống
+                        UpateOrAddProduct("");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("Loi");
+                    // Người dùng chọn "Không" hoặc đóng hộp thoại xác nhận, không thực hiện thay đổi
+                    MessageBox.Show("Thao tác đã bị hủy bởi người dùng.");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                UpateOrAddProduct("");
+                MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
             }
         }
 

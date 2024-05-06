@@ -206,7 +206,7 @@ namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
                                 if (product.Quantity >= orderDetail.Quantity)
                                 {
                                     product.Quantity -= orderDetail.Quantity;
-                                    order.Total += product.UnitPrice * orderDetail.Quantity * (100 - discountPercentage) / 100;
+                                    order.Total += product.UnitPrice * orderDetail.Quantity / 100 * (100 - discountPercentage);
                                 }
                                 else
                                 {
@@ -274,7 +274,7 @@ namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
                         var customer = context.Customers.FirstOrDefault(c => c.PhoneNumber == order.PhoneNumber);
                         if (customer != null)
                         {
-                            customer.Point -= totalValueToRemove;
+                            customer.Point -= totalValueToRemove/10000;
                         }
 
                         context.Orders.Remove(order);
