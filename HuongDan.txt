@@ -1,1 +1,1 @@
-Vào cLass DAL thay đổi DataSource
+Đổi Datasource trong App.config trong cả 3 project thành Datasoucre của mình
