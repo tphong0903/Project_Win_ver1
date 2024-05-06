@@ -1,4 +1,5 @@
 ﻿using BusinessAccessLayer;
+using DataAccessLayer.Entities;
 using Project_ver1.UI;
 using Project_ver1.UI.UserControl;
 using System;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Project_ver1
 {
@@ -102,10 +104,10 @@ namespace Project_ver1
         #region Funtion
         void addForm()
         {
-            DataGridView dgv = new DataGridView();
             dgv.DataSource = dbnv.TimAllNhanVien(ID);
-            //lblChucVu.Text = dgv.Rows[0].Cells[6].Value.ToString();
-            //lblTen.Text = dgv.Rows[0].Cells[1].Value.ToString();
+            lblChucVu.Text = dgv.Rows[0].Cells[6].Value.ToString();
+            lblTen.Text = dgv.Rows[0].Cells[1].Value.ToString();
+
 
 
             frm1.TopLevel = false;

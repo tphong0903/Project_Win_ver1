@@ -44,8 +44,11 @@
             this.gunaElipse1 = new Guna.UI.WinForms.GunaElipse(this.components);
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.lblChucVu = new System.Windows.Forms.TextBox();
+            this.dgv = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.gunaCirclePictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
             // gunaCirclePictureBox1
@@ -126,6 +129,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.dgv);
             this.panel1.Location = new System.Drawing.Point(307, 2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1094, 848);
@@ -310,6 +314,17 @@
             this.lblChucVu.TabIndex = 8;
             this.lblChucVu.Text = "Quản lý";
             // 
+            // dgv
+            // 
+            this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv.Location = new System.Drawing.Point(24, 778);
+            this.dgv.Name = "dgv";
+            this.dgv.RowHeadersWidth = 51;
+            this.dgv.RowTemplate.Height = 24;
+            this.dgv.Size = new System.Drawing.Size(38, 43);
+            this.dgv.TabIndex = 0;
+            this.dgv.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -338,7 +353,9 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Brother Sport Club Management";
             ((System.ComponentModel.ISupportInitialize)(this.gunaCirclePictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -359,5 +376,6 @@
         private Guna.UI.WinForms.GunaElipse gunaElipse1;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
         private System.Windows.Forms.TextBox lblChucVu;
+        private System.Windows.Forms.DataGridView dgv;
     }
 }

@@ -237,6 +237,7 @@ namespace BusinessAccessLayer // Declaring the BusinessAccessLayer namespace
             if (list.Any())
             {
                 var employee = list.First();
+                Console.WriteLine(employee.RoleEmployee);
                 string dbPassword = employee.PassWordAccount; 
                 int active = Int32.Parse(employee.Active);
                 return active == 1 && password == dbPassword;
