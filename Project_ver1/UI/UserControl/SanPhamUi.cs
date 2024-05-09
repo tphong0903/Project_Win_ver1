@@ -24,9 +24,14 @@ namespace Project_ver1
         string DMName =null;
         string THName =null;
 
-        public SanPhamUi()
+        public SanPhamUi(string ID)
         {
             InitializeComponent();
+            if (ID.Contains("BH"))
+            {
+                AddButton.Visible = false;
+
+            }
             dbsp = new DBSanPham();
         }
 
